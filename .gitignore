@@ -49,3 +49,6 @@ bower_components
 psd
 thumb
 sketch
+
+# db
+/config/config.json
