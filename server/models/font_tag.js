@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) =>
 sequelize.define(
     "FontTag",
     {
+        id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         font_id:{
             type: DataTypes.INTEGER,
             allowNull: false,

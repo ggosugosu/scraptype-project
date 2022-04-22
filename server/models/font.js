@@ -4,6 +4,11 @@ module.exports = (sequelize, DataTypes) =>
 sequelize.define(
     "Font",
     {
+        id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+        },
         name:{
             type: DataTypes.STRING(15),
             allowNull: false,
@@ -14,6 +19,10 @@ sequelize.define(
         },
         corporation: {
             type: DataTypes.STRING(25),
+            allowNull: true,
+        },
+        isWebFont: {
+            type: DataTypes.BOOLEAN,
             allowNull: true,
         }
     },

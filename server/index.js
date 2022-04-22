@@ -14,6 +14,7 @@ type Font {
     name: String
     description: String
     corporation: String
+    isWebFont: Boolean
 }
 
 type Query {
