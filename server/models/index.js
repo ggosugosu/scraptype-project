@@ -25,4 +25,4 @@ db.Sequelize = Sequelize;
 
 db.Font = require("./font")(sequelize, Sequelize);
 
-module.exports = db;``
+module.exports = db;

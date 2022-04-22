@@ -5,9 +5,10 @@ import { ApolloProvider, gql } from '@apollo/client';
 function FontList() {
     const GET_FONT = gql`
     query{
-      getFontData{
+      getAllFont{
         name
         description
+        corporation
       }
     }
     `
@@ -22,7 +23,7 @@ if (error) {
 
 return (
     <div>
-      <h1>{data.getFontData.map((value, key)=> (<div key={key}>{value.name}:{value.description}</div>))}</h1>
+      <h1>{data.getAllFont.map((value, key)=> (<div key={key}>{value.name}:{value.description}<p>{value.corporation}</p></div>))}</h1>
       <h2>My first Apollo app 🚀</h2>
     </div>
 );
