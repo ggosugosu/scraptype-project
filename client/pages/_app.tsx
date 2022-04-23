@@ -1,8 +1,16 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import { RecoilRoot } from "recoil";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  const client = new ApolloClient({ uri: "http://localhost:3200/graphql", cache: new InMemoryCache() });
+  return (
+    <ApolloProvider client={client}>
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
+    </ApolloProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
