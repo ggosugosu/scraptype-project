@@ -24,5 +24,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.Font = require("./font")(sequelize, Sequelize);
+db.Tag = require("./tag")(sequelize, Sequelize);
+db.FontTag = require("./font_tag")(sequelize, Sequelize);
 
 module.exports = db;

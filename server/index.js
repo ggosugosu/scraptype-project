@@ -5,6 +5,8 @@ const PORT = 3200;
 const path = '/graphql';
 const {ApolloServer, gql} = require('apollo-server-express');
 const fontDTO = require('./dto/font_dto');
+const tagDTO = require('./dto/tag_dto');
+const fontTagDTO = require('./dto/font_tag_dto');
 
 
 
@@ -17,9 +19,25 @@ type Font {
     isWebFont: Boolean
 }
 
+type Tag {
+    id: Int
+    name: String
+}
+
+type FontTag {
+    id: Int
+    font_id: Int
+    tag_id: Int
+}
+
 type Query {
     getFont(id: Int!): Font
     getAllFont: [Font!]!
+    getAllTag: [Tag!]!
+}
+
+type Mutation {
+    createFontTag(font_id: Int!, tag_id: Int!): FontTag
 }
 
 # type Mutation {
@@ -31,9 +49,11 @@ type Query {
 
 const resolvers = {
     Query: {
-        getAllFont: () => {
-            return fontDTO.getAllFont()
-        }
+        getAllFont: () => fontDTO.getAllFont(),
+        getAllTag: () => tagDTO.getAllTag(),
+    },
+    Mutation: {
+        createFontTag: (font_id, tag_id) => fontTagDTO.createFontTag({font_id, tag_id})
     }
 };
 

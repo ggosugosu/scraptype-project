@@ -7,6 +7,7 @@ sequelize.define(
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            primaryKey: true,
         },
         font_id:{
             type: DataTypes.INTEGER,
