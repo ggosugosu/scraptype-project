@@ -39,12 +39,6 @@ type Query {
 type Mutation {
     createFontTag(font_id: Int!, tag_id: Int!): FontTag
 }
-
-# type Mutation {
-#     createFont(name: String!, description: String!): Font
-#     updateFont(id: Int, name: String!, description: String!): Font
-#     deleteFont(id: Int, name: String!, description: String!): Font
-# }
 `;
 
 const resolvers = {
