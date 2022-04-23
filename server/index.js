@@ -53,7 +53,9 @@ const resolvers = {
         getAllTag: () => tagDTO.getAllTag(),
     },
     Mutation: {
-        createFontTag: (font_id, tag_id) => fontTagDTO.createFontTag({font_id, tag_id})
+        createFontTag: (_,{font_id, tag_id}) => {
+            return fontTagDTO.createFontTag({font_id, tag_id});
+        }
     }
 };
 

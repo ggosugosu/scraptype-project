@@ -10,15 +10,13 @@ FontTag.sequelize
   });
 
 const fontTagDTO = {
-  createFontTag: async (_, { font_id, tag_id }) => {
-    const newFont = await FontTag.create({
+  createFontTag: async ({ font_id, tag_id }) => {
+    const newFontTag = await FontTag.create({
       font_id,
       tag_id,
     });
-
-    const font = await Font.findOne({ where: { id: id } });
-
-    return font;
+    
+    return newFontTag;
   },
 };
 

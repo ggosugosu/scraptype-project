@@ -28,25 +28,24 @@ function CreateFontTag() {
   };
 
   const selectedFontId = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
-    //setFontId(e.currentTarget.value)
+    setFontId(Number(e.target.value))
   };
 
   const selectedTagId = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value);
-    //setTagId(e.target.value)
+    setTagId(Number(e.target.value))
   };
 
   return (
     <div>
-      <select onChange={(e) => selectedFontId(e)}>
+      <select value={fontId} onChange={(e) => selectedFontId(e)}>
         {query.fonts.data.getAllFont.map((value) => (
           <option key={value.id} value={value.id}>
             {value.name}
           </option>
         ))}
       </select>
-      <select onChange={(e) => selectedTagId(e)}>
+      <select value={tagId} onChange={(e) => selectedTagId(e)}>
         {query.tags.data.getAllTag.map((value) => (
           <option key={value.id} value={value.id}>
             {value.name}
