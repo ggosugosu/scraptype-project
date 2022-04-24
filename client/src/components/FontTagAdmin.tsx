@@ -1,9 +1,16 @@
 import React from "react";
 import CreateFontTag from "../features/CreateFontTag";
+import FontTagTable from "../features/FontTagTable";
 
 function FontTagAdmin () {
     return (
-        <CreateFontTag />
+        <div>
+            <CreateFontTag />
+            <div>
+                <FontTagTable />
+            </div>
+        </div>
+        
     );
 }
 

@@ -20,12 +20,12 @@ export const GET_TAG = gql`
   }
 `;
 
-export const CREATE_FONT_TAG = gql`
-  query(font_id, tag_id) {
-    createFontTag {
-      id
-      font_id
-      tag_id
-    }
-  }
-`;
+// export const CREATE_FONT_TAG = gql`
+//   query(font_id, tag_id) {
+//     createFontTag {
+//       id
+//       font_id
+//       tag_id
+//     }
+//   }
+// `;
