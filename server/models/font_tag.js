@@ -1,28 +1,38 @@
 const { sequelize } = require(".");
+const font = require("./font");
+var models = require("../models");
+const tag = require("./tag");
 
 module.exports = (sequelize, DataTypes) =>
-sequelize.define(
+  sequelize.define(
     "FontTag",
     {
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      font_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Font",
+          key: "id",
         },
-        font_id:{
-            type: DataTypes.INTEGER,
-            allowNull: false,
+      },
+      tag_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Tag",
+          key: "id",
         },
-        tag_id:{
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        }
+      },
     },
     {
-        timestamps: false,
-        freezeTableName: true,
-        charset: "utf8"
+      timestamps: false,
+      freezeTableName: true,
+      charset: "utf8",
     }
-);
-
+  );

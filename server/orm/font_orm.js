@@ -9,11 +9,12 @@ Font.sequelize
     console.log("sequelize fail", err);
   });
 
-const fontDTO = {
+const fontORM = {
   getAllFont: () => {
     const getFonts = Font.findAll();
     return getFonts;
   },
+
   getFont: async (_, args) => {
     await context.Font.findOne();
     console.log(args);
@@ -21,6 +22,7 @@ const fontDTO = {
     const resultData = await Font.findOne({ where: { id: id } });
     return resultData;
   },
+
   createFont: async (_, { name, description }) => {
     const newFont = await Font.create({
       name,
@@ -28,14 +30,15 @@ const fontDTO = {
     });
 
     const font = await Font.findOne({ where: { id: id } });
-
     return font;
   },
+
   updateFont: async (_, { id, name, description }) => {
     console.log(id);
     const font = await Font.findOne({ where: { id: id } });
     return font;
   },
+  
   deleteFont: async (_, { id }) => {
     console.log(id);
     const oldFont = await Font.destroy({ where: { id: id } });
@@ -44,4 +47,4 @@ const fontDTO = {
   },
 };
 
-module.exports = fontDTO;
+module.exports = fontORM;

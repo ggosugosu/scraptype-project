@@ -1,36 +1,32 @@
 const { sequelize } = require(".");
+const font_tag = require("./font_tag");
 
 module.exports = (sequelize, DataTypes) =>
-sequelize.define(
+  sequelize.define(
     "Font",
     {
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-        },
-        name:{
-            type: DataTypes.STRING(15),
-            allowNull: false,
-        },
-        description: {
-            type: DataTypes.STRING(150),
-            allowNull: true,
-        },
-        corporation: {
-            type: DataTypes.STRING(25),
-            allowNull: true,
-        },
-        isWebFont: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        }
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING(15),
+        allowNull: false,
+      },
+      description: {
+        type: DataTypes.STRING(150),
+        allowNull: true,
+      },
+      corporation: {
+        type: DataTypes.STRING(25),
+        allowNull: true,
+      },
     },
     {
-        timestamps: false,
-        freezeTableName: true,
-        charset: "utf8"
+      timestamps: false,
+      freezeTableName: true,
+      charset: "utf8",
     }
-);
-
+  );

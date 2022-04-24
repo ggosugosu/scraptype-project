@@ -1,67 +1,68 @@
-//import {fontDTO} from './dto/font_dto.js';
-const express = require('express');
+//import {fontORM} from './orm/font_orm.js';
+const express = require("express");
 const app = express();
 const PORT = 3200;
-const path = '/graphql';
-const {ApolloServer, gql} = require('apollo-server-express');
-const fontDTO = require('./dto/font_dto');
-const tagDTO = require('./dto/tag_dto');
-const fontTagDTO = require('./dto/font_tag_dto');
-
-
+const path = "/graphql";
+const { ApolloServer, gql } = require("apollo-server-express");
+const fontORM = require("./orm/font_orm");
+const tagORM = require("./orm/tag_orm");
+const fontTagORM = require("./orm/font_tag_orm");
 
 const typeDefs = gql`
-type Font {
-    id: Int
+  type Font {
+    id: ID
     name: String
     description: String
     corporation: String
-    isWebFont: Boolean
-}
+  }
 
-type Tag {
-    id: Int
+  type Tag {
+    id: ID
     name: String
-}
+  }
 
-type FontTag {
-    id: Int
+  type FontTag {
+    id: ID
     font_id: Int
+    fonts: Font
     tag_id: Int
-}
+    tags: Tag
+  }
 
-type Query {
+  type Query {
     getFont(id: Int!): Font
     getAllFont: [Font!]!
     getAllTag: [Tag!]!
-}
+    getFontTagAll: [FontTag]
+  }
 
-type Mutation {
+  type Mutation {
     createFontTag(font_id: Int!, tag_id: Int!): FontTag
-}
+    deleteFontTag(font_id: Int!, tag_id: Int!): FontTag
+  }
 `;
 
 const resolvers = {
-    Query: {
-        getAllFont: () => fontDTO.getAllFont(),
-        getAllTag: () => tagDTO.getAllTag(),
+  Query: {
+    getAllFont: () => fontORM.getAllFont(),
+    getAllTag: () => tagORM.getAllTag(),
+    getFontTagAll: () => fontTagORM.getFontTagAll()
+  },
+  Mutation: {
+    createFontTag: (_, { font_id, tag_id }) => {
+      return fontTagORM.createFontTag({ font_id, tag_id });
     },
-    Mutation: {
-        createFontTag: (_,{font_id, tag_id}) => {
-            return fontTagDTO.createFontTag({font_id, tag_id});
-        }
-    }
+    deleteFontTag: (_, { font_id, tag_id }) => {
+      return fontTagORM.deleteFontTag({ font_id, tag_id });
+    },
+  },
+
 };
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-
 // The `listen` method launches a web server.
-server.start().then(
-    res => {
-        server.applyMiddleware({ app, path });
-        app.listen({ port: PORT }, () =>
-        console.log(`🚀 Server ready at http://localhost:${PORT}${path}`)
-      )
-    }
-);
+server.start().then((res) => {
+  server.applyMiddleware({ app, path });
+  app.listen({ port: PORT }, () => console.log(`🚀 Server ready at http://localhost:${PORT}${path}`));
+});
