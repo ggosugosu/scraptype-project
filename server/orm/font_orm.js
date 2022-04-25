@@ -1,14 +1,5 @@
 const { Font } = require("../models/index");
 
-Font.sequelize
-  .sync()
-  .then(() => {
-    console.log("sequelize success");
-  })
-  .catch((err) => {
-    console.log("sequelize fail", err);
-  });
-
 const fontORM = {
   getAllFont: () => {
     const getFonts = Font.findAll();
@@ -38,7 +29,7 @@ const fontORM = {
     const font = await Font.findOne({ where: { id: id } });
     return font;
   },
-  
+
   deleteFont: async (_, { id }) => {
     console.log(id);
     const oldFont = await Font.destroy({ where: { id: id } });

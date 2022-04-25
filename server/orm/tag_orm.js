@@ -1,20 +1,11 @@
 const { Tag } = require("../models/index");
 
-Tag.sequelize
-  .sync()
-  .then(() => {
-    console.log("sequelize success");
-  })
-  .catch((err) => {
-    console.log("sequelize fail", err);
-  });
-
 const tagORM = {
   getAllTag: () => {
     const getTags = Tag.findAll();
     return getTags;
   },
-  
+
   getTag: async (_, args) => {
     await context.Tag.findOne();
     const { id } = args;

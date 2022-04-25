@@ -17,7 +17,7 @@ query {
 `;
 
 export const DELETE_FONT_TAG = gql`
-  query($id: Int!) {
+  mutation DeleteFontTag($id: Int!) {
     deleteFontTag(id : $id) {
         id
         font_id

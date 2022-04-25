@@ -1,8 +1,9 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { GET_FONT, GET_TAG } from "../CreateFontTag/gql";
+import { CREATE_FONT_TAG, GET_FONT, GET_TAG } from "../CreateFontTag/gql";
 import { useRecoilState } from "recoil";
 import { fontIdState, tagIdState } from "./atom";
+import { useMutation } from "@apollo/react-hooks";
 
 const QueryMultiple = () => {
   const fonts = useQuery(GET_FONT);
@@ -15,6 +16,7 @@ function CreateFontTag() {
   const query = QueryMultiple();
   const [fontId, setFontId] = useRecoilState(fontIdState);
   const [tagId, setTagId] = useRecoilState(tagIdState);
+  const [createFontTag, {data, error, loading}] = useMutation(CREATE_FONT_TAG);
 
   if (query.fonts.loading || query.tags.loading) return <p>`Loading...`</p>;
   if (query.fonts.error || query.tags.error) {
@@ -25,7 +27,12 @@ function CreateFontTag() {
 
   const handleApply = () => {
     console.log("success");
+    createFontTag({variables: {font_id: fontId, tag_id: tagId}});
+    console.log(`query send -> font: ${typeof(fontId)} / tag: ${typeof(tagId)}`)
   };
+
+  if (data) alert("추가했습니다.");
+  if (error) alert("담덕에게 문의하세요.");
 
   const selectedFontId = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFontId(Number(e.target.value))

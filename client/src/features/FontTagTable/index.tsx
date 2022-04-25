@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import React from "react";
 import { DELETE_FONT_TAG, GET_FONT_TAG_ALL } from "./gql";
 
@@ -9,26 +9,27 @@ interface FontTag {
 }
 
 const FontTagItem = (props) => {
-  const DeleteItemQuery = (id) => useQuery(DELETE_FONT_TAG, { variables: { id } });
+  const [deleteFontTag, {data, error, loading}] = useMutation(DELETE_FONT_TAG);
 
-  const handleDeleteItem = (id: number) => {
+  const handleDeleteItem = () => {
     const confirmMassage = confirm("정말 삭제하시겠습니까?");
     if (!confirmMassage.valueOf()) return;
 
-    const { data, error } = DeleteItemQuery(id);
+    deleteFontTag({variables: {id: props.id}});
+    console.log(`${props.id} & ${typeof(props.id)}`)
     if (error) {
       alert("잘못된 값입니다. 담덕에게 문의해주세요.");
       return;
-    } else {
-      alert("삭제 완료!");
     }
+    console.log(JSON.stringify(data));
+    if (data == null) alert ("삭제 완료하였습니다.")
   };
   return (
     <tr>
       <td>{props.font_name}</td>
       <td>{props.tag_name}</td>
       <td>
-        <button onClick={() => handleDeleteItem(props.id)}>삭제</button>
+        <button onClick={handleDeleteItem}>삭제</button>
       </td>
     </tr>
   );
@@ -49,7 +50,7 @@ export default function FontTagTable() {
       <tbody>
         {data.getFontTagAll.map((item, index) => {
           console.log(typeof(item.id));
-          return <FontTagItem key={index} id={item.id} font_name={item.fonts.name} tag_name={item.tags.name} />;
+          return <FontTagItem key={index} id={Number(item.id)} font_name={item.fonts.name} tag_name={item.tags.name} />;
         })}
       </tbody>
     </table>

@@ -1,19 +1,11 @@
 const { ApolloError } = require("apollo-server-micro");
+const { createImportSpecifier } = require("typescript");
 const font = require("../models/font");
 const { FontTag, Font, Tag } = require("../models/index");
 const tag = require("../models/tag");
 
-FontTag.sequelize
-  .sync()
-  .then(() => {
-    console.log("sequelize success");
-  })
-  .catch((err) => {
-    console.log("sequelize fail", err);
-  });
-
 const fontTagORM = {
-  getFontTagAll:() =>
+  getFontTagAll: () =>
     FontTag.findAll({
       include: [
         {
@@ -38,9 +30,10 @@ const fontTagORM = {
     return newFontTag;
   },
 
-  deleteFontTag: async ({ font_id, tag_id }) => {
-    const oldFontTag = await FontTag.destroy({ font_id, tag_id });
-    return exists(font_id, tag_id);
+  deleteFontTag: async ({ id }) => {
+    await FontTag.destroy({
+      where: { id: id },
+    }).then((data) => data);
   },
 };
 

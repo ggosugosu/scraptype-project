@@ -38,7 +38,7 @@ const typeDefs = gql`
 
   type Mutation {
     createFontTag(font_id: Int!, tag_id: Int!): FontTag
-    deleteFontTag(font_id: Int!, tag_id: Int!): FontTag
+    deleteFontTag(id: Int!): FontTag
   }
 `;
 
@@ -52,8 +52,8 @@ const resolvers = {
     createFontTag: (_, { font_id, tag_id }) => {
       return fontTagORM.createFontTag({ font_id, tag_id });
     },
-    deleteFontTag: (_, { font_id, tag_id }) => {
-      return fontTagORM.deleteFontTag({ font_id, tag_id });
+    deleteFontTag: (_, { id }) => {
+      return fontTagORM.deleteFontTag({ id });
     },
   },
 
