@@ -28,7 +28,7 @@ function CreateFontTag() {
   const handleApply = () => {
     console.log("success");
     createFontTag({variables: {font_id: fontId, tag_id: tagId}});
-    console.log(`query send -> font: ${typeof(fontId)} / tag: ${typeof(tagId)}`)
+    console.log(`query send -> font: ${fontId} / tag: ${tagId}`)
   };
 
   if (data) alert("추가했습니다.");
