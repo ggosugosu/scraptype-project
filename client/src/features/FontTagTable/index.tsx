@@ -8,7 +8,7 @@ interface FontTag {
   tag_name: string;
 }
 
-const FontTagItem = (props) => {
+const FontTagItem = (props: FontTag) => {
   const [deleteFontTag, {data, error, loading}] = useMutation(DELETE_FONT_TAG);
 
   const handleDeleteItem = () => {
