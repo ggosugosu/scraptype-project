@@ -16,32 +16,34 @@ function CreateFontTag() {
   const query = QueryMultiple();
   const [fontId, setFontId] = useRecoilState(fontIdState);
   const [tagId, setTagId] = useRecoilState(tagIdState);
-  const [createFontTag, {data, error, loading}] = useMutation(CREATE_FONT_TAG);
+  const [createFontTag, { data, error, loading, reset }] = useMutation(CREATE_FONT_TAG);
 
   if (query.fonts.loading || query.tags.loading) return <p>`Loading...`</p>;
-  if (query.fonts.error || query.tags.error) {
-    if (query.fonts.error) console.log(`Error ${query.fonts.error}`);
-    if (query.tags.error) console.log(`Error ${query.tags.error}`);
-    return null;
+  if (query.fonts.error || query.tags.error) return null;
+
+  const handleApply = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    createFontTag({ variables: { font_id: fontId, tag_id: tagId } });
+  };
+  const selectedFontId = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    setFontId(Number(e.target.value));
+  };
+  const selectedTagId = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    setTagId(Number(e.target.value));
+  };
+
+  if (data){
+    alert("추가했습니다.");
+    reset();
   }
 
-  const handleApply = () => {
-    console.log("success");
-    createFontTag({variables: {font_id: fontId, tag_id: tagId}});
-    console.log(`query send -> font: ${fontId} / tag: ${tagId}`)
-  };
-
-  if (data) alert("추가했습니다.");
-  if (error) alert("담덕에게 문의하세요.");
-
-  const selectedFontId = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFontId(Number(e.target.value))
-  };
-
-  const selectedTagId = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
-    setTagId(Number(e.target.value))
-  };
+  if (error?.graphQLErrors[0].extensions.status == 400) {
+    alert("이미 존재하는 관계입니다.");
+    reset();
+  }
 
   return (
     <div>
