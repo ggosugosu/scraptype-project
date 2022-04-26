@@ -49,7 +49,6 @@ export default function FontTagTable() {
       </thead>
       <tbody>
         {data.getFontTagAll.map((item, index) => {
-          console.log(typeof(item.id));
           return <FontTagItem key={index} id={Number(item.id)} font_name={item.fonts.name} tag_name={item.tags.name} />;
         })}
       </tbody>

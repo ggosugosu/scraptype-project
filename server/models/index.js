@@ -18,8 +18,8 @@ const FontTag = require("./font_tag")(sequelize, Sequelize);
 
 
 // Association
-Font.hasOne(FontTag);
-Tag.hasOne(FontTag);
+Font.hasMany(FontTag, {targetKey: 'id', foreignKey: 'font_id', as: 'fontTags'});
+Tag.hasMany(FontTag);
 FontTag.belongsTo(Font, {foreignKey: 'font_id', as: 'fonts'});
 FontTag.belongsTo(Tag, {foreignKey: 'tag_id', as: 'tags'});
 

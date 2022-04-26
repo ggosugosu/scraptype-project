@@ -1,7 +1,7 @@
 const { Tag } = require("../models/index");
 
 const tagORM = {
-  getAllTag: () => {
+  getTagAll: () => {
     const getTags = Tag.findAll();
     return getTags;
   },

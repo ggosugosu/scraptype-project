@@ -1,8 +1,21 @@
-const { Font } = require("../models/index");
+const { Font, FontTag, Tag } = require("../models/index");
 
 const fontORM = {
-  getAllFont: () => {
-    const getFonts = Font.findAll();
+  getFontAll: () => {
+    const getFonts = Font.findAll({
+      include: [
+        {
+          model: FontTag,
+          as: "fontTags",
+          include: [
+            {
+              model: Tag,
+              as: "tags",
+            },
+          ],
+        },
+      ],
+    });
     return getFonts;
   },
 

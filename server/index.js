@@ -14,6 +14,7 @@ const typeDefs = gql`
     name: String
     description: String
     corporation: String
+    fontTags: [FontTag]
   }
 
   type Tag {
@@ -31,8 +32,8 @@ const typeDefs = gql`
 
   type Query {
     getFont(id: Int!): Font
-    getAllFont: [Font!]!
-    getAllTag: [Tag!]!
+    getFontAll: [Font!]!
+    getTagAll: [Tag!]!
     getFontTagAll: [FontTag]
   }
 
@@ -44,8 +45,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    getAllFont: () => fontORM.getAllFont(),
-    getAllTag: () => tagORM.getAllTag(),
+    getFontAll: () => fontORM.getFontAll(),
+    getTagAll: () => tagORM.getTagAll(),
     getFontTagAll: () => fontTagORM.getFontTagAll()
   },
   Mutation: {

@@ -48,14 +48,14 @@ function CreateFontTag() {
   return (
     <div>
       <select value={fontId} onChange={(e) => selectedFontId(e)}>
-        {query.fonts.data.getAllFont.map((value) => (
+        {query.fonts.data.getFontAll.map((value) => (
           <option key={value.id} value={value.id}>
             {value.name}
           </option>
         ))}
       </select>
       <select value={tagId} onChange={(e) => selectedTagId(e)}>
-        {query.tags.data.getAllTag.map((value) => (
+        {query.tags.data.getTagAll.map((value) => (
           <option key={value.id} value={value.id}>
             {value.name}
           </option>

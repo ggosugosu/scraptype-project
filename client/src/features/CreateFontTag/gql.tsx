@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_FONT = gql`
   query {
-    getAllFont {
+    getFontAll {
       id
       name
       description
@@ -13,7 +13,7 @@ export const GET_FONT = gql`
 
 export const GET_TAG = gql`
   query {
-    getAllTag {
+    getTagAll {
       id
       name
     }
