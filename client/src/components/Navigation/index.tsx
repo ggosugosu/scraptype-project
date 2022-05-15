@@ -7,18 +7,22 @@ import { DashLineHorizontal } from "../globalStyle";
 export default function Navigation() {
   return (
     <NavBar>
-      <Link href="/" passHref>
-        <button>TagType</button>
-      </Link>
+      <h1>TagType</h1>
       <div>Before memorizing the names and shapes of 10,000 fonts, I'm glad we were able to create this site.</div>
       <DashLineHorizontal />
-      <div>Home</div>
+      <Link href="/" passHref>
+        <button>Home</button>
+      </Link>
       <DashLineHorizontal />
-      <div>TagType</div>
+      <Link href="/search/tag/" passHref>
+        <button>TagSearch</button>
+      </Link>
       <DashLineHorizontal />
-      <div>TagSearch</div>
+      <Link href="/search/font/" passHref>
+        <button>FontSearch</button>
+      </Link>
       <DashLineHorizontal />
-      <Link href="/admin-font-tag" passHref>
+      <Link href="/admin/font-tag" passHref>
         <button>관리자 페이지</button>
       </Link>
       <DashLineHorizontal />
