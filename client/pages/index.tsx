@@ -1,7 +1,9 @@
 import FontTagAdmin from "../src/components/FontTagAdmin";
 
 const Home = (props) => {
-  return <FontTagAdmin />;
+  return <>
+  <FontTagAdmin />;
+  </>
 };
 
 export default Home;
