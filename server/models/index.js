@@ -2,16 +2,8 @@
 
 const options = require("../config/option");
 const Sequelize = require("sequelize");
-const db = {};
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
-
-const dbData = {
-    host: options.storageConfig.host,
-    user: options.storageConfig.username,
-    password: options.storageConfig.password,
-    database: options.storageConfig.database,
-  };
 
 const sequelize = new Sequelize(
     options.storageConfig.database,
@@ -20,9 +12,15 @@ const sequelize = new Sequelize(
     config,
 );
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+const Font = require("./font")(sequelize, Sequelize);
+const Tag = require("./tag")(sequelize, Sequelize);
+const FontTag = require("./font_tag")(sequelize, Sequelize);
 
-db.Font = require("./font")(sequelize, Sequelize);
 
-module.exports = db;``
+// Association
+Font.hasMany(FontTag, {targetKey: 'id', foreignKey: 'font_id', as: 'fontTags'});
+Tag.hasMany(FontTag);
+FontTag.belongsTo(Font, {foreignKey: 'font_id', as: 'fonts'});
+FontTag.belongsTo(Tag, {foreignKey: 'tag_id', as: 'tags'});
+
+module.exports = {sequelize, Sequelize, Font, Tag, FontTag};

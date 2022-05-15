@@ -3,7 +3,7 @@ const font_tag = require("./font_tag");
 
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
-    "Font",
+    "Tag",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -12,16 +12,8 @@ module.exports = (sequelize, DataTypes) =>
         primaryKey: true,
       },
       name: {
-        type: DataTypes.STRING(15),
+        type: DataTypes.STRING(10),
         allowNull: false,
-      },
-      description: {
-        type: DataTypes.STRING(150),
-        allowNull: true,
-      },
-      corporation: {
-        type: DataTypes.STRING(25),
-        allowNull: true,
       },
     },
     {

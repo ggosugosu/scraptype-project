@@ -1,15 +1,7 @@
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import FontList from "../src/components/FontList";
+import FontTagAdmin from "../src/components/FontTagAdmin";
 
 const Home = (props) => {
-  const client = new ApolloClient({ uri: "http://localhost:3200/graphql", cache: new InMemoryCache() });
-  return (
-    <ApolloProvider client={client}>
-      <div>
-        <FontList />
-      </div>
-    </ApolloProvider>
-  );
+  return <FontTagAdmin />;
 };
 
 export default Home;

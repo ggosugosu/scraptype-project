@@ -1,83 +1,69 @@
-const express = require('express');
+//import {fontORM} from './orm/font_orm.js';
+const express = require("express");
 const app = express();
 const PORT = 3200;
-const path = '/graphql';
-const {ApolloServer, gql} = require('apollo-server-express');
-const {Font} = require('./models/index');
-
-Font.sequelize.sync().then(() => {
-    console.log("sequelize success");
-}).catch(err => {
-    console.log("sequelize fail", err)
-});
+const path = "/graphql";
+const { ApolloServer, gql } = require("apollo-server-express");
+const fontORM = require("./orm/font_orm");
+const tagORM = require("./orm/tag_orm");
+const fontTagORM = require("./orm/font_tag_orm");
 
 const typeDefs = gql`
-type Font {
-    id: Int
+  type Font {
+    id: ID
     name: String
     description: String
-}
+    corporation: String
+    fontTags: [FontTag]
+  }
 
-type Query {
-    getFontData: [Font!]!
-    getAllFont(id: Int!): Font
-}
+  type Tag {
+    id: ID
+    name: String
+  }
 
-type Mutation {
-    createFont(name: String!, description: String!): Font
-    updateFont(id: Int, name: String!, description: String!): Font
-    deleteFont(id: Int, name: String!, description: String!): Font
-}
+  type FontTag {
+    id: ID
+    font_id: Int
+    fonts: Font
+    tag_id: Int
+    tags: Tag
+  }
+
+  type Query {
+    getFont(id: Int!): Font
+    getFontAll: [Font!]!
+    getTagAll: [Tag!]!
+    getFontTagAll: [FontTag]
+  }
+
+  type Mutation {
+    createFontTag(font_id: Int!, tag_id: Int!): FontTag
+    deleteFontTag(id: Int!): FontTag
+  }
 `;
 
 const resolvers = {
-    Query: {
-        getFontData: async () => {
-            const getFonts = await Font.findAll();
-            return getFonts;
-        },
-        getAllFont: async (_, args) => {
-            await context.Font.findOne()
-            console.log(args);
-            const {id} = args;
-            const resultData = await Font.findOne({where: {id: id}});
-            return resultData;
-        }
+  Query: {
+    getFontAll: () => fontORM.getFontAll(),
+    getTagAll: () => tagORM.getTagAll(),
+    getFontTagAll: () => fontTagORM.getFontTagAll()
+  },
+  Mutation: {
+    createFontTag: (_, { font_id, tag_id }) => {
+      return fontTagORM.createFontTag({ font_id, tag_id });
     },
-    Mutation: {
-        createFont: async(_, {name, description}) => {
-            const newFont = await Font.create({
-                name,
-                description
-            });
+    deleteFontTag: (_, { id }) => {
+      return fontTagORM.deleteFontTag({ id });
+    },
+  },
 
-            const font = await Font.findOne({where: {id: id}});
-
-            return font;
-        },
-        updateFont: async (_, {id, name, description}) => {
-            console.log(id)
-            const font = await Font.findOne( { where: { id: id } });
-            return font;
-        },
-        deleteFont: async (_, { id }) => {
-            console.log(id)
-            const oldFont = await Font.destroy({where: { id: id } });
-            const font = await Font.findOne( { where: { id: id } });
-            return font;
-          },
-    }
 };
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-
 // The `listen` method launches a web server.
-server.start().then(
-    res => {
-        server.applyMiddleware({ app, path });
-        app.listen({ port: PORT }, () =>
-        console.log(`🚀 Server ready at http://localhost:${PORT}${path}`)
-      )
-    }
-);
+server.start().then((res) => {
+  server.applyMiddleware({ app, path });
+  app.listen({ port: PORT }, () => console.log(`🚀 Server ready at http://localhost:${PORT}${path}`));
+});
