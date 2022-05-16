@@ -1,32 +1,42 @@
 import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import { NavBar } from "./style";
+import { NavBar, NavButton, NavDesc, NavLogo } from "./style";
 import { DashLineHorizontal } from "../globalStyle";
 
 export default function Navigation() {
   return (
     <NavBar>
-      <h1>TagType</h1>
-      <div>Before memorizing the names and shapes of 10,000 fonts, I'm glad we were able to create this site.</div>
+      <NavLogo>TagType</NavLogo>
+      <NavDesc>Before memorizing the names and shapes of 10,000 fonts, I'm glad we were able to create this site.</NavDesc>
       <DashLineHorizontal />
-      <Link href="/" passHref>
-        <button>Home</button>
-      </Link>
-      <DashLineHorizontal />
-      <Link href="/search/tag/" passHref>
-        <button>TagSearch</button>
-      </Link>
-      <DashLineHorizontal />
-      <Link href="/search/font/" passHref>
-        <button>FontSearch</button>
-      </Link>
-      <DashLineHorizontal />
-      <Link href="/admin/font-tag" passHref>
-        <button>관리자 페이지</button>
-      </Link>
-      <DashLineHorizontal />
-      bistro logo
+      <ul>
+        <li>
+          <Link href="/" passHref>
+            <NavButton>H<span>ome</span></NavButton>
+          </Link>
+          <DashLineHorizontal />
+        </li>
+        <li>
+          <Link href="/search/tag/" passHref>
+            <NavButton>Tag<span>Search</span></NavButton>
+          </Link>
+          <DashLineHorizontal />
+        </li>
+        <li>
+          <Link href="/search/font/" passHref>
+            <NavButton>Font<span>Search</span></NavButton>
+          </Link>
+          <DashLineHorizontal />
+        </li>
+        <li>
+          <Link href="/admin/font-tag" passHref>
+            <NavButton>관리자<span>페이지</span></NavButton>
+          </Link>
+          <DashLineHorizontal />
+        </li>
+        <li>bistro logo</li>
+      </ul>
     </NavBar>
   );
 }
