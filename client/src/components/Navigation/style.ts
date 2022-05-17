@@ -34,9 +34,11 @@ export const NavBar = styled.div`
 
 export const NavLogo = styled.p`
   font-size: 20px;
+  content: url('http://drive.google.com/uc?export=view&id=1PnKUOUlXYTwNhzU2l6uI6FHnLg-WYAOD');
   @media (max-width: 480px) {
     display: inline-block;
     font-size: 14px;
+    content: url('http://drive.google.com/uc?export=view&id=1E3Cbxq2LsGkhirQGlXWsjsChkUfZNbK1');
   }
 `;
 
