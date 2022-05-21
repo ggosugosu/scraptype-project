@@ -5,7 +5,7 @@ import Layout from "../src/components/Layout";
 import { GlobalStyle } from "../src/components/globalStyle";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const client = new ApolloClient({ uri: "http://localhost:3200/graphql", cache: new InMemoryCache() });
+  const client = new ApolloClient({ uri: `http://${process.env.HOST}`, cache: new InMemoryCache() });
   return (
     <ApolloProvider client={client}>
       <RecoilRoot>
