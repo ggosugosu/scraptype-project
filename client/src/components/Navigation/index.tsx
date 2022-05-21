@@ -12,7 +12,7 @@ export default function Navigation() {
         <Image src="/" alt="Logo" width="288" height="100" />
       </NavLogo>
       
-      <NavDesc>Before memorizing the names and shapes of 10,000 fonts, I'm glad we were able to create this site.</NavDesc>
+      <NavDesc>Before memorizing the names and shapes of 10,000 fonts, I&apos;m glad we were able to create this site.</NavDesc>
       <DashLineHorizontal />
       <ul>
         <li>
