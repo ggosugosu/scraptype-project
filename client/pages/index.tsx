@@ -1,7 +1,7 @@
-import FontTagAdmin from "../src/components/FontTagAdmin";
+import Archive from "../src/components/Archive";
 
-const Home = (props) => {
-  return <FontTagAdmin />;
+const Main = (props) => {
+  return <Archive />;
 };
 
-export default Home;
+export default Main;
