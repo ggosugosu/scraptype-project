@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "Gothic-B";
+  src: url("apple-sd-gothic-neo-b.otf");
+  font-weight: 500;
+  font-style: Bold;
+}
+@font-face {
+  font-family: "Gothic-L";
+  src: url("apple-sd-gothic-neo-l.otf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Gothic-M";
+  src: url("apple-sd-gothic-neo-m.otf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Gothic-R";
+  src: url("apple-sd-gothic-neo-r.otf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Elice-B";
+  src: url("elice-digital-baeum-b.otf");
+  font-style: normal;
+  unicode-range: U+AC00-D7A3;
+}
+@font-face {
+  font-family: "Elice-R";
+  src: url("elice-digital-baeum-r.otf");
+  font-style: normal;
+  unicode-range: U+AC00-D7A3;
+}

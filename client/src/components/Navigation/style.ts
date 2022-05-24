@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
-export const NavBar = styled.div`
-  position: absolute;
-  display: flex;
+export const NavBar = styled.header`
+  position: relative;
+  display: inline-flex;
   flex-flow: column;
   top: 0px;
   left: 0px;
-  width: 280px;
+  width: 318px;
   height: 100vh;
+  margin: 0;
 
   ul {
     list-style: none;
