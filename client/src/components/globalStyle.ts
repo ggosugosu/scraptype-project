@@ -1,3 +1,4 @@
+import { getSvgUrl } from "./../features/utils";
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 
@@ -12,6 +13,16 @@ export const GlobalStyle = createGlobalStyle`
     padding-top: 72px;
     padding-left: 60px;
     padding-right: 60px;
+  }
+
+  button {
+    background: none;
+	  color: inherit;
+	  border: none;
+	  padding: 0;
+	  font: inherit;
+	  cursor: pointer;
+	  outline: inherit;
   }
 `;
 

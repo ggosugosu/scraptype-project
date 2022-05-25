@@ -9,6 +9,7 @@ export const NavBar = styled.header`
   width: 318px;
   height: 100vh;
   margin: 0;
+  flex: 0 0 25%;
 
   ul {
     list-style: none;
