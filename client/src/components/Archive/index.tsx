@@ -10,6 +10,7 @@ const ArchiveWrapper = styled.div`
   gap: 12px;
   width: auto;
   height: auto;
+  padding-bottom: 100px;
 `;
 
 export default function Archive() {

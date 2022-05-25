@@ -1,6 +1,7 @@
-import { getSvgUrl } from "./../features/utils";
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
+
+const dashed_grey = `#CFD2D7`;
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -9,10 +10,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    width: 100%;
+    height: 100vh;
     margin: 0;
     padding-top: 72px;
     padding-left: 60px;
     padding-right: 60px;
+    overflow: hidden;
   }
 
   button {
@@ -30,7 +34,7 @@ export const DashLineHorizontal = styled.hr`
   width: 100%;
   height: 1px;
   border: none;
-  border-top: 2px dotted $dashed_grey;
+  border-top: 2px dotted ${dashed_grey} ;
 `;
 
-export const dashed_grey = "#CFD2D7";
+

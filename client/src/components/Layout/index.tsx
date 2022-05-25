@@ -11,13 +11,16 @@ const BodyWrapper = styled.div`
 
 const Main = styled.main`
   position: relative;
-  width: auto;
   flex: 0 1 66.67%;
+  width: auto;
+  height: auto;
+  overflow: auto;
   @media (max-width: 480px) {
     top: 70px;
     left: 0px;
   }
 `;
+
 export default function Layout({ children }) {
   return (
     <BodyWrapper>

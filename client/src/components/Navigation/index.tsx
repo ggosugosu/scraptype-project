@@ -4,6 +4,24 @@ import styled from "styled-components";
 import { NavBar, NavButton, NavDesc, NavLogo } from "./style";
 import { DashLineHorizontal } from "../globalStyle";
 import Image from "next/image";
+import iconTag from "../../assets/images/ic_tag.svg";
+import iconName from "../../assets/images/ic_name.svg";
+import iconSettings from "../../assets/images/ic_settings.svg";
+
+const NavButtons = styled.ul`
+  position: absolute;
+  bottom: 100px;
+  width: 100%;
+  hr {
+    margin: 0;
+  }
+  li {
+    border-top: 2px dotted grey;
+    &:last-child {
+      border-top: 2px solid #000000;
+    }
+  }
+`;
 
 export default function Navigation() {
   return (
@@ -19,42 +37,34 @@ export default function Navigation() {
         <br />
         I&apos;m glad we were able to create this site.
       </NavDesc>
-      <DashLineHorizontal />
-      <ul>
+
+      <NavButtons>
         <li>
-          <Link href="/" passHref>
+          <Link href="/admin/font-tag" passHref>
             <NavButton>
-              H<span>ome</span>
+              <span>Settings</span>
+              <Image src={iconSettings} alt="icon-settings" />
             </NavButton>
           </Link>
-          <DashLineHorizontal />
         </li>
         <li>
           <Link href="/search/tag/" passHref>
             <NavButton>
-              Tag<span>Search</span>
+              <span>Tag Search</span>
+              <Image src={iconTag} alt="icon-tag" />
             </NavButton>
           </Link>
-          <DashLineHorizontal />
         </li>
         <li>
           <Link href="/search/font/" passHref>
             <NavButton>
-              Font<span>Search</span>
+              <span>Name Search</span>
+              <Image src={iconName} alt="icon-name" />
             </NavButton>
           </Link>
-          <DashLineHorizontal />
-        </li>
-        <li>
-          <Link href="/admin/font-tag" passHref>
-            <NavButton>
-              관리자<span>페이지</span>
-            </NavButton>
-          </Link>
-          <DashLineHorizontal />
         </li>
         <li>bistro logo</li>
-      </ul>
+      </NavButtons>
     </NavBar>
   );
 }

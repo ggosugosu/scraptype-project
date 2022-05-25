@@ -36,11 +36,11 @@ export const NavBar = styled.header`
 
 export const NavLogo = styled.p`
   font-size: 20px;
-  content: url('http://drive.google.com/uc?export=view&id=1PnKUOUlXYTwNhzU2l6uI6FHnLg-WYAOD');
+  content: url("http://drive.google.com/uc?export=view&id=1PnKUOUlXYTwNhzU2l6uI6FHnLg-WYAOD");
   @media (max-width: 480px) {
     display: inline-block;
     font-size: 14px;
-    content: url('http://drive.google.com/uc?export=view&id=1E3Cbxq2LsGkhirQGlXWsjsChkUfZNbK1');
+    content: url("http://drive.google.com/uc?export=view&id=1E3Cbxq2LsGkhirQGlXWsjsChkUfZNbK1");
   }
 `;
 
@@ -52,8 +52,17 @@ export const NavDesc = styled.p`
 `;
 
 export const NavButton = styled.button`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 84px;
   border: none;
   background-color: white;
+  span {
+    top: -2px;
+  }
   @media (max-width: 480px) {
     span {
       display: none;
