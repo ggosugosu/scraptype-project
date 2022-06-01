@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { grey_400 } from "../colors";
+import { grey_300, grey_400, black } from "../colors";
 
 export const NavBar = styled.header`
   position: relative;
@@ -14,6 +14,18 @@ export const NavBar = styled.header`
   ul {
     list-style: none;
     padding-left: 0px;
+  }
+
+  .logo-large, .logo-small {
+    margin-bottom: 24px;
+  }
+
+  .logo-large {
+    display: inline-block !important;
+  }
+
+  .logo-small {
+    display: none !important;
   }
 
   @media (max-width: 480px) {
@@ -31,9 +43,17 @@ export const NavBar = styled.header`
     ul li {
       display: inline-block;
     }
+    .logo-large {
+      display: none !important;
+    }
+
+    .logo-small {
+      display: inline-block !important;
+    }
   }
 `;
 
+// TODO: 삭제할 컴포넌트
 export const NavLogo = styled.div`
   width: 100%;
   > div {
@@ -79,6 +99,28 @@ export const NavButton = styled.button`
   @media (max-width: 480px) {
     span {
       display: none;
+    }
+  }
+`;
+
+export const NavButtons = styled.ul`
+  position: absolute;
+  bottom: 100px;
+  width: 100%;
+  hr {
+    margin: 0;
+  }
+  li {
+    border-top: 2px dotted ${grey_300};
+    &:last-child {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top: 2px solid ${black};
+      height: 126px;
+      @media (max-width: 480px) {
+        display: none;
+      }
     }
   }
 `;

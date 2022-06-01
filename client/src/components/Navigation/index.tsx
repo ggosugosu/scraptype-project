@@ -1,37 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import styled from "styled-components";
-import { NavBar, NavButton, NavDesc, NavLogo } from "./style";
-import { DashLineHorizontal } from "../globalStyle";
+import { NavBar, NavButton, NavDesc, NavLogo, NavButtons } from "./style";
 import Image from "next/image";
 import iconTag from "../../assets/images/ic_tag_default.svg";
 import iconName from "../../assets/images/ic_name_default.svg";
 import iconSettings from "../../assets/images/ic_settings_default.svg";
 import logoLg from "../../assets/images/logo_lg.svg";
 import logoSm from "../../assets/images/logo_sm.svg";
+import logoBistro from "../../assets/images/logo_bistro.svg";
 
-const NavButtons = styled.ul`
-  position: absolute;
-  bottom: 100px;
-  width: 100%;
-  hr {
-    margin: 0;
-  }
-  li {
-    border-top: 2px dotted grey;
-    &:last-child {
-      border-top: 2px solid #000000;
+// TODO: recoil로 올려서 사용하면 편리할 듯
+const useWindowWide = (size) => {
+  const [width, setWidth] = useState(0);
+  
+  useEffect(()=> {
+    function handleResize() {
+      setWidth(window.innerWidth);
     }
-  }
-`;
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize;
+    
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }
+  },[setWidth]);
+
+  return width > size
+}
 
 export default function Navigation() {
+  const [logoSize, setLogoSize] = useState("");
+
   return (
     <NavBar>
-      <NavLogo>
-        <Image src={logoLg} alt="Logo" width="318" height="82.44" />
-      </NavLogo>
-
+      <Image src={useWindowWide(400) ? logoLg : logoSm} alt="Logo" className="logo-large" />
+      
       <NavDesc>
         Before memorizing the names and
         <br />
@@ -65,7 +70,9 @@ export default function Navigation() {
             </NavButton>
           </Link>
         </li>
-        <li>bistro logo</li>
+        <li>
+          <Image src={logoBistro} alt="logo-bistro" />
+        </li>
       </NavButtons>
     </NavBar>
   );
