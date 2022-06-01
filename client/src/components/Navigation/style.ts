@@ -16,39 +16,46 @@ export const NavBar = styled.header`
     padding-left: 0px;
   }
 
-  .logo-large, .logo-small {
+  .logo-large,
+  .logo-small {
     margin-bottom: 24px;
   }
 
-  .logo-large {
-    display: inline-block !important;
-  }
-
-  .logo-small {
-    display: none !important;
+  .logo {
+    cursor: pointer;
   }
 
   @media (max-width: 480px) {
     width: 100%;
-    height: 70px;
+    height: 56px;
     flex-flow: row;
     align-items: center;
     justify-content: space-between;
+    margin: 0;
+    padding: 4px 16px;
+    border-bottom: 1px dashed ${black};
     hr {
       display: none;
     }
     ul {
-      display: inline-block;
+      display: inline-flex;
+      flex-flow: row-reverse wrap;
+      gap: 12px;
     }
     ul li {
-      display: inline-block;
-    }
-    .logo-large {
-      display: none !important;
+      display: inline-flex;
+      flex-flow: column;
+      align-items: center;
+      span {
+        font-family: "Gothic-M", sans-serif;
+        font-size: 9px;
+        white-space: nowrap;
+      }
     }
 
-    .logo-small {
-      display: inline-block !important;
+    .logo {
+      width: 48px !important;
+      height: 48px !important;
     }
   }
 `;
@@ -94,12 +101,15 @@ export const NavButton = styled.button`
   border: none;
   background-color: white;
   span {
-    font-size: 1.5rem;
+    font-size: 24px;
   }
   @media (max-width: 480px) {
-    span {
-      display: none;
-    }
+    position: relative;
+    width: 48px;
+    height: 48px;
+    justify-content: flex-start;
+    flex-flow: column-reverse nowrap;
+    gap: 7px;
   }
 `;
 
@@ -107,9 +117,6 @@ export const NavButtons = styled.ul`
   position: absolute;
   bottom: 100px;
   width: 100%;
-  hr {
-    margin: 0;
-  }
   li {
     border-top: 2px dotted ${grey_300};
     &:last-child {
@@ -118,7 +125,16 @@ export const NavButtons = styled.ul`
       justify-content: center;
       border-top: 2px solid ${black};
       height: 126px;
-      @media (max-width: 480px) {
+    }
+  }
+  @media (max-width: 480px) {
+    position: relative;
+    top: 0;
+    margin: 0;
+
+    li {
+      border-top: none;
+      &:last-child {
         display: none;
       }
     }

@@ -18,6 +18,9 @@ export const GlobalStyle = createGlobalStyle`
     padding-left: 60px;
     padding-right: 60px;
     overflow: hidden;
+    @media (max-width: 480px) {
+    padding: 0;
+  }
   }
 
   button {

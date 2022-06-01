@@ -22,10 +22,18 @@ const charBoxSVG = function (color: string) {
 }
 
 const CharBox = styled.button<{ selectedColor: ItemColor }>`
+position: relative;
   width: 200px;
   height: 200px;
   color: ${({ selectedColor }) => selectedColor.text || "gray"};
   background-image: url("${({ selectedColor }) => getSvgUrl(charBoxSVG(selectedColor.background || "white"))}");
+
+  @media (max-width: 480px) {
+    flex: 0 1 calc(50vw - 20px);
+    height: calc(50vw - 20px);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 `;
 
 export default function ArchiveItem() {

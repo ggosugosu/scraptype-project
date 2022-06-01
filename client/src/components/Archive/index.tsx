@@ -10,7 +10,13 @@ const ArchiveWrapper = styled.div`
   gap: 12px;
   width: auto;
   height: auto;
-  padding-bottom: 100px;
+  padding-bottom: 16px;
+
+  @media (max-width: 480px) {
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0;
+  }
 `;
 
 export default function Archive() {
