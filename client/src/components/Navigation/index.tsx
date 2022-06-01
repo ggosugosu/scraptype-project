@@ -11,36 +11,32 @@ import iconSettingsMobile from "../../assets/images/ic_settings_mobile.svg";
 import logoLg from "../../assets/images/logo_lg.svg";
 import logoSm from "../../assets/images/logo_sm.svg";
 import logoBistro from "../../assets/images/logo_bistro.svg";
+import { useRecoilState } from "recoil";
+import { windowWideState } from "./atom";
 
-
-// TODO: recoil로 올려서 사용하면 편리할 듯
-const useWindowWide = (size) => {
+export default function Navigation() {
   const [width, setWidth] = useState(0);
-  
-  useEffect(()=> {
+  const [isWide, setIsWide] = useRecoilState(windowWideState);
+
+  useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
+      setIsWide(width > 480);
     }
 
     window.addEventListener("resize", handleResize);
 
-    handleResize;
-    
+    handleResize();
+
     return () => {
       window.removeEventListener("resize", handleResize);
-    }
-  },[setWidth]);
-
-  return width > size
-}
-
-export default function Navigation() {
-  const [logoSize, setLogoSize] = useState("");
+    };
+  }, [width]);
 
   return (
     <NavBar>
       <Link href="/" passHref>
-      <Image src={useWindowWide(480) ? logoLg : logoSm} alt="Logo" className="logo"/>
+        <Image src={isWide ? logoLg : logoSm} alt="Logo" className="logo" />
       </Link>
       <NavDesc>
         Before memorizing the names and
@@ -55,7 +51,7 @@ export default function Navigation() {
           <Link href="/admin/font-tag" passHref>
             <NavButton>
               <span>Settings</span>
-              <Image src={useWindowWide(480) ? iconSettings : iconSettingsMobile} alt="icon-settings" />
+              <Image src={isWide ? iconSettings : iconSettingsMobile} alt="icon-settings" />
             </NavButton>
           </Link>
         </li>
@@ -63,7 +59,7 @@ export default function Navigation() {
           <Link href="/search/tag/" passHref>
             <NavButton>
               <span>Tag Search</span>
-              <Image src={useWindowWide(480) ? iconTag : iconTagMobile} alt="icon-tag" />
+              <Image src={isWide ? iconTag : iconTagMobile} alt="icon-tag" />
             </NavButton>
           </Link>
         </li>
@@ -71,7 +67,7 @@ export default function Navigation() {
           <Link href="/search/font/" passHref>
             <NavButton>
               <span>Name Search</span>
-              <Image src={useWindowWide(480) ? iconName : iconNameMobile} alt="icon-name" className="nav-icon" />
+              <Image src={isWide ? iconName : iconNameMobile} alt="icon-name" className="nav-icon" />
             </NavButton>
           </Link>
         </li>
