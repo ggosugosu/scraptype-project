@@ -4,9 +4,11 @@ import styled from "styled-components";
 import { NavBar, NavButton, NavDesc, NavLogo } from "./style";
 import { DashLineHorizontal } from "../globalStyle";
 import Image from "next/image";
-import iconTag from "../../assets/images/ic_tag.svg";
-import iconName from "../../assets/images/ic_name.svg";
-import iconSettings from "../../assets/images/ic_settings.svg";
+import iconTag from "../../assets/images/ic_tag_default.svg";
+import iconName from "../../assets/images/ic_name_default.svg";
+import iconSettings from "../../assets/images/ic_settings_default.svg";
+import logoLg from "../../assets/images/logo_lg.svg";
+import logoSm from "../../assets/images/logo_sm.svg";
 
 const NavButtons = styled.ul`
   position: absolute;
@@ -27,7 +29,7 @@ export default function Navigation() {
   return (
     <NavBar>
       <NavLogo>
-        <Image src="/" alt="Logo" width="318" height="82.44" />
+        <Image src={logoLg} alt="Logo" width="318" height="82.44" />
       </NavLogo>
 
       <NavDesc>

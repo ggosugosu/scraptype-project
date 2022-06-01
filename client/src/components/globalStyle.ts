@@ -1,12 +1,13 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
+import { grey_400, black } from "./colors";
 
-const dashed_grey = `#CFD2D7`;
 
 export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
     font-family:'Elice-R' ,'Gothic-R', 'sans-serif';
+    color: ${black};
   }
 
   body {
@@ -34,7 +35,7 @@ export const DashLineHorizontal = styled.hr`
   width: 100%;
   height: 1px;
   border: none;
-  border-top: 2px dotted ${dashed_grey} ;
+  border-top: 2px dotted ${grey_400} ;
 `;
 
 

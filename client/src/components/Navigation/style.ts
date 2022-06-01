@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { grey_400 } from "../colors";
 
 export const NavBar = styled.header`
   position: relative;
@@ -8,8 +9,7 @@ export const NavBar = styled.header`
   left: 0px;
   width: 318px;
   height: 100vh;
-  margin: 0;
-  flex: 0 0 25%;
+  margin-right: 128px;
 
   ul {
     list-style: none;
@@ -34,18 +34,31 @@ export const NavBar = styled.header`
   }
 `;
 
-export const NavLogo = styled.p`
-  font-size: 20px;
-  content: url("http://drive.google.com/uc?export=view&id=1PnKUOUlXYTwNhzU2l6uI6FHnLg-WYAOD");
+export const NavLogo = styled.div`
+  width: 100%;
+  > div {
+    position: unset !important;
+  }
+
+  img {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+  }
+  //content: url("http://drive.google.com/uc?export=view&id=1PnKUOUlXYTwNhzU2l6uI6FHnLg-WYAOD");
   @media (max-width: 480px) {
     display: inline-block;
     font-size: 14px;
-    content: url("http://drive.google.com/uc?export=view&id=1E3Cbxq2LsGkhirQGlXWsjsChkUfZNbK1");
+    //content: url("http://drive.google.com/uc?export=view&id=1E3Cbxq2LsGkhirQGlXWsjsChkUfZNbK1");
   }
 `;
 
 export const NavDesc = styled.p`
-  font-size: 14px;
+  width: 100%;
+  text-align: center;
+  font-family: "Gothic-R", sans-serif;
+  font-size: 16px;
   @media (max-width: 480px) {
     display: none;
   }
@@ -61,7 +74,7 @@ export const NavButton = styled.button`
   border: none;
   background-color: white;
   span {
-    top: -2px;
+    font-size: 1.5rem;
   }
   @media (max-width: 480px) {
     span {
