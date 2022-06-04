@@ -1,54 +1,80 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import styled from "styled-components";
-import { NavBar, NavButton, NavDesc, NavLogo } from "./style";
-import { DashLineHorizontal } from "../globalStyle";
+import { NavBar, NavButton, NavDesc, NavLogo, NavButtons } from "./style";
 import Image from "next/image";
+import iconTag from "../../assets/images/ic_tag_default.svg";
+import iconName from "../../assets/images/ic_name_default.svg";
+import iconSettings from "../../assets/images/ic_settings_default.svg";
+import iconTagMobile from "../../assets/images/ic_tag_mobile.svg";
+import iconNameMobile from "../../assets/images/ic_name_mobile.svg";
+import iconSettingsMobile from "../../assets/images/ic_settings_mobile.svg";
+import logoLg from "../../assets/images/logo_lg.svg";
+import logoSm from "../../assets/images/logo_sm.svg";
+import logoBistro from "../../assets/images/logo_bistro.svg";
+import { useRecoilState } from "recoil";
+import { windowWideState } from "./atom";
 
 export default function Navigation() {
+  const [width, setWidth] = useState(0);
+  const [isWide, setIsWide] = useRecoilState(windowWideState);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+      setIsWide(width > 480);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [width]);
+
   return (
     <NavBar>
-      <NavLogo>
-        <Image src="/" alt="Logo" width="288" height="100" />
-      </NavLogo>
-      
-      <NavDesc>Before memorizing the names and shapes of 10,000 fonts, I'm glad we were able to create this site.</NavDesc>
-      <DashLineHorizontal />
-      <ul>
+      <Link href="/" passHref>
+        <Image src={isWide ? logoLg : logoSm} alt="Logo" className="logo" />
+      </Link>
+      <NavDesc>
+        Before memorizing the names and
+        <br />
+        shapes of 10,000 fonts,
+        <br />
+        I&apos;m glad we were able to create this site.
+      </NavDesc>
+
+      <NavButtons>
         <li>
-          <Link href="/" passHref>
+          <Link href="/admin/font-tag" passHref>
             <NavButton>
-              H<span>ome</span>
+              <span>Settings</span>
+              <Image src={isWide ? iconSettings : iconSettingsMobile} alt="icon-settings" />
             </NavButton>
           </Link>
-          <DashLineHorizontal />
         </li>
         <li>
           <Link href="/search/tag/" passHref>
             <NavButton>
-              Tag<span>Search</span>
+              <span>Tag Search</span>
+              <Image src={isWide ? iconTag : iconTagMobile} alt="icon-tag" />
             </NavButton>
           </Link>
-          <DashLineHorizontal />
         </li>
         <li>
           <Link href="/search/font/" passHref>
             <NavButton>
-              Font<span>Search</span>
+              <span>Name Search</span>
+              <Image src={isWide ? iconName : iconNameMobile} alt="icon-name" className="nav-icon" />
             </NavButton>
           </Link>
-          <DashLineHorizontal />
         </li>
         <li>
-          <Link href="/admin/font-tag" passHref>
-            <NavButton>
-              관리자<span>페이지</span>
-            </NavButton>
-          </Link>
-          <DashLineHorizontal />
+          <Image src={logoBistro} alt="logo-bistro" />
         </li>
-        <li>bistro logo</li>
-      </ul>
+      </NavButtons>
     </NavBar>
   );
 }
