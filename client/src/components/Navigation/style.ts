@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { grey_300, grey_400, black } from "../colors";
+import { grey_300, grey_400, black } from "../../common/colors";
 
 export const NavBar = styled.header`
   position: relative;
