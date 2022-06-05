@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import styled from "styled-components";
 import back from "../../assets/images/ic_back.svg";
 
 import { GET_TAGS } from "./gql";
