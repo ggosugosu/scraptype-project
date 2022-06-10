@@ -6,7 +6,9 @@ import { GET_TAGS } from "./gql";
 import { useQuery } from "@apollo/client";
 import SearchTagItem from "../../features/SearchTagItem";
 
-import { Title, SearchTagWrapper, Container } from "./style";
+import { Title, SearchTagWrapper, Container, ButtonContainer } from "./style";
+import { ButtonNegative } from "../../common/globalStyle";
+import { ButtonPositive, Sample } from "../../common/svgs";
 interface Props {
   title: String;
 }
@@ -36,9 +38,6 @@ export default function SearchTag() {
   }, [selectedList]);
 
   const selectedTag = (item: TagType) => {
-    console.log("selected");
-    console.log(`${JSON.stringify(item.id)}`);
-    console.log(`${selectedList.some((e) => e.id === item.id)}`);
     if (selectedList.some((e) => e.id === item.id)) setSelectedList((props) => props.filter((p) => p.id !== item.id));
     else setSelectedList((props) => [...props, item]);
   };
@@ -59,7 +58,7 @@ export default function SearchTag() {
         ))}
       </SearchTagWrapper>
       <Container>
-        {selectedList.length == 0 ? (
+        {selectedList.length === 0 ? (
           <span>
             Choose the tags for
             <br />
@@ -71,6 +70,10 @@ export default function SearchTag() {
           <span>{selectedList.map((item) => item.name).join(", ")}</span>
         )}
       </Container>
+      <ButtonContainer>
+        <ButtonNegative enabled={true}>CLEAR</ButtonNegative>
+        <ButtonPositive enabled={selectedList.length !== 0}>NEXT</ButtonPositive>
+      </ButtonContainer>
     </>
   );
 }

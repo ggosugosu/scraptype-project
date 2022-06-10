@@ -44,3 +44,11 @@ export const Container = styled.div`
     color: ${grey_300};
   }
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+`;
