@@ -72,7 +72,7 @@ export default function SearchTag() {
       </Container>
       <ButtonContainer>
         <ButtonNegative enabled={true}>CLEAR</ButtonNegative>
-        <ButtonPositive enabled={selectedList.length !== 0}>NEXT</ButtonPositive>
+        <ButtonPositive enabled={selectedList.length !== 0} text="SEARCH" />
       </ButtonContainer>
     </>
   );
