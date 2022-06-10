@@ -44,6 +44,10 @@ export default function SearchTag() {
 
   if (loading || error) return null;
 
+  const resetSelectedTag = () => {
+    setSelectedList([]);
+  }
+
   return (
     <>
       <PageTitle title="Search Tag" />
@@ -71,8 +75,8 @@ export default function SearchTag() {
         )}
       </Container>
       <ButtonContainer>
-        <ButtonNegative enabled={true}>CLEAR</ButtonNegative>
-        <ButtonPositive enabled={selectedList.length !== 0} text="SEARCH" />
+        <ButtonNegative enabled={true} onClick={resetSelectedTag}>CLEAR</ButtonNegative>
+        <ButtonPositive enabled={selectedList.length !== 0} text="SEARCH" onClick={resetSelectedTag} />
       </ButtonContainer>
     </>
   );

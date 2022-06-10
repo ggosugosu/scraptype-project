@@ -23,11 +23,12 @@ const ButtonPositiveWrapper = styled.button`
 interface buttonProps {
   enabled: boolean;
   text: string;
+  onClick: () => void;
 }
 
 export const ButtonPositive = (props: buttonProps) => {
   return (
-    <ButtonPositiveWrapper disabled={!props.enabled}>
+    <ButtonPositiveWrapper disabled={!props.enabled} onClick={props.onClick}>
       <Image src={ButtonSVG} alt="buttonPositive" width="184" height="60" className={props.enabled ? `filter_black` : `filter_grey_300`} />
       <div>{props.text}</div>
     </ButtonPositiveWrapper>
