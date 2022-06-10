@@ -23,7 +23,7 @@ const ButtonPositiveWrapper = styled.button`
 interface buttonProps {
   enabled: boolean;
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const ButtonPositive = (props: buttonProps) => {

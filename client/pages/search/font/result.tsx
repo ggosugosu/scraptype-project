@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function FontListPage() {
+export default function FontResultPage() {
   return (
     <div>Font List</div>
   )

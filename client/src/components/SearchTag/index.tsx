@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import back from "../../assets/images/ic_back.svg";
+import Link from "next/link";
 
 import { GET_TAGS } from "./gql";
 import { useQuery } from "@apollo/client";
@@ -8,7 +9,7 @@ import SearchTagItem from "../../features/SearchTagItem";
 
 import { Title, SearchTagWrapper, Container, ButtonContainer } from "./style";
 import { ButtonNegative } from "../../common/globalStyle";
-import { ButtonPositive, Sample } from "../../common/svgs";
+import { ButtonPositive } from "../../common/svgs";
 interface Props {
   title: String;
 }
@@ -37,6 +38,8 @@ export default function SearchTag() {
     });
   }, [selectedList]);
 
+  
+  // 버튼 핸들러
   const selectedTag = (item: TagType) => {
     if (selectedList.some((e) => e.id === item.id)) setSelectedList((props) => props.filter((p) => p.id !== item.id));
     else setSelectedList((props) => [...props, item]);
@@ -46,7 +49,7 @@ export default function SearchTag() {
 
   const resetSelectedTag = () => {
     setSelectedList([]);
-  }
+  };
 
   return (
     <>
@@ -75,8 +78,18 @@ export default function SearchTag() {
         )}
       </Container>
       <ButtonContainer>
-        <ButtonNegative enabled={true} onClick={resetSelectedTag}>CLEAR</ButtonNegative>
-        <ButtonPositive enabled={selectedList.length !== 0} text="SEARCH" onClick={resetSelectedTag} />
+        <ButtonNegative enabled={true} onClick={resetSelectedTag}>
+          CLEAR
+        </ButtonNegative>
+        <Link
+          href={{
+            pathname: "/search/tag/result",
+            query: { tags: `${selectedList.map((item) => item.id)}` },
+          }}
+          passHref
+        >
+          <ButtonPositive enabled={selectedList.length !== 0} text="SEARCH" />
+        </Link>
       </ButtonContainer>
     </>
   );
