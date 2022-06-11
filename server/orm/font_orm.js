@@ -41,7 +41,7 @@ const fontORM = {
           ],
           where: {
             tag_id: {
-              [Op.and]: tag_ids,
+              [Op.in]: tag_ids,
             },
           },
         },
