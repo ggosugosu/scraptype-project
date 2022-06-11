@@ -32,9 +32,10 @@ const typeDefs = gql`
   type Query {
     getFont(id: Int!): Font
     getFontAll: [Font!]!
+    getFontsByTagId(tag_ids: [Int]): [Font]
     getTagAll: [Tag!]!
     getFontTagAll: [FontTag]
-    getFontTags(tag_ids: [String]): [FontTag]
+    getFontTags(tag_ids: [Int]): [FontTag]
   }
 
   type Mutation {
@@ -46,6 +47,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     getFontAll: () => fontORM.getFontAll(),
+    getFontsByTagId: (_, { tag_ids }) => fontORM.getFontsByTagId({ tag_ids }),
     getTagAll: () => tagORM.getTagAll(),
     getFontTagAll: () => fontTagORM.getFontTagAll(),
     getFontTags: (_, { tag_ids }) => fontTagORM.getFontTags({ tag_ids }),

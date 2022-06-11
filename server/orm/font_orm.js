@@ -1,4 +1,5 @@
 const { Font, FontTag, Tag } = require("../models/index");
+const { Op } = require("sequelize");
 
 const fontORM = {
   getFontAll: () => {
@@ -21,10 +22,33 @@ const fontORM = {
 
   getFont: async (_, args) => {
     await context.Font.findOne();
-    console.log(args);
     const { id } = args;
     const resultData = await Font.findOne({ where: { id: id } });
     return resultData;
+  },
+  
+  getFontsByTagId: ({ tag_ids }) => {
+    const newFontTags = Font.findAll({
+      include: [
+        {
+          model: FontTag,
+          as: "fontTags",
+          include: [
+            {
+              model: Tag,
+              as: "tags",
+            },
+          ],
+          where: {
+            tag_id: {
+              [Op.or]: tag_ids,
+            },
+          },
+        },
+      ],
+    });
+
+    return newFontTags;
   },
 
   createFont: async (_, { name, description }) => {

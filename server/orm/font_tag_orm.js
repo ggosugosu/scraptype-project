@@ -1,8 +1,6 @@
 const { ApolloError } = require("apollo-server-micro");
-const { Op } = require("sequelize");
-const font = require("../models/font");
 const { FontTag, Font, Tag } = require("../models/index");
-const tag = require("../models/tag");
+const { Op } = require("sequelize");
 
 const fontTagORM = {
   getFontTagAll: () =>
@@ -20,8 +18,6 @@ const fontTagORM = {
     }).then((data) => data),
 
   getFontTags: ({ tag_ids }) => {
-    console.log(tag_ids);
-    console.log(`${typeof (tag_ids)}`);
     const newFontTags = FontTag.findAll({
       where: {
         tag_id: {
