@@ -1,7 +1,12 @@
 import React from 'react'
 
-export default function index() {
+interface Props {
+  keywords: String
+} 
+const toArray = (keywords: String) => keywords.split(',');
+
+export default function index(props: Props) {
   return (
-    <div>index</div>
+    <div></div>
   )
 }

@@ -1,4 +1,3 @@
-//import {fontORM} from './orm/font_orm.js';
 const express = require("express");
 const app = express();
 const PORT = 3200;
@@ -35,6 +34,7 @@ const typeDefs = gql`
     getFontAll: [Font!]!
     getTagAll: [Tag!]!
     getFontTagAll: [FontTag]
+    getFontTags(tag_ids: [String]): [FontTag]
   }
 
   type Mutation {
@@ -47,7 +47,8 @@ const resolvers = {
   Query: {
     getFontAll: () => fontORM.getFontAll(),
     getTagAll: () => tagORM.getTagAll(),
-    getFontTagAll: () => fontTagORM.getFontTagAll()
+    getFontTagAll: () => fontTagORM.getFontTagAll(),
+    getFontTags: (_, { tag_ids }) => fontTagORM.getFontTags({ tag_ids }),
   },
   Mutation: {
     createFontTag: (_, { font_id, tag_id }) => {
@@ -57,7 +58,6 @@ const resolvers = {
       return fontTagORM.deleteFontTag({ id });
     },
   },
-
 };
 
 const server = new ApolloServer({ typeDefs, resolvers });
