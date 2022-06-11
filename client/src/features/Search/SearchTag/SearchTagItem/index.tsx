@@ -8,7 +8,8 @@ interface Props {
 }
 
 const Item = styled.button<{ selected: Boolean }>`
-  display: inline-block;
+  display: inline-flex;
+  align-items: flex-end;
   height: 28px;
   margin: 6px 8px;
   font-size: 20px;
