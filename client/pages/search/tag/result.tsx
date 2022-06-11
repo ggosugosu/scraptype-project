@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import SearchResult from 'features/Search/SearchResult';
 
 export default function TagResultPage() {
   const router = useRouter();
@@ -7,6 +8,6 @@ export default function TagResultPage() {
 
   console.log(`${typeof(tags)}`);
   return (
-    <div>Tag List: {tags}</div>
+    <SearchResult keywords={typeof(tags) === "string" ? tags : ""} />
   )
 }
