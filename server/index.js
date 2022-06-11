@@ -34,6 +34,7 @@ const typeDefs = gql`
     getFontAll: [Font!]!
     getFontsByTagId(tag_ids: [Int]): [Font]
     getTagAll: [Tag!]!
+    getTagsByTagId(tag_ids: [Int]): [Tag]
     getFontTagAll: [FontTag]
     getFontTags(tag_ids: [Int]): [FontTag]
   }
@@ -49,6 +50,7 @@ const resolvers = {
     getFontAll: () => fontORM.getFontAll(),
     getFontsByTagId: (_, { tag_ids }) => fontORM.getFontsByTagId({ tag_ids }),
     getTagAll: () => tagORM.getTagAll(),
+    getTagsByTagId: (_, {tag_ids}) => tagORM.getTagsByTagId({tag_ids}),
     getFontTagAll: () => fontTagORM.getFontTagAll(),
     getFontTags: (_, { tag_ids }) => fontTagORM.getFontTags({ tag_ids }),
   },

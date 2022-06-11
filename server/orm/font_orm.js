@@ -26,7 +26,7 @@ const fontORM = {
     const resultData = await Font.findOne({ where: { id: id } });
     return resultData;
   },
-  
+
   getFontsByTagId: ({ tag_ids }) => {
     const newFontTags = Font.findAll({
       include: [
@@ -41,7 +41,7 @@ const fontORM = {
           ],
           where: {
             tag_id: {
-              [Op.or]: tag_ids,
+              [Op.and]: tag_ids,
             },
           },
         },
