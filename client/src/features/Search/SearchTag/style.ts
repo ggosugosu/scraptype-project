@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { black, grey_300 } from "../../common/colors";
+import { black, grey_300 } from "../../../common/colors";
 
 export const Title = styled.header`
   display: flex;

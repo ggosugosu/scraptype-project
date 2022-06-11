@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { main_light } from "../../common/colors";
+import { main_light } from "../../../../common/colors";
 interface Props {
   name: String;
   selected: Boolean;

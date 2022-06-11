@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import back from "../../assets/images/ic_back.svg";
+import back from "assets/images/ic_back.svg";
 import Link from "next/link";
 
 import { GET_TAGS } from "./gql";
 import { useQuery } from "@apollo/client";
-import SearchTagItem from "../../features/SearchTagItem";
+import SearchTagItem from "features/Search/SearchTag/SearchTagItem";
 
 import { Title, SearchTagWrapper, Container, ButtonContainer } from "./style";
-import { ButtonNegative } from "../../common/globalStyle";
-import { ButtonPositive } from "../../common/svgs";
+import { ButtonNegative, ButtonPositive } from "components/Button";
+
 interface Props {
   title: String;
 }
@@ -38,7 +38,6 @@ export default function SearchTag() {
     });
   }, [selectedList]);
 
-  
   // 버튼 핸들러
   const selectedTag = (item: TagType) => {
     if (selectedList.some((e) => e.id === item.id)) setSelectedList((props) => props.filter((p) => p.id !== item.id));

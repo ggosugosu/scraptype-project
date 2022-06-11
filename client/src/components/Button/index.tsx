@@ -1,7 +1,9 @@
+
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import ButtonSVG from "../assets/images/ic_button.svg";
+import ButtonSVG from "assets/images/ic_button.svg";
+import { grey_200, grey_100 } from "common/colors";
 
 const ButtonPositiveWrapper = styled.button`
   position: relative;
@@ -34,3 +36,12 @@ export const ButtonPositive = (props: buttonProps) => {
     </ButtonPositiveWrapper>
   );
 };
+
+export const ButtonNegative = styled.button<{ enabled: Boolean }>`
+width: auto;
+height: 60px;
+padding: 8px 24px;
+font-family: "Gothic-M", sans-serif;
+font-size: 20px;
+color: ${({ enabled }) => (enabled ? grey_200 : grey_100)};
+`;

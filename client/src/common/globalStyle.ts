@@ -41,18 +41,3 @@ export const DashLineHorizontal = styled.hr`
   border: none;
   border-top: 2px dotted ${grey_400};
 `;
-
-
-/**
- * Button
- */
-
-
-export const ButtonNegative = styled.button<{ enabled: Boolean }>`
-  width: auto;
-  height: 60px;
-  padding: 8px 24px;
-  font-family: "Gothic-M", sans-serif;
-  font-size: 20px;
-  color: ${({ enabled }) => (enabled ? grey_200 : grey_100)};
-`;

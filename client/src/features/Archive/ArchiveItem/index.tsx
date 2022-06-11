@@ -1,6 +1,6 @@
 import styled, { withTheme } from "styled-components";
 import React, { useEffect, useState } from "react";
-import { getSvgUrl } from "../utils"
+import { getSvgUrl } from "../../utils"
 
 interface ItemColor {
   text: string;

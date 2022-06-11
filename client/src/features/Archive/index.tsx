@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import ArchiveItem from "../../features/ArchiveItem";
+import ArchiveItem from "./ArchiveItem";
 import logo from "../../assets/images/logo_no_icon.svg";
 import logoBistro from "../../assets/images/logo_bistro.svg";
 import { grey_200 } from "../../common/colors";
