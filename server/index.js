@@ -50,7 +50,7 @@ const resolvers = {
     getFontAll: () => fontORM.getFontAll(),
     getFontsByTagId: (_, { tag_ids }) => fontORM.getFontsByTagId({ tag_ids }),
     getTagAll: () => tagORM.getTagAll(),
-    getTagsByTagId: (_, {tag_ids}) => tagORM.getTagsByTagId({tag_ids}),
+    getTagsByTagId: (_, { tag_ids }) => tagORM.getTagsByTagId({ tag_ids }),
     getFontTagAll: () => fontTagORM.getFontTagAll(),
     getFontTags: (_, { tag_ids }) => fontTagORM.getFontTags({ tag_ids }),
   },

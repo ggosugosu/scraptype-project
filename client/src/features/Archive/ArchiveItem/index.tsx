@@ -22,7 +22,7 @@ const charBoxSVG = function (color: string) {
 }
 
 const CharBox = styled.button<{ selectedColor: ItemColor }>`
-position: relative;
+  position: relative;
   width: 200px;
   height: 200px;
   color: ${({ selectedColor }) => selectedColor.text || "gray"};

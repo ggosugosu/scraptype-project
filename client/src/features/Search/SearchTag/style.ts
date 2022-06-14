@@ -38,7 +38,7 @@ export const Container = styled.div`
   height: 228px;
 
   span {
-    font-family: "Gothic-L", sans-serif;
+    font-family: "Elice-R", "Gothic-L", sans-serif;
     font-size: 44px;
     line-height: 55px;
     color: ${grey_300};
