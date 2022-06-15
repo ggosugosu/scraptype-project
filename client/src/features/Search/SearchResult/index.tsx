@@ -10,6 +10,14 @@ interface Props {
   keywords: string;
 }
 
+const TagsWrapper = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px;
+  width: 100%;
+  height: 90px;
+`
+
 const ResultsWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
