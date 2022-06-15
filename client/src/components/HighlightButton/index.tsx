@@ -7,7 +7,7 @@ interface Props {
   onClick?: () => void;
 }
 
-export default function HighlightedButton({ name, selected, onClick }: Props) {
+export default function HighlightButton({ name, selected, onClick }: Props) {
   return (
     <Item selected={selected} fixed={onClick === null} onClick={onClick}>
       {name}

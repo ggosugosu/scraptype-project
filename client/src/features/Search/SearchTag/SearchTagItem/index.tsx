@@ -1,5 +1,5 @@
 import React from "react";
-import HighlightedButton from "components/HighlightedButton";
+import HighlightButton from "components/HighlightButton";
 interface Props {
   name: String;
   selected: Boolean;
@@ -7,5 +7,5 @@ interface Props {
 }
 
 export default function SearchTagItem({ name, selected, onClick }: Props) {
-  return <HighlightedButton name={name} selected={selected} onClick={onClick} />;
+  return <HighlightButton name={name} selected={selected} onClick={onClick} />;
 }
