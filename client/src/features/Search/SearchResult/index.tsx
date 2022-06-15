@@ -5,6 +5,7 @@ import { GET_FONTS_BY_TAG_ID, GET_TAGS_BY_TAG_ID } from "./gql";
 import styled from "styled-components";
 import SearchResultItem from "./SearchResultItem";
 import PageTitle from "components/PageTitle";
+import HighlightButton from "components/HighlightButton";
 
 interface Props {
   keywords: string;
@@ -16,7 +17,7 @@ const TagsWrapper = styled.div`
   gap: 8px;
   width: 100%;
   height: 90px;
-`
+`;
 
 const ResultsWrapper = styled.div`
   display: flex;
@@ -55,5 +56,5 @@ const TagContainer = (props: Props) => {
   if (loading) return <div>loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  return <>{data && data.getTagsByTagId.map((tag) => <div key={tag.id}>{tag.name}</div>)}</>;
+  return <TagsWrapper>{data && data.getTagsByTagId.map((tag) => <HighlightButton key={tag.id} name={tag.name} selected={true} />)}</TagsWrapper>;
 };

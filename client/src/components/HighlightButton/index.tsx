@@ -9,7 +9,7 @@ interface Props {
 
 export default function HighlightButton({ name, selected, onClick }: Props) {
   return (
-    <Item selected={selected} fixed={onClick === null} onClick={onClick}>
+    <Item selected={selected} fixed={!onClick} onClick={onClick}>
       {name}
     </Item>
   );
