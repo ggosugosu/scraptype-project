@@ -1,2 +1,2 @@
-# scraptype-project
+# tagtype-project
 Toy project by Team bistro
