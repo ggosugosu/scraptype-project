@@ -1,20 +1,6 @@
 import styled from "styled-components";
 import { black, grey_300 } from "../../../common/colors";
 
-export const Title = styled.header`
-  display: flex;
-  flex: row wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
-  height: 48px;
-
-  span {
-    font-family: "Gothic-M";
-    font-size: 32px;
-  }
-`;
-
 export const SearchTagWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;

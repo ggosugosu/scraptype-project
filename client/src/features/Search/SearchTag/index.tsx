@@ -1,33 +1,22 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import back from "assets/images/ic_back.svg";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 import { GET_TAGS } from "./gql";
 import { useQuery } from "@apollo/client";
 import SearchTagItem from "features/Search/SearchTag/SearchTagItem";
 
-import { Title, SearchTagWrapper, Container, ButtonContainer } from "./style";
+import { SearchTagWrapper, Container, ButtonContainer } from "./style";
 import { ButtonNegative, ButtonPositive } from "components/Button";
+import PageTitle from "components/PageTitle";
 
-interface Props {
-  title: String;
-}
 interface TagType {
   id: Number;
   name: String;
 }
 
-function PageTitle(props: Props) {
-  return (
-    <Title>
-      <Image src={back} alt="back" />
-      <span>{props.title}</span>
-    </Title>
-  );
-}
-
 export default function SearchTag() {
+  const router = useRouter();
   const { loading, error, data } = useQuery(GET_TAGS);
   const [selectedList, setSelectedList] = useState<TagType[]>([]);
 
@@ -52,7 +41,7 @@ export default function SearchTag() {
 
   return (
     <>
-      <PageTitle title="Search Tag" />
+      <PageTitle title="Search Tag" onClick={() => router.push("/")} />
       <SearchTagWrapper>
         {data.getTagAll.map((value) => (
           <SearchTagItem
@@ -80,15 +69,16 @@ export default function SearchTag() {
         <ButtonNegative enabled={true} onClick={resetSelectedTag}>
           CLEAR
         </ButtonNegative>
-        <Link
-          href={{
-            pathname: "/search/tag/result",
-            query: { tags: `${selectedList.map((item) => item.id)}` },
-          }}
-          passHref
-        >
-          <ButtonPositive enabled={selectedList.length !== 0} text="SEARCH" />
-        </Link>
+        <ButtonPositive
+          enabled={selectedList.length !== 0}
+          text="SEARCH"
+          onClick={() =>
+            router.push({
+              pathname: "/search/tag/result",
+              query: { tags: `${selectedList.map((item) => item.id)}` },
+            })
+          }
+        />
       </ButtonContainer>
     </>
   );

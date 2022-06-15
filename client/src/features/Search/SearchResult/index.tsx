@@ -1,8 +1,10 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
+import { useRouter } from "next/router";
 import { GET_FONTS_BY_TAG_ID, GET_TAGS_BY_TAG_ID } from "./gql";
 import styled from "styled-components";
 import SearchResultItem from "./SearchResultItem";
+import PageTitle from "components/PageTitle";
 
 interface Props {
   keywords: string;
@@ -20,6 +22,7 @@ const ResultsWrapper = styled.div`
 const toArray = (keywords: string) => keywords.split(",").map(Number);
 
 export default function SearchResult(props: Props) {
+  const router = useRouter();
   const { loading, error, data } = useQuery(GET_FONTS_BY_TAG_ID, { variables: { tag_ids: toArray(props.keywords) } });
 
   if (loading) return <div>loading...</div>;
@@ -27,6 +30,7 @@ export default function SearchResult(props: Props) {
 
   return (
     <>
+      <PageTitle title={`(${data.getFontsByTagId.length}) results for`} onClick={() => router.back()} />
       <TagContainer keywords={props.keywords} />
       {data &&
         data.getFontsByTagId.map((font, index) => (
