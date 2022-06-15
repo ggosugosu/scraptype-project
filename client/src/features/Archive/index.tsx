@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import ArchiveItem from "./ArchiveItem";
-import logo from "../../assets/images/logo_no_icon.svg";
-import logoBistro from "../../assets/images/logo_bistro.svg";
-import { grey_200 } from "../../common/colors";
+import logo from "assets/images/logo_no_icon.svg";
+import logoBistro from "assets/images/logo_bistro.svg";
+import { grey_200 } from "common/colors";
 const sampleList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const ArchiveWrapper = styled.div`
   display: inline-flex;

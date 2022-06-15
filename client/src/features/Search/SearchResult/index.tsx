@@ -17,6 +17,8 @@ const TagsWrapper = styled.div`
   gap: 8px;
   width: 100%;
   height: 90px;
+  margin-top: 24px;
+  padding: 6px 8px;
 `;
 
 const ResultsWrapper = styled.div`
