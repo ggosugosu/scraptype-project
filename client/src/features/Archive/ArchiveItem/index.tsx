@@ -5,7 +5,7 @@ import InjectFontFace from "components/InjectFontFace";
 import ArchiveSVG from "assets/images/ic_archive.svg";
 import ArchiveBarcodeSVG from "assets/images/ic_archive_barcode.svg";
 import { charList, colorList, ItemColor } from "./models";
-import { CharBox } from "./styled";
+import { CharBox } from "./style";
 interface Props {
   id: number;
   name: string;
