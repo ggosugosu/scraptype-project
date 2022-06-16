@@ -1,4 +1,4 @@
-import Archive from "../src/components/Archive";
+import Archive from "features/Archive";
 
 const Main = (props) => {
   return <Archive />;

@@ -39,7 +39,7 @@ export default function FontTagTable() {
   const { data, error, loading } = useQuery(GET_FONT_TAG_ALL);
 
   if (loading) return <div>Loading</div>;
-  if (error) return <div>잘못된 데이터입니다.</div>;
+  if (error) return <div>잘못된 데이터입니다. {error.message}</div>;
   return (
     <table>
       <thead>

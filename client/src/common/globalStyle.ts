@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
-import { grey_400, black } from "./colors";
+import { white, grey_400, black, grey_300, grey_200, grey_100 } from "./colors";
+import { getSvgUrl } from "../features/utils";
 
 
 export const GlobalStyle = createGlobalStyle`
@@ -38,7 +39,5 @@ export const DashLineHorizontal = styled.hr`
   width: 100%;
   height: 1px;
   border: none;
-  border-top: 2px dotted ${grey_400} ;
+  border-top: 2px dotted ${grey_400};
 `;
-
-

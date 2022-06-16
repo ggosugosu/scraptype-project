@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { CREATE_FONT_TAG, GET_FONT, GET_TAG } from "../CreateFontTag/gql";
+import { CREATE_FONT_TAG, GET_FONT, GET_TAG } from "./gql";
 import { useRecoilState } from "recoil";
 import { fontIdState, tagIdState } from "./atom";
 import { useMutation } from "@apollo/react-hooks";
