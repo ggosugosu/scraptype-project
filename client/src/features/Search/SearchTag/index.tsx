@@ -32,7 +32,7 @@ export default function SearchTag() {
     else setSelectedList((props) => [...props, item]);
   };
 
-  if (loading || error) return null;
+  if (!router.isReady || loading || error) return null;
 
   const resetSelectedTag = () => {
     setSelectedList([]);
