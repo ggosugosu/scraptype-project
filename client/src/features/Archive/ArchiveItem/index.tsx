@@ -4,12 +4,14 @@ import Image from "next/image";
 import { filterFontFamily, getSvgUrl } from "features/utils";
 import InjectFontFace from "components/InjectFontFace";
 import ArchiveSVG from "assets/images/ic_archive.svg";
-import { black, cerulean, hot_pink, java, texas_rose, torea_bay, turbo, white } from "common/colors";
-import { StringDecoder } from "string_decoder";
+import ArchiveBarcodeSVG from "assets/images/ic_archive_barcode.svg";
+import { black, torea_bay, white } from "common/colors";
+
 
 interface ItemColor {
   text: string;
   background: string;
+  barcode: string;
 }
 
 interface Props {
@@ -29,12 +31,12 @@ export interface WebFont {
 const charList = ["담", "삭", "영", "벗", "만", "리", "재", "굿", "비", "스", "트", "로"];
 
 const colorList: ItemColor[] = [
-  { text: `${black}`, background: "texas_rose" },
-  { text: `${white}`, background: "hot_pink" },
-  { text: `${white}`, background: "torea_bay" },
-  { text: `${white}`, background: "cerulean" },
-  { text: `${torea_bay}`, background: "java" },
-  { text: `${torea_bay}`, background: "turbo" },
+  { text: `${black}`, background: "texas_rose", barcode: "black" },
+  { text: `${white}`, background: "hot_pink", barcode: "white" },
+  { text: `${white}`, background: "torea_bay", barcode: "white" },
+  { text: `${white}`, background: "cerulean", barcode: "white" },
+  { text: `${torea_bay}`, background: "java", barcode: "torea_bay" },
+  { text: `${torea_bay}`, background: "turbo", barcode: "torea_bay" },
 ];
 
 const CharBox = styled.button<{ selectedColor: ItemColor; fontFamily: string }>`
@@ -43,12 +45,18 @@ const CharBox = styled.button<{ selectedColor: ItemColor; fontFamily: string }>`
   height: 168px;
   span {
     position: relative;
-    top: 0;
+    top: 5px;
     left: 0;
     font-family: ${({ fontFamily }) => fontFamily}, sans-serif;
     font-size: 100px;
     line-height: 90px;
     color: ${({ selectedColor }) => selectedColor.text || "gray"};
+  }
+
+  .barcode_wrapper {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
   }
 
   @media (max-width: 480px) {
@@ -73,6 +81,9 @@ export default function ArchiveItem({ id, name, description, corporation, tags, 
       <CharBox selectedColor={color} fontFamily={webFonts.length !== 0 ? filterFontFamily(webFonts[0].source) : ""}>
         <Image alt="button-text" src={ArchiveSVG} layout="fill" className={`filter_${color.background}`} />
         <span>{char}</span>
+        <div className="barcode_wrapper">
+        <Image alt="button-barcode" src={ArchiveBarcodeSVG} width="36" height="36" className={`filter_${color.barcode}`} />
+        </div>
       </CharBox>
     </>
   );

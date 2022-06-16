@@ -1,11 +1,11 @@
 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1 16H0V36H1V16Z" fill="#313338"/>
-<path d="M10 16H3V36H10V16Z" fill="#313338"/>
-<path d="M13 16H12V36H13V16Z" fill="#313338"/>
-<path d="M16 16H15V36H16V16Z" fill="#313338"/>
-<path d="M19 16H18V36H19V16Z" fill="#313338"/>
-<path d="M24 16H21V36H24V16Z" fill="#313338"/>
-<path d="M28 16H26V36H28V16Z" fill="#313338"/>
-<path d="M33 16H30V36H33V16Z" fill="#313338"/>
-<path d="M36 16H35V36H36V16Z" fill="#313338"/>
+<path d="M1 16H0V36H1V16Z" fill="#000000"/>
+<path d="M10 16H3V36H10V16Z" fill="#000000"/>
+<path d="M13 16H12V36H13V16Z" fill="#000000"/>
+<path d="M16 16H15V36H16V16Z" fill="#000000"/>
+<path d="M19 16H18V36H19V16Z" fill="#000000"/>
+<path d="M24 16H21V36H24V16Z" fill="#000000"/>
+<path d="M28 16H26V36H28V16Z" fill="#000000"/>
+<path d="M33 16H30V36H33V16Z" fill="#000000"/>
+<path d="M36 16H35V36H36V16Z" fill="#000000"/>
 </svg>
