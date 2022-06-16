@@ -36,7 +36,7 @@ export default function SearchResult(props: Props) {
   const router = useRouter();
   const { loading, error, data } = useQuery(GET_FONTS_BY_TAG_ID, { variables: { tag_ids: toArray(props.keywords) } });
 
-  if (loading) return <div>loading...</div>;
+  if (!router.isReady || loading) return <div>loading...</div>;
   if (error) return <div>{error.message}</div>;
 
   return (
