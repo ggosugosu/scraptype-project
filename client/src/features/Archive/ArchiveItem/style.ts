@@ -19,12 +19,16 @@ span {
   position: absolute;
   left: 16px;
   bottom: 16px;
+  width: 36px;
+  height: 36px;
 }
 
 @media (max-width: 480px) {
   flex: 0 1 calc(50vw - 20px);
   height: calc(50vw - 20px);
-  background-size: contain;
-  background-repeat: no-repeat;
+  
+  span {
+    top: 0;
+  }
 }
 `;
