@@ -15,12 +15,16 @@ const sequelize = new Sequelize(
 const Font = require("./font")(sequelize, Sequelize);
 const Tag = require("./tag")(sequelize, Sequelize);
 const FontTag = require("./font_tag")(sequelize, Sequelize);
+const WebFont = require("./web_font")(sequelize, Sequelize);
 
 
 // Association
 Font.hasMany(FontTag, {targetKey: 'id', foreignKey: 'font_id', as: 'fontTags'});
+Font.hasMany(WebFont, {targetKey: 'id', foreignKey: 'font_id', as: 'webFonts'});
 Tag.hasMany(FontTag);
 FontTag.belongsTo(Font, {foreignKey: 'font_id', as: 'fonts'});
 FontTag.belongsTo(Tag, {foreignKey: 'tag_id', as: 'tags'});
+WebFont.belongsTo(Font, {foreignKey: 'font_id', as: 'font'});
 
-module.exports = {sequelize, Sequelize, Font, Tag, FontTag};
+
+module.exports = {sequelize, Sequelize, Font, Tag, FontTag, WebFont};
