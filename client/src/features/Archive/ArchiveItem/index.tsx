@@ -2,6 +2,7 @@ import styled, { withTheme } from "styled-components";
 import React, { useEffect, useState } from "react";
 import { filterFontFamily, getSvgUrl } from "features/utils";
 import InjectFontFace from "components/InjectFontFace";
+import { black, cerulean, hot_pink, java, texas_rose, torea_bay, turbo, white } from "common/colors";
 import { StringDecoder } from "string_decoder";
 
 interface ItemColor {
@@ -23,14 +24,15 @@ export interface WebFont {
   source: string;
 }
 
-const charList = ["가", "나", "다", "라", "마", "바", "사", "아", "자", "차", "카", "타", "파", "하"];
+const charList = ["담", "삭", "영", "벗", "만", "리", "재", "굿", "비", "스", "트", "로"];
 
 const colorList: ItemColor[] = [
-  { text: "white", background: "purple" },
-  { text: "black", background: "yellow" },
-  { text: "white", background: "red" },
-  { text: "white", background: "blue" },
-  { text: "black", background: "pink" },
+  { text: `${black}`, background: `${texas_rose}` },
+  { text: `${white}`, background: `${hot_pink}` },
+  { text: `${white}`, background: `${torea_bay}` },
+  { text: `${white}`, background: `${cerulean}` },
+  { text: `${torea_bay}`, background: `${java}` },
+  { text: `${torea_bay}`, background: `${turbo}` },
 ];
 
 const charBoxSVG = function (color: string) {
@@ -44,6 +46,8 @@ const CharBox = styled.button<{ selectedColor: ItemColor; fontFamily: string }>`
   color: ${({ selectedColor }) => selectedColor.text || "gray"};
   background-image: url("${({ selectedColor }) => getSvgUrl(charBoxSVG(selectedColor.background || "white"))}");
   font-family: ${({ fontFamily }) => fontFamily}, sans-serif;
+  font-size: 100px;
+  line-height: 90px;
 
   @media (max-width: 480px) {
     flex: 0 1 calc(50vw - 20px);
