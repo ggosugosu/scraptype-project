@@ -2,10 +2,25 @@ import styled, { withTheme } from "styled-components";
 import React, { useEffect, useState } from "react";
 import { filterFontFamily, getSvgUrl } from "features/utils";
 import InjectFontFace from "components/InjectFontFace";
+import { StringDecoder } from "string_decoder";
 
 interface ItemColor {
   text: string;
   background: string;
+}
+
+interface Props {
+  id: number;
+  name: string;
+  description: string;
+  corporation: string;
+  tags: string[];
+  webFonts: WebFont[];
+}
+
+export interface WebFont {
+  family: string;
+  source: string;
 }
 
 const charList = ["가", "나", "다", "라", "마", "바", "사", "아", "자", "차", "카", "타", "파", "하"];
@@ -22,13 +37,13 @@ const charBoxSVG = function (color: string) {
   return `%3Csvg width='209' height='210' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M208.45 209.203H0V0h172.275l36.175 36.27v172.933Z' fill='${color}'/%3E%3C/svg%3E`;
 };
 
-const CharBox = styled.button<{ selectedColor: ItemColor, fontFamily: string }>`
+const CharBox = styled.button<{ selectedColor: ItemColor; fontFamily: string }>`
   position: relative;
   width: 200px;
   height: 200px;
   color: ${({ selectedColor }) => selectedColor.text || "gray"};
   background-image: url("${({ selectedColor }) => getSvgUrl(charBoxSVG(selectedColor.background || "white"))}");
-  font-family: ${({fontFamily}) => fontFamily}, sans-serif;
+  font-family: ${({ fontFamily }) => fontFamily}, sans-serif;
 
   @media (max-width: 480px) {
     flex: 0 1 calc(50vw - 20px);
@@ -38,9 +53,7 @@ const CharBox = styled.button<{ selectedColor: ItemColor, fontFamily: string }>`
   }
 `;
 
-const cssStr: string = `@font-face {\n    font-family: 'GmarketSansMedium';\n    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');\n    font-weight: normal;\n    font-style: normal;\n}`;
-
-export default function ArchiveItem() {
+export default function ArchiveItem({ id, name, description, corporation, tags, webFonts }: Props) {
   const [char, setChar] = useState<String>(charList[0]);
   const [color, setColor] = useState<ItemColor>(colorList[0]);
 
@@ -50,8 +63,10 @@ export default function ArchiveItem() {
   }, []);
   return (
     <>
-      <InjectFontFace fontFace={cssStr} />
-      <CharBox selectedColor={color} fontFamily={filterFontFamily(cssStr)}>{char}</CharBox>
+      <InjectFontFace fontFace={webFonts.length !== 0 ? webFonts[0].source : ""} />
+      <CharBox selectedColor={color} fontFamily={webFonts.length !== 0 ? filterFontFamily(webFonts[0].source) : ""}>
+        {char}
+      </CharBox>
     </>
   );
 }

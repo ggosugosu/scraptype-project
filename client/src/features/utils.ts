@@ -4,5 +4,5 @@ export const getSvgUrl = function (svg: string): string {
 
 export const filterFontFamily = (fontFaceString: string) => {
   const regex: RegExp = /font-family:\s?[\"|\']([^\'|^\"]+)[\"|\']/;
-  return fontFaceString.split(regex)[1]
+  return (fontFaceString ? fontFaceString.toString().split(regex)[1] : "");
 } 
