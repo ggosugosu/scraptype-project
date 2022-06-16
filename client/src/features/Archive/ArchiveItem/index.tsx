@@ -1,6 +1,6 @@
 import styled, { withTheme } from "styled-components";
 import React, { useEffect, useState } from "react";
-import { getSvgUrl } from "../../utils"
+import { getSvgUrl } from "../../utils";
 
 interface ItemColor {
   text: string;
@@ -18,8 +18,8 @@ const colorList: ItemColor[] = [
 ];
 
 const charBoxSVG = function (color: string) {
-  return `%3Csvg width='209' height='210' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M208.45 209.203H0V0h172.275l36.175 36.27v172.933Z' fill='${color}'/%3E%3C/svg%3E`
-}
+  return `%3Csvg width='209' height='210' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M208.45 209.203H0V0h172.275l36.175 36.27v172.933Z' fill='${color}'/%3E%3C/svg%3E`;
+};
 
 const CharBox = styled.button<{ selectedColor: ItemColor }>`
   position: relative;

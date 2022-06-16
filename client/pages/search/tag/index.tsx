@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchTag from '../../../src/features/Search/SearchTag'
+import SearchTag from 'features/Search/SearchTag'
 
 export default function SearchTagPage() {
   return (

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { black, grey_300 } from "../../../common/colors";
+import { black, grey_300 } from "common/colors";
 
 export const SearchTagWrapper = styled.div`
   display: flex;
@@ -20,8 +20,9 @@ export const Container = styled.div`
   justify-content: flex-start;
   align-content: flex-start;
   align-items: center;
-  padding: 16px 4px;
+  margin: 16px 4px;
   height: 228px;
+  overflow: auto;
 
   span {
     font-family: "Elice-R", "Gothic-L", sans-serif;
