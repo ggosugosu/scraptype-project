@@ -1,42 +1,26 @@
-import styled, { withTheme } from "styled-components";
 import React, { useEffect, useState } from "react";
-import { getSvgUrl } from "../../utils";
-
-interface ItemColor {
-  text: string;
-  background: string;
+import Image from "next/image";
+import { filterFontFamily, getSvgUrl } from "features/utils";
+import InjectFontFace from "components/InjectFontFace";
+import ArchiveSVG from "assets/images/ic_archive.svg";
+import ArchiveBarcodeSVG from "assets/images/ic_archive_barcode.svg";
+import { charList, colorList, ItemColor } from "./models";
+import { CharBox } from "./style";
+interface Props {
+  id: number;
+  name: string;
+  description: string;
+  corporation: string;
+  tags: string[];
+  webFonts: WebFont[];
 }
 
-const charList = ["가", "나", "다", "라", "마", "바", "사", "아", "자", "차", "카", "타", "파", "하"];
+export interface WebFont {
+  family: string;
+  source: string;
+}
 
-const colorList: ItemColor[] = [
-  { text: "white", background: "purple" },
-  { text: "black", background: "yellow" },
-  { text: "white", background: "red" },
-  { text: "white", background: "blue" },
-  { text: "black", background: "pink" },
-];
-
-const charBoxSVG = function (color: string) {
-  return `%3Csvg width='209' height='210' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M208.45 209.203H0V0h172.275l36.175 36.27v172.933Z' fill='${color}'/%3E%3C/svg%3E`;
-};
-
-const CharBox = styled.button<{ selectedColor: ItemColor }>`
-  position: relative;
-  width: 200px;
-  height: 200px;
-  color: ${({ selectedColor }) => selectedColor.text || "gray"};
-  background-image: url("${({ selectedColor }) => getSvgUrl(charBoxSVG(selectedColor.background || "white"))}");
-
-  @media (max-width: 480px) {
-    flex: 0 1 calc(50vw - 20px);
-    height: calc(50vw - 20px);
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-`;
-
-export default function ArchiveItem() {
+export default function ArchiveItem({ id, name, description, corporation, tags, webFonts }: Props) {
   const [char, setChar] = useState<String>(charList[0]);
   const [color, setColor] = useState<ItemColor>(colorList[0]);
 
@@ -44,5 +28,16 @@ export default function ArchiveItem() {
     setChar(charList[Math.floor(Math.random() * charList.length)]);
     setColor(colorList[Math.floor(Math.random() * colorList.length)]);
   }, []);
-  return <CharBox selectedColor={color}>{char}</CharBox>;
+  return (
+    <>
+      <InjectFontFace fontFace={webFonts.length !== 0 ? webFonts[0].source : ""} />
+      <CharBox selectedColor={color} fontFamily={webFonts.length !== 0 ? filterFontFamily(webFonts[0].source) : ""}>
+        <Image alt="button-text" src={ArchiveSVG} layout="fill" className={`filter_${color.background}`} />
+        <span>{char}</span>
+        <div className="barcode_wrapper">
+          <Image alt="button-barcode" src={ArchiveBarcodeSVG} width="36" height="36" className={`filter_${color.barcode}`} />
+        </div>
+      </CharBox>
+    </>
+  );
 }

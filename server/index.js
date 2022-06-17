@@ -6,6 +6,7 @@ const { ApolloServer, gql } = require("apollo-server-express");
 const fontORM = require("./orm/font_orm");
 const tagORM = require("./orm/tag_orm");
 const fontTagORM = require("./orm/font_tag_orm");
+const webFontORM = require("./orm/web_font_orm");
 
 const typeDefs = gql`
   type Font {
@@ -14,6 +15,7 @@ const typeDefs = gql`
     description: String
     corporation: String
     fontTags: [FontTag]
+    webFonts: [WebFont]
   }
 
   type Tag {
@@ -29,6 +31,14 @@ const typeDefs = gql`
     tags: Tag
   }
 
+  type WebFont {
+    id: ID
+    font_id: Int
+    family: String
+    source: String
+    font: Font
+  }
+
   type Query {
     getFont(id: Int!): Font
     getFontAll: [Font!]!
@@ -37,6 +47,7 @@ const typeDefs = gql`
     getTagsByTagId(tag_ids: [Int]): [Tag]
     getFontTagAll: [FontTag]
     getFontTags(tag_ids: [Int]): [FontTag]
+    getWebFontAll: [WebFont]
   }
 
   type Mutation {
@@ -53,6 +64,7 @@ const resolvers = {
     getTagsByTagId: (_, { tag_ids }) => tagORM.getTagsByTagId({ tag_ids }),
     getFontTagAll: () => fontTagORM.getFontTagAll(),
     getFontTags: (_, { tag_ids }) => fontTagORM.getFontTags({ tag_ids }),
+    getWebFontAll: () => webFontORM.getWebFontAll(),
   },
   Mutation: {
     createFontTag: (_, { font_id, tag_id }) => {

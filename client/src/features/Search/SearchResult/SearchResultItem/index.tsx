@@ -2,8 +2,6 @@ import React from "react";
 import Image from "next/image";
 import ResultSVG from "assets/images/ic_result_box.svg";
 import { Item, ItemContent, ItemTitle } from "./style";
-
-
 interface Props {
   type: String;
   name: String;
@@ -22,9 +20,7 @@ export default function SearchResultItem({ type, name, corporation, description 
         </ItemTitle>
         <ItemContent>
         <p>
-          가독성이 조금이라도 중요한 곳에선 못쓰겠지만 감성이 정말 독특하고 눈에 띈다. 특히 배너 디자인 썸네일 가독성이 조금이라도 중요한 곳에선 못쓰겠지만
-          감성이 정말 독특하고 눈에 띈다. 특히 배너 디자인 썸네일 가독성이 조금이라도 중요한 곳에선 못쓰겠지만 감성이 정말 독특하고 눈에 띈다. 특히 배너 디자인 썸네일 가독성이 조금이라도 중요한 곳에선 못쓰겠지만
-          감성이 정말 독특하고 눈에 띈다. 특히 배너 디자인 썸네일
+          {description ? description : "no memo"}
         </p>
         </ItemContent>
         
