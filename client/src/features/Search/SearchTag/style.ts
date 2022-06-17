@@ -5,6 +5,7 @@ export const SearchTagWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
+  align-content: flex-start;
   align-items: center;
   gap: 16px;
   height: 428px;
