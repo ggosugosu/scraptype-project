@@ -1,7 +1,7 @@
 import { ButtonPositive } from "components/Button";
 import PageTitle from "components/PageTitle";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Corporation = styled.select`
@@ -20,6 +20,12 @@ const Font = styled.input.attrs((props) => ({
 
 export default function SearchFont() {
   const router = useRouter();
+  const [text, setText] = useState<string>("");
+
+  const handleTextChange = (e) => {
+    setText(e.target.value);
+  }
+
   return (
     <section>
       <PageTitle title="Search Font" onClick={() => router.push("/")} />
@@ -28,14 +34,14 @@ export default function SearchFont() {
         <option>hi</option>
         <option>h2</option>
       </Corporation>
-      <Font placeholder={"폰트를 입력하세요."} />
+      <Font placeholder={"폰트를 입력하세요."} value={text} onChange={handleTextChange} />
       <ButtonPositive
         enabled={true}
         text="SEARCH"
         onClick={() =>
           router.push({
-            pathname: "/search/tag/result",
-            query: { font: "" },
+            pathname: "/search/font/result",
+            query: { type: "font", text: `${text}` },
           })
         }
       />

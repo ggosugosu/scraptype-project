@@ -8,6 +8,6 @@ export default function TagResultPage() {
 
   console.log(`${typeof(tags)}`);
   return (
-    <SearchResult keywords={typeof(tags) === "string" ? tags : ""} />
+    <SearchResult type="tag" keywords={typeof(tags) === "string" ? tags : ""} />
   )
 }
