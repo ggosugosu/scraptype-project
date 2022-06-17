@@ -32,7 +32,7 @@ const fontORM = {
   },
 
   getFontsByTagId: ({ tag_ids }) => {
-    const newFontTags = Font.findAll({
+    const getFonts = Font.findAll({
       include: [
         {
           model: FontTag,
@@ -52,7 +52,19 @@ const fontORM = {
       ],
     });
 
-    return newFontTags;
+    return getFonts;
+  },
+
+  getFontsByText: ({text}) => {
+    const getFonts = Font.findAll({
+      where: {
+        name: {
+          [Op.like]: `%${text}%`,
+        },
+      },
+    });
+
+    return getFonts;
   },
 
   createFont: async (_, { name, description }) => {
