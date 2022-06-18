@@ -11,7 +11,7 @@ interface Props {
   keywords?: string;
 }
 
-const toArray = (keywords: string) => keywords.split(",").map(Number);
+const toArray = (keywords: string | undefined) => (keywords ?? "").split(",").map(Number);
 
 const TagContainer = ({ keywords }: Props) => {
   const { loading, error, data } = useQuery(GET_TAGS_BY_TAG_ID, { variables: { tag_ids: toArray(keywords) } });
