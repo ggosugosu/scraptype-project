@@ -1,5 +1,6 @@
 const { Font, FontTag, Tag, WebFont } = require("../models/index");
 const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 
 const fontORM = {
   getFontAll: () => {
@@ -55,7 +56,7 @@ const fontORM = {
     return getFonts;
   },
 
-  getFontsByText: ({text}) => {
+  getFontsByText: ({ text }) => {
     const getFonts = Font.findAll({
       where: {
         name: {
@@ -66,6 +67,12 @@ const fontORM = {
 
     return getFonts;
   },
+  
+  getCorporationAll: () =>
+    Font.findAll({
+      attributes: ["corporation"],
+      group: ["corporation"],
+    }).then((corporation) => corporation),
 
   createFont: async (_, { name, description }) => {
     const newFont = await Font.create({
