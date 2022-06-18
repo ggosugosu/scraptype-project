@@ -4,7 +4,7 @@ import Image from "next/image";
 import ButtonSVG from "assets/images/ic_button.svg";
 import { ButtonNegativeWrapper, ButtonPositiveWrapper } from "./style";
 interface buttonProps {
-  enabled: boolean;
+  enabled: boolean | string;
   text: string;
   onClick?: () => void;
 }
