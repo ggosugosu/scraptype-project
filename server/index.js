@@ -43,7 +43,7 @@ const typeDefs = gql`
     getFont(id: Int!): Font
     getFontAll: [Font!]!
     getFontsByTagId(tag_ids: [Int]): [Font]
-    getFontsByText(text: String): [Font]
+    getFontsByCorpAndText(corporation: String, text: String): [Font]
     getCorporationAll: [Font]
     getTagAll: [Tag!]!
     getTagsByTagId(tag_ids: [Int]): [Tag]
@@ -62,7 +62,7 @@ const resolvers = {
   Query: {
     getFontAll: () => fontORM.getFontAll(),
     getFontsByTagId: (_, { tag_ids }) => fontORM.getFontsByTagId({ tag_ids }),
-    getFontsByText: (_, {text}) => fontORM.getFontsByText({text}),
+    getFontsByCorpAndText: (_, { corporation, text }) => fontORM.getFontsByCorpAndText({ corporation, text }),
     getCorporationAll: () => fontORM.getCorporationAll(),
     getTagAll: () => tagORM.getTagAll(),
     getTagsByTagId: (_, { tag_ids }) => tagORM.getTagsByTagId({ tag_ids }),

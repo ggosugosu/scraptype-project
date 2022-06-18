@@ -20,9 +20,9 @@ export const GET_FONTS_BY_TAG_ID = gql`
   }
 `;
 
-export const GET_FONTS_BY_TEXT = gql`
-  query GetFontsByText($text: String) {
-    getFontsByText(text: $text) {
+export const GET_FONTS_BY_CORP_AND_TEXT = gql`
+  query GetFontsByCorpAndText($corporation: String, $text: String) {
+    getFontsByCorpAndText(corporation: $corporation, text: $text) {
       id
       name
       description

@@ -8,7 +8,7 @@ import PageTitle from "components/PageTitle";
 import { useRouter } from "next/router";
 
 interface Props {
-  keywords: string;
+  keywords?: string;
 }
 
 const toArray = (keywords: string) => keywords.split(",").map(Number);

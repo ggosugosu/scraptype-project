@@ -56,18 +56,18 @@ const fontORM = {
     return getFonts;
   },
 
-  getFontsByText: ({ text }) => {
-    const getFonts = Font.findAll({
+  getFontsByCorpAndText: ({ corporation, text }) =>
+    Font.findAll({
       where: {
         name: {
           [Op.like]: `%${text}%`,
         },
+        corporation: {
+          [Op.like]: `${corporation ? corporation : "%"}`,
+        },
       },
-    });
+    }).then((fonts) => fonts),
 
-    return getFonts;
-  },
-  
   getCorporationAll: () =>
     Font.findAll({
       attributes: ["corporation"],

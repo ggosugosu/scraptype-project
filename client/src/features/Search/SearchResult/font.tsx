@@ -1,35 +1,35 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
-import { GET_FONTS_BY_TEXT } from "./gql";
+import { GET_FONTS_BY_CORP_AND_TEXT } from "./gql";
 import { ResultsWrapper } from "./style";
 import SearchResultItem from "./SearchResultItem";
 import PageTitle from "components/PageTitle";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-
 interface Props {
-  keywords: string;
+  corporation: string;
+  text: string;
 }
 
 const TextWrapper = styled.div``;
 
-const TagContainer = ({ keywords }: Props) => {
-  return <TextWrapper>{keywords}</TextWrapper>;
+const FontContainer = ({ corporation, text }: Props) => {
+  return <TextWrapper>{corporation}:{text}</TextWrapper>;
 };
 
-export default function FontResult({ keywords }: Props) {
+export default function FontResult({ corporation, text }: Props) {
   const router = useRouter();
-  const { loading, error, data } = useQuery(GET_FONTS_BY_TEXT, { variables: { text: keywords } });
+  const { loading, error, data } = useQuery(GET_FONTS_BY_CORP_AND_TEXT, { variables: { corporation: corporation, text: text } });
 
   if (loading) return <div>loading...</div>;
   if (error) return <div>{error.message}</div>;
   return (
     <>
-      <PageTitle title={`(${data.getFontsByText.length}) results for`} onClick={() => router.back()} />
+      <PageTitle title={`(${data.getFontsByCorpAndText.length}) results for`} onClick={() => router.back()} />
       <section>
-        <TagContainer keywords={keywords} />
+        <FontContainer corporation={corporation} text={text} />
         {data &&
-          data.getFontsByText.map((font, index) => (
+          data.getFontsByCorpAndText.map((font, index) => (
             <SearchResultItem key={index} type={"image"} name={font.name} corporation={font.corporation} description={font.description} />
           ))}
         <ResultsWrapper></ResultsWrapper>

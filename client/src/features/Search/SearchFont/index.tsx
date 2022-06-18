@@ -23,7 +23,12 @@ const Font = styled.input.attrs((props) => ({
 export default function SearchFont() {
   const router = useRouter();
   const { loading, error, data } = useQuery(GET_CORPORATION_ALL);
+  const [corporation, setCorporation] = useState<string>("");
   const [text, setText] = useState<string>("");
+
+  const handleCorporationChange = (e) => {
+    setCorporation(e.target.value);
+  };
 
   const handleTextChange = (e) => {
     setText(e.target.value);
@@ -34,7 +39,8 @@ export default function SearchFont() {
   return (
     <section>
       <PageTitle title="Search Font" onClick={() => router.push("/")} />
-      <Corporation>
+      <Corporation value={corporation} onChange={handleCorporationChange}>
+        <option value={""}>제작사 전체</option>
         {data &&
           data.getCorporationAll.map((item, index) => (
             <option key={index} value={item.corporation}>
@@ -49,7 +55,7 @@ export default function SearchFont() {
         onClick={() =>
           router.push({
             pathname: "/search/font/result",
-            query: { type: "font", text: `${text}` },
+            query: { type: "font", corporation: `${corporation}`, text: `${text}` },
           })
         }
       />
