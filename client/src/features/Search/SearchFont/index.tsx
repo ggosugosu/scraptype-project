@@ -1,8 +1,10 @@
+import { useQuery } from "@apollo/client";
 import { ButtonPositive } from "components/Button";
 import PageTitle from "components/PageTitle";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { GET_CORPORATION_ALL } from "./gql";
 
 const Corporation = styled.select`
   -webkit-appearance: none;
@@ -20,19 +22,25 @@ const Font = styled.input.attrs((props) => ({
 
 export default function SearchFont() {
   const router = useRouter();
+  const { loading, error, data } = useQuery(GET_CORPORATION_ALL);
   const [text, setText] = useState<string>("");
 
   const handleTextChange = (e) => {
     setText(e.target.value);
-  }
+  };
+
+  if (loading || error) return null;
 
   return (
     <section>
       <PageTitle title="Search Font" onClick={() => router.push("/")} />
       <Corporation>
-        <option>null</option>
-        <option>hi</option>
-        <option>h2</option>
+        {data &&
+          data.getCorporationAll.map((item, index) => (
+            <option key={index} value={item.corporation}>
+              {item.corporation}
+            </option>
+          ))}
       </Corporation>
       <Font placeholder={"폰트를 입력하세요."} value={text} onChange={handleTextChange} />
       <ButtonPositive
