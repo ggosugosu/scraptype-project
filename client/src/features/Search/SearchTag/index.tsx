@@ -40,7 +40,7 @@ export default function SearchTag() {
 
   return (
     <>
-      <PageTitle title="Search Tag" onClick={() => router.push("/")} />
+      <PageTitle title="Tag search" onClick={() => router.push("/")} />
       <SearchTagWrapper>
         {data.getTagAll.map((value) => (
           <SearchTagItem
