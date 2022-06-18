@@ -6,15 +6,34 @@ import SearchResultItem from "./SearchResultItem";
 import PageTitle from "components/PageTitle";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import InputText from "components/InputText";
 interface Props {
   corporation: string;
   text: string;
 }
 
-const TextWrapper = styled.div``;
+const TextWrapper = styled.div`
+display: flex;
+flex-flow: row wrap;
+gap: 16px;
+height: 54px;
+line-height: 54px;
+margin-top: 92px;
+margin-bottom: 88px;
+span {
+  font-size: 20px;
+}
+`;
 
 const FontContainer = ({ corporation, text }: Props) => {
-  return <TextWrapper>{corporation}:{text}</TextWrapper>;
+  return (
+    <TextWrapper>
+      <InputText value={corporation === "" ? "전체" : corporation} fixed={true} />
+      <span>font for</span>
+      <InputText value={text === "" ? "전체" : text} fixed={true} />
+      <span>Corporation.</span>
+    </TextWrapper>
+  );
 };
 
 export default function FontResult({ corporation, text }: Props) {

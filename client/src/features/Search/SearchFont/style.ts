@@ -55,22 +55,3 @@ export const Selector = styled.select`
     font-size: 20px;
   }
 `;
-
-export const Text = styled.input.attrs((props) => ({
-  type: "text",
-}))`
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  border-bottom: solid 2px ${black};
-  flex: 1 1 auto;
-  width: 0px;
-  height: 54px;
-  font-size: 20px;
-
-  &:focus {
-    outline: none;
-    border-bottom: solid 2px ${main};
-  }
-`;

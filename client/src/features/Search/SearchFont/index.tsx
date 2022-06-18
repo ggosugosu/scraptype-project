@@ -6,7 +6,8 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GET_CORPORATION_ALL } from "./gql";
 import ArrowDownSVG from "assets/images/ic_arrow_down.svg";
-import { FlexWrapper, SelectorWrapper, Selector, Text } from "./style";
+import { FlexWrapper, SelectorWrapper, Selector } from "./style";
+import InputText from "components/InputText";
 
 export default function SearchFont() {
   const router = useRouter();
@@ -43,7 +44,7 @@ export default function SearchFont() {
                 ))}
             </Selector>
           </SelectorWrapper>
-          <Text placeholder={"Enter the name of the font you want"} value={text} onChange={handleTextChange} />
+          <InputText placeholder={"Enter the name of the font you want"} value={text} fixed={false} onChange={handleTextChange} />
           <ButtonPositive
             enabled={(corporation || text)}
             text="SEARCH"
