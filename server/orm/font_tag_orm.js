@@ -1,6 +1,6 @@
-const { ApolloError } = require("apollo-server-micro");
-const { FontTag, Font, Tag } = require("../models/index");
-const { Op } = require("sequelize");
+const { ApolloError } = require('apollo-server-micro');
+const { FontTag, Font, Tag } = require('../models/index');
+const { Op } = require('sequelize');
 
 const fontTagORM = {
   getFontTagAll: () =>
@@ -8,11 +8,11 @@ const fontTagORM = {
       include: [
         {
           model: Font,
-          as: "fonts",
+          as: 'fonts',
         },
         {
           model: Tag,
-          as: "tags",
+          as: 'tags',
         },
       ],
     }).then((data) => data),
@@ -27,11 +27,11 @@ const fontTagORM = {
       include: [
         {
           model: Font,
-          as: "fonts",
+          as: 'fonts',
         },
         {
           model: Tag,
-          as: "tags",
+          as: 'tags',
         },
       ],
     });
@@ -40,7 +40,7 @@ const fontTagORM = {
   },
 
   createFontTag: async ({ font_id, tag_id }) => {
-    if (await exists(font_id, tag_id)) throw new ApolloError("Data already exists.", "BAD_INPUT", { status: 400, error: true });
+    if (await exists(font_id, tag_id)) throw new ApolloError('Data already exists.', 'BAD_INPUT', { status: 400, error: true });
 
     const newFontTag = await FontTag.create({
       font_id,
@@ -48,6 +48,21 @@ const fontTagORM = {
     });
 
     return newFontTag;
+  },
+
+  updateFontTags: ({ font_id, tag_ids }) => {
+    if (!font_tag || !tag_ids ) return false;
+    try {
+      tag_ids.map((tag_id) => {
+        exists(font_id, tag_id)
+          ? FontTag.destroy({ where: { font_id: font_id, tag_id: tag_id } })
+          : FontTag.create({ where: { font_id: font_id, tag_id: tag_id } });
+      });
+    } catch (e) {
+      throw new ApolloError('DB Error', 'BAD_INPUT', { status: 500, error: true });
+    }
+
+    return true;
   },
 
   deleteFontTag: async ({ id }) => {

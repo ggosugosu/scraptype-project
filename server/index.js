@@ -10,7 +10,7 @@ const webFontORM = require('./orm/web_font_orm');
 
 const typeDefs = gql`
   type Font {
-    id: ID
+    id: Int
     name: String
     description: String
     corporation: String
@@ -19,12 +19,12 @@ const typeDefs = gql`
   }
 
   type Tag {
-    id: ID
+    id: Int
     name: String
   }
 
   type FontTag {
-    id: ID
+    id: Int
     font_id: Int
     fonts: Font
     tag_id: Int
@@ -32,7 +32,7 @@ const typeDefs = gql`
   }
 
   type WebFont {
-    id: ID
+    id: Int
     font_id: Int
     family: String
     source: String
@@ -55,6 +55,7 @@ const typeDefs = gql`
   type Mutation {
     createFontTag(font_id: Int!, tag_id: Int!): FontTag
     deleteFontTag(id: Int!): FontTag
+    updateFontTags(font_id: Int, tag_ids: [Int]): Boolean
   }
 `;
 
@@ -72,12 +73,9 @@ const resolvers = {
     getWebFontAll: () => webFontORM.getWebFontAll(),
   },
   Mutation: {
-    createFontTag: (_, { font_id, tag_id }) => {
-      return fontTagORM.createFontTag({ font_id, tag_id });
-    },
-    deleteFontTag: (_, { id }) => {
-      return fontTagORM.deleteFontTag({ id });
-    },
+    createFontTag: (_, { font_id, tag_id }) => fontTagORM.createFontTag({ font_id, tag_id }),
+    deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
+    updateFontTags: (_, {font_id, tag_ids}) => fontTagORM.updateFontTags({font_id, tag_ids})
   },
 };
 
