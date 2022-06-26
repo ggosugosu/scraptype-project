@@ -40,7 +40,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    getFontByFontId(font_id: Int!): Font
+    getFontByFontId(font_id: Int): Font
     getFontAll: [Font!]!
     getFontsByTagId(tag_ids: [Int]): [Font]
     getFontsByCorpAndText(corporation: String, text: String): [Font]
