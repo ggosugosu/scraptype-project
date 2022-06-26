@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require('express');
 const app = express();
 const PORT = 3200;
-const path = "/graphql";
-const { ApolloServer, gql } = require("apollo-server-express");
-const fontORM = require("./orm/font_orm");
-const tagORM = require("./orm/tag_orm");
-const fontTagORM = require("./orm/font_tag_orm");
-const webFontORM = require("./orm/web_font_orm");
+const path = '/graphql';
+const { ApolloServer, gql } = require('apollo-server-express');
+const fontORM = require('./orm/font_orm');
+const tagORM = require('./orm/tag_orm');
+const fontTagORM = require('./orm/font_tag_orm');
+const webFontORM = require('./orm/web_font_orm');
 
 const typeDefs = gql`
   type Font {
@@ -40,7 +40,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    getFont(id: Int!): Font
+    getFontByFontId(font_id: Int!): Font
     getFontAll: [Font!]!
     getFontsByTagId(tag_ids: [Int]): [Font]
     getFontsByCorpAndText(corporation: String, text: String): [Font]
@@ -60,6 +60,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
+    getFontByFontId: (_, { font_id }) => fontORM.getFontByFontId({ font_id }),
     getFontAll: () => fontORM.getFontAll(),
     getFontsByTagId: (_, { tag_ids }) => fontORM.getFontsByTagId({ tag_ids }),
     getFontsByCorpAndText: (_, { corporation, text }) => fontORM.getFontsByCorpAndText({ corporation, text }),

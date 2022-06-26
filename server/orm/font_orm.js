@@ -1,35 +1,49 @@
-const { Font, FontTag, Tag, WebFont } = require("../models/index");
-const { Op } = require("sequelize");
-const sequelize = require("sequelize");
+const { Font, FontTag, Tag, WebFont } = require('../models/index');
+const { Op } = require('sequelize');
+const sequelize = require('sequelize');
 
 const fontORM = {
-  getFontAll: () => {
-    const getFonts = Font.findAll({
+  getFontByFontId: ({ font_id }) =>
+    Font.findOne({
+      where: { id: font_id },
       include: [
         {
           model: FontTag,
-          as: "fontTags",
+          as: 'fontTags',
           include: [
             {
               model: Tag,
-              as: "tags",
+              as: 'tags',
             },
           ],
         },
         {
           model: WebFont,
-          as: "webFonts",
+          as: 'webFonts',
+        },
+      ],
+    }).then((data) => data),
+
+  getFontAll: () => {
+    const getFonts = Font.findAll({
+      include: [
+        {
+          model: FontTag,
+          as: 'fontTags',
+          include: [
+            {
+              model: Tag,
+              as: 'tags',
+            },
+          ],
+        },
+        {
+          model: WebFont,
+          as: 'webFonts',
         },
       ],
     });
     return getFonts;
-  },
-
-  getFont: async (_, args) => {
-    await context.Font.findOne();
-    const { id } = args;
-    const resultData = await Font.findOne({ where: { id: id } });
-    return resultData;
   },
 
   getFontsByTagId: ({ tag_ids }) => {
@@ -37,11 +51,11 @@ const fontORM = {
       include: [
         {
           model: FontTag,
-          as: "fontTags",
+          as: 'fontTags',
           include: [
             {
               model: Tag,
-              as: "tags",
+              as: 'tags',
             },
           ],
           where: {
@@ -63,15 +77,15 @@ const fontORM = {
           [Op.like]: `%${text}%`,
         },
         corporation: {
-          [Op.like]: `${corporation ? corporation : "%"}`,
+          [Op.like]: `${corporation ? corporation : '%'}`,
         },
       },
     }).then((fonts) => fonts),
 
   getCorporationAll: () =>
     Font.findAll({
-      attributes: ["corporation"],
-      group: ["corporation"],
+      attributes: ['corporation'],
+      group: ['corporation'],
     }).then((corporation) => corporation),
 
   createFont: async (_, { name, description }) => {
