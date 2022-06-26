@@ -55,7 +55,7 @@ const typeDefs = gql`
   type Mutation {
     createFontTag(font_id: Int!, tag_id: Int!): FontTag
     deleteFontTag(id: Int!): FontTag
-    updateFontTags(font_id: Int, tag_ids: [Int]): Boolean
+    updateFontTag(font_id: Int, tag_id: Int): Boolean
   }
 `;
 
@@ -75,7 +75,7 @@ const resolvers = {
   Mutation: {
     createFontTag: (_, { font_id, tag_id }) => fontTagORM.createFontTag({ font_id, tag_id }),
     deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
-    updateFontTags: (_, {font_id, tag_ids}) => fontTagORM.updateFontTags({font_id, tag_ids})
+    updateFontTag: (_, {font_id, tag_id}) => fontTagORM.updateFontTag({font_id, tag_id})
   },
 };
 

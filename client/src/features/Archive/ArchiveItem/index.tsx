@@ -7,13 +7,13 @@ import ArchiveBarcodeSVG from 'assets/images/ic_archive_barcode.svg';
 import { charList, colorList, ItemColor } from './models';
 import { CharBox } from './style';
 interface Props {
-  id: number;
+  font_id: number;
   name: string;
   description: string;
   corporation: string;
   tags: string[];
   webFonts: WebFont[];
-  onClick: (id: Number) => void;
+  onClick: (id: number) => void;
 }
 
 export interface WebFont {
@@ -21,7 +21,7 @@ export interface WebFont {
   source: string;
 }
 
-export default function ArchiveItem({ id, name, description, corporation, tags, webFonts, onClick }: Props) {
+export default function ArchiveItem({ font_id, name, description, corporation, tags, webFonts, onClick }: Props) {
   const [char, setChar] = useState<String>(charList[0]);
   const [color, setColor] = useState<ItemColor>(colorList[0]);
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function ArchiveItem({ id, name, description, corporation, tags, 
   return (
     <>
       <InjectFontFace fontFace={webFonts.length !== 0 ? webFonts[0].source : ''} />
-      <CharBox selectedColor={color} fontFamily={webFonts.length !== 0 ? filterFontFamily(webFonts[0].source) : ''} onClick={() => onClick(id)}>
+      <CharBox selectedColor={color} fontFamily={webFonts.length !== 0 ? filterFontFamily(webFonts[0].source) : ''} onClick={() => onClick(font_id)}>
         <Image alt="button-text" src={ArchiveSVG} layout="fill" className={`filter_${color.background}`} />
         <span>{char}</span>
         <div className="barcode_wrapper">

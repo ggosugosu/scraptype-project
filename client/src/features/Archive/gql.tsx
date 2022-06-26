@@ -38,3 +38,9 @@ export const GET_FONT_BY_FONT_ID = gql`
     }
   }
 `;
+
+export const UPDATE_FONT_TAG = gql`
+  mutation UpdateFontTag($font_id: Int, $tag_id: Int) {
+    updateFontTag(font_id: $font_id, tag_id: $tag_id)
+  }
+`

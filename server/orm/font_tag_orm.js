@@ -50,15 +50,15 @@ const fontTagORM = {
     return newFontTag;
   },
 
-  updateFontTags: ({ font_id, tag_ids }) => {
-    if (!font_tag || !tag_ids ) return false;
+  updateFontTag: async ({ font_id, tag_id }) => {
+    if (!font_id || !tag_id) return false;
     try {
-      tag_ids.map((tag_id) => {
-        exists(font_id, tag_id)
-          ? FontTag.destroy({ where: { font_id: font_id, tag_id: tag_id } })
-          : FontTag.create({ where: { font_id: font_id, tag_id: tag_id } });
-      });
+      const prevFontTags = await FontTag.findAll({ where: { font_id } });
+      prevFontTags.map((prev) => prev.tag_id).includes(tag_id)
+        ? FontTag.destroy({ where: { font_id: font_id, tag_id: tag_id } })
+        : FontTag.create({ font_id, tag_id });
     } catch (e) {
+      console.log(e.message);
       throw new ApolloError('DB Error', 'BAD_INPUT', { status: 500, error: true });
     }
 

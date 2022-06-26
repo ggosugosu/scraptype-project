@@ -7,11 +7,10 @@ import logo from 'assets/images/logo_no_icon.svg';
 import logoBistro from 'assets/images/logo_bistro.svg';
 import { grey_200 } from 'common/colors';
 
-import { GET_FONT_ALL } from './gql';
-import { useQuery } from '@apollo/client';
+import { GET_FONT_ALL, UPDATE_FONT_TAG } from './gql';
+import { useMutation, useQuery } from '@apollo/client';
 import ArchiveItemModal from './modal';
 
-const sampleList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const ArchiveWrapper = styled.div`
   display: inline-flex;
   flex-flow: row wrap;
@@ -45,12 +44,12 @@ const LogoWrapper = styled.div`
 
 export default function Archive() {
   const { loading, error, data } = useQuery(GET_FONT_ALL);
-  const [selectedFontId, setSelectedFontId] = useState<Number>(0);
-  const [modalIsVisible, setModalIsVisible] = useState<Boolean>(false);
+  const [updateFontTags, query] = useMutation(UPDATE_FONT_TAG);
+  const [selectedFontId, setSelectedFontId] = useState<number>(0);
+  const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
   if (loading || error) return null;
 
-  const handleClicked = (font_id: Number) => {
-    console.log(`font_id clicked: ${font_id}`);
+  const handleClicked = (font_id: number) => {
     setSelectedFontId(font_id);
     handleVisible();
     console.log(`modalIsVisible: ${modalIsVisible}`);
@@ -61,6 +60,13 @@ export default function Archive() {
     console.log(`${e?.target}, ${e?.currentTarget}`);
     (!e || e.target === e.currentTarget) && setModalIsVisible((props) => !props);
   };
+
+  const handleUpdateFontTags = (tag_id: number) => {
+    console.log(`tag: ${tag_id}`);
+    updateFontTags({ variables: { font_id: selectedFontId, tag_id } });
+  };
+
+  if (query.data) console.log(query.data);
 
   return (
     <>
@@ -73,7 +79,7 @@ export default function Archive() {
           data.getFontAll.map((item, index) => (
             <ArchiveItem
               key={index}
-              id={item.id}
+              font_id={item.id}
               name={item.name}
               description={item.description}
               corporation={item.corporation}
@@ -87,7 +93,7 @@ export default function Archive() {
               onClick={handleClicked}
             />
           ))}
-        {modalIsVisible && <ArchiveItemModal id={selectedFontId} handleVisible={handleVisible} />}
+        {modalIsVisible && <ArchiveItemModal font_id={selectedFontId} handleVisible={handleVisible} updateFontTags={handleUpdateFontTags} />}
       </ArchiveWrapper>
     </>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 import ModalSVG from 'assets/images/modal_archive.svg';
@@ -9,14 +9,15 @@ import { GET_FONT_BY_FONT_ID } from './gql';
 import { main } from 'common/colors';
 
 interface Props {
-  id: Number;
+  font_id: number;
   handleVisible: () => void;
+  updateFontTags: (tag_id: number) => void;
 }
 
 interface ItemProps {
-  name: String;
-  selected: Boolean;
-  onClick: () => void;
+  name: string;
+  selected: boolean;
+  onClick: (tag_id?: number) => void;
   option?: HighlightButtonOption;
 }
 
@@ -65,9 +66,29 @@ const ContainerTags = ({ children }) => {
   return <ContainerTagsWrapper>{children}</ContainerTagsWrapper>;
 };
 
-export default function ArchiveItemModal({ id, handleVisible }: Props) {
-  const { loading, error, data } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id: 3 } });
+export default function ArchiveItemModal({ font_id, handleVisible, updateFontTags }: Props) {
+  const { loading, error, data } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id } });
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const dataMemo = useMemo(() => data, [data]);
+
+  // useEffect(() => {
+  //   console.log(`useEffect : ${selectedTags}`);
+  //   updateFontTags(selectedTags);
+  // }, [selectedTags]);
+
+
+  // useEffect(() => {
+  //   if (!data) return;
+  //   setSelectedTags([...data.getFontByFontId.fontTags.map((fontTag) => fontTag.tags.id)]);
+    
+  // }, [dataMemo]);
+
   if (loading || error) return null;
+
+  const handleSelectedTag = (tag_id: number) => {
+    //setSelectedTags((props) => (props.includes(tag_id) ? [...props.filter((id) => id !== tag_id)] : [...props, tag_id]));
+    updateFontTags(tag_id);
+  };
 
   return (
     <ModalBackground onClick={handleVisible}>
@@ -86,7 +107,7 @@ export default function ArchiveItemModal({ id, handleVisible }: Props) {
                   key={index}
                   name={item.name}
                   selected={data.getFontByFontId.fontTags.map((fontTag) => fontTag.tags.id).includes(item.id)}
-                  onClick={() => {}}
+                  onClick={() => handleSelectedTag(item.id)}
                 />
               ))}
           </ContainerTags>
