@@ -40,7 +40,7 @@ export default function SearchTag() {
 
   return (
     <>
-      <PageTitle title="Search Tag" onClick={() => router.push("/")} />
+      <PageTitle title="Tag search" onClick={() => router.push("/")} />
       <SearchTagWrapper>
         {data.getTagAll.map((value) => (
           <SearchTagItem
@@ -65,9 +65,7 @@ export default function SearchTag() {
         )}
       </Container>
       <ButtonContainer>
-        <ButtonNegative enabled={true} onClick={resetSelectedTag}>
-          CLEAR
-        </ButtonNegative>
+        <ButtonNegative enabled={true} text="CLEAR" onClick={resetSelectedTag} />
         <ButtonPositive
           enabled={selectedList.length !== 0}
           text="SEARCH"

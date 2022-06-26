@@ -1,5 +1,6 @@
 const { Font, FontTag, Tag, WebFont } = require("../models/index");
 const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 
 const fontORM = {
   getFontAll: () => {
@@ -32,7 +33,7 @@ const fontORM = {
   },
 
   getFontsByTagId: ({ tag_ids }) => {
-    const newFontTags = Font.findAll({
+    const getFonts = Font.findAll({
       include: [
         {
           model: FontTag,
@@ -52,8 +53,26 @@ const fontORM = {
       ],
     });
 
-    return newFontTags;
+    return getFonts;
   },
+
+  getFontsByCorpAndText: ({ corporation, text }) =>
+    Font.findAll({
+      where: {
+        name: {
+          [Op.like]: `%${text}%`,
+        },
+        corporation: {
+          [Op.like]: `${corporation ? corporation : "%"}`,
+        },
+      },
+    }).then((fonts) => fonts),
+
+  getCorporationAll: () =>
+    Font.findAll({
+      attributes: ["corporation"],
+      group: ["corporation"],
+    }).then((corporation) => corporation),
 
   createFont: async (_, { name, description }) => {
     const newFont = await Font.create({
