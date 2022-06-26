@@ -50,7 +50,7 @@ const ModalItem = ({ name, selected, onClick }: ItemProps) => {
 export default function ArchiveItemModal({ id }: Props) {
   const { loading, error, data } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id: 3 } });
   if (loading || error) return null;
-  console.log(`${data}`);
+  console.log(`${JSON.stringify(data.getFontByFontId)}`);
 
   return (
     <ModalBackground>
@@ -63,7 +63,7 @@ export default function ArchiveItemModal({ id }: Props) {
           <hr />
           {data &&
             data.getTagAll.map((item, index) => (
-              <ModalItem key={index} name={item.name} selected={data.getFontByFontId.fontTags.map((tag) => tag.id).includes(item)} onClick={() => {}} />
+              <ModalItem key={index} name={item.name} selected={data.getFontByFontId.fontTags.map((fontTag) => fontTag.tags.id).includes(item.id)} onClick={() => {}} />
             ))}
         </ModalContentWrapper>
       </ModalWrapper>
