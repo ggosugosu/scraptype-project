@@ -1,15 +1,20 @@
-import React from "react";
-import { Item } from "./style";
+import React from 'react';
+import { Item } from './style';
 
 interface Props {
   name: String;
   selected: Boolean;
   onClick?: () => void;
+  option?: HighlightButtonOption;
+}
+export interface HighlightButtonOption {
+  textColor?: String;
+  underline?: Boolean;
 }
 
-export default function HighlightButton({ name, selected, onClick }: Props) {
+export default function HighlightButton({ name, selected, onClick, option }: Props) {
   return (
-    <Item selected={selected} fixed={!onClick} onClick={onClick}>
+    <Item selected={selected} fixed={!onClick} onClick={onClick} textColor={option?.textColor} underline={option?.underline}>
       {name}
     </Item>
   );

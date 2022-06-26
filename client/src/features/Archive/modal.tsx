@@ -3,9 +3,10 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import ModalSVG from 'assets/images/modal_archive.svg';
 import CloseSVG from 'assets/images/ic_close.svg';
-import HighlightButton from 'components/HighlightButton';
+import HighlightButton, { HighlightButtonOption } from 'components/HighlightButton';
 import { useQuery } from '@apollo/client';
 import { GET_FONT_BY_FONT_ID } from './gql';
+import { main } from 'common/colors';
 
 interface Props {
   id: Number;
@@ -16,6 +17,7 @@ interface ItemProps {
   name: String;
   selected: Boolean;
   onClick: () => void;
+  option?: HighlightButtonOption;
 }
 
 export const ModalBackground = styled.div`
@@ -46,11 +48,17 @@ export const ModalContentWrapper = styled.div`
 const ContainerTagsWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
   gap: 8px;
+  width: 354px;
+  height: 328px;
+  padding: 4px;
+  overflow: auto;
 `;
 
-const ModalItem = ({ name, selected, onClick }: ItemProps) => {
-  return <HighlightButton name={name} selected={selected} onClick={onClick} />;
+const ModalItem = ({ name, selected, onClick, option }: ItemProps) => {
+  return <HighlightButton name={name} selected={selected} onClick={onClick} option={option} />;
 };
 
 const ContainerTags = ({ children }) => {
@@ -60,7 +68,6 @@ const ContainerTags = ({ children }) => {
 export default function ArchiveItemModal({ id, handleVisible }: Props) {
   const { loading, error, data } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id: 3 } });
   if (loading || error) return null;
-  console.log(`${JSON.stringify(data.getFontByFontId)}`);
 
   return (
     <ModalBackground onClick={handleVisible}>
@@ -72,6 +79,7 @@ export default function ArchiveItemModal({ id, handleVisible }: Props) {
           <span>Detail View</span>
           <hr />
           <ContainerTags>
+            <ModalItem key={-1} name={'추가하기'} selected={false} onClick={() => {}} option={{ textColor: `${main}`, underline: true }} />
             {data &&
               data.getTagAll.map((item, index) => (
                 <ModalItem
