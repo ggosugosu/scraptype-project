@@ -52,9 +52,14 @@ export default function Archive() {
   const handleClicked = (font_id: Number) => {
     console.log(`font_id clicked: ${font_id}`);
     setSelectedFontId(font_id);
-    setModalIsVisible((props) => !props);
+    handleVisible();
     console.log(`modalIsVisible: ${modalIsVisible}`);
   };
+
+  const handleVisible = () => {
+    console.log("handleVisible");
+    setModalIsVisible((props) => !props);
+  }
 
   return (
     <>
@@ -81,7 +86,7 @@ export default function Archive() {
               onClick={handleClicked}
             />
           ))}
-        {modalIsVisible && <ArchiveItemModal id={selectedFontId} />}
+        {modalIsVisible && <ArchiveItemModal id={selectedFontId} handleVisible={handleVisible} />}
       </ArchiveWrapper>
     </>
   );

@@ -9,6 +9,7 @@ import { GET_FONT_BY_FONT_ID } from './gql';
 
 interface Props {
   id: Number;
+  handleVisible: () => void;
 }
 
 interface ItemProps {
@@ -26,8 +27,7 @@ export const ModalBackground = styled.div`
   align-items: center;
   width: calc(100vw - 446px);
   height: 100vh;
-  background-color: white;
-  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.8);
 `;
 
 export const ModalWrapper = styled.div`
@@ -43,28 +43,45 @@ export const ModalContentWrapper = styled.div`
   height: 598px;
 `;
 
+const ContainerTagsWrapper = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px;
+`;
+
 const ModalItem = ({ name, selected, onClick }: ItemProps) => {
   return <HighlightButton name={name} selected={selected} onClick={onClick} />;
 };
 
-export default function ArchiveItemModal({ id }: Props) {
+const ContainerTags = ({ children }) => {
+  return <ContainerTagsWrapper>{children}</ContainerTagsWrapper>;
+};
+
+export default function ArchiveItemModal({ id, handleVisible }: Props) {
   const { loading, error, data } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id: 3 } });
   if (loading || error) return null;
   console.log(`${JSON.stringify(data.getFontByFontId)}`);
 
   return (
-    <ModalBackground>
+    <ModalBackground onClick={handleVisible}>
       <ModalWrapper>
         <Image alt="modal_background" src={ModalSVG} />
         <ModalContentWrapper>
-          <Image alt="btn_close" src={CloseSVG} />
+          <Image alt="btn_close" src={CloseSVG} onClick={handleVisible} />
           <div>이미지</div>
           <span>Detail View</span>
           <hr />
-          {data &&
-            data.getTagAll.map((item, index) => (
-              <ModalItem key={index} name={item.name} selected={data.getFontByFontId.fontTags.map((fontTag) => fontTag.tags.id).includes(item.id)} onClick={() => {}} />
-            ))}
+          <ContainerTags>
+            {data &&
+              data.getTagAll.map((item, index) => (
+                <ModalItem
+                  key={index}
+                  name={item.name}
+                  selected={data.getFontByFontId.fontTags.map((fontTag) => fontTag.tags.id).includes(item.id)}
+                  onClick={() => {}}
+                />
+              ))}
+          </ContainerTags>
         </ModalContentWrapper>
       </ModalWrapper>
     </ModalBackground>
