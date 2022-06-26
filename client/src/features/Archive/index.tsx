@@ -56,10 +56,11 @@ export default function Archive() {
     console.log(`modalIsVisible: ${modalIsVisible}`);
   };
 
-  const handleVisible = () => {
-    console.log("handleVisible");
-    setModalIsVisible((props) => !props);
-  }
+  const handleVisible = (e?) => {
+    e && e.stopPropagation();
+    console.log(`${e?.target}, ${e?.currentTarget}`);
+    (!e || e.target === e.currentTarget) && setModalIsVisible((props) => !props);
+  };
 
   return (
     <>
