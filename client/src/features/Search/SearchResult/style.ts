@@ -18,3 +18,16 @@ export const ResultsWrapper = styled.div`
   height: auto;
   overflow: auto;
 `;
+
+export const TextWrapper = styled.div`
+display: flex;
+flex-flow: row wrap;
+gap: 16px;
+height: 54px;
+line-height: 54px;
+margin-top: 92px;
+margin-bottom: 88px;
+span {
+  font-size: 20px;
+}
+`;
