@@ -44,7 +44,6 @@ const LogoWrapper = styled.div`
 
 export default function Archive() {
   const { loading, error, data } = useQuery(GET_FONT_ALL);
-  const [updateFontTags, query] = useMutation(UPDATE_FONT_TAG);
   const [selectedFontId, setSelectedFontId] = useState<number>(0);
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
   if (loading || error) return null;
@@ -57,16 +56,8 @@ export default function Archive() {
 
   const handleVisible = (e?) => {
     e && e.stopPropagation();
-    console.log(`${e?.target}, ${e?.currentTarget}`);
     (!e || e.target === e.currentTarget) && setModalIsVisible((props) => !props);
   };
-
-  const handleUpdateFontTags = (tag_id: number) => {
-    console.log(`tag: ${tag_id}`);
-    updateFontTags({ variables: { font_id: selectedFontId, tag_id } });
-  };
-
-  if (query.data) console.log(query.data);
 
   return (
     <>
@@ -93,7 +84,7 @@ export default function Archive() {
               onClick={handleClicked}
             />
           ))}
-        {modalIsVisible && <ArchiveItemModal font_id={selectedFontId} handleVisible={handleVisible} updateFontTags={handleUpdateFontTags} />}
+        {modalIsVisible && <ArchiveItemModal font_id={selectedFontId} handleVisible={handleVisible} />}
       </ArchiveWrapper>
     </>
   );

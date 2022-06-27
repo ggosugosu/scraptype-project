@@ -4,14 +4,13 @@ import styled from 'styled-components';
 import ModalSVG from 'assets/images/modal_archive.svg';
 import CloseSVG from 'assets/images/ic_close.svg';
 import HighlightButton, { HighlightButtonOption } from 'components/HighlightButton';
-import { useQuery } from '@apollo/client';
-import { GET_FONT_BY_FONT_ID } from './gql';
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_FONT_BY_FONT_ID, UPDATE_FONT_TAG } from './gql';
 import { main } from 'common/colors';
 
 interface Props {
   font_id: number;
   handleVisible: () => void;
-  updateFontTags: (tag_id: number) => void;
 }
 
 interface ItemProps {
@@ -58,6 +57,10 @@ const ContainerTagsWrapper = styled.div`
   overflow: auto;
 `;
 
+interface Tag {
+  id: number;
+  name: string;
+}
 const ModalItem = ({ name, selected, onClick, option }: ItemProps) => {
   return <HighlightButton name={name} selected={selected} onClick={onClick} option={option} />;
 };
@@ -66,28 +69,14 @@ const ContainerTags = ({ children }) => {
   return <ContainerTagsWrapper>{children}</ContainerTagsWrapper>;
 };
 
-export default function ArchiveItemModal({ font_id, handleVisible, updateFontTags }: Props) {
-  const { loading, error, data } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id } });
-  const [selectedTags, setSelectedTags] = useState<number[]>([]);
-  const dataMemo = useMemo(() => data, [data]);
-
-  // useEffect(() => {
-  //   console.log(`useEffect : ${selectedTags}`);
-  //   updateFontTags(selectedTags);
-  // }, [selectedTags]);
-
-
-  // useEffect(() => {
-  //   if (!data) return;
-  //   setSelectedTags([...data.getFontByFontId.fontTags.map((fontTag) => fontTag.tags.id)]);
-    
-  // }, [dataMemo]);
+export default function ArchiveItemModal({ font_id, handleVisible }: Props) {
+  const { loading, error, data, refetch } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id } });
+  const [updateFontTags, { data: queryData, error: queryError }] = useMutation(UPDATE_FONT_TAG);
 
   if (loading || error) return null;
 
   const handleSelectedTag = (tag_id: number) => {
-    //setSelectedTags((props) => (props.includes(tag_id) ? [...props.filter((id) => id !== tag_id)] : [...props, tag_id]));
-    updateFontTags(tag_id);
+    updateFontTags({ variables: { font_id, tag_id }, onCompleted: (data) => data && refetch({ font_id }) });
   };
 
   return (

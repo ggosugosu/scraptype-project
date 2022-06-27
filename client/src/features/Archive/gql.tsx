@@ -43,4 +43,4 @@ export const UPDATE_FONT_TAG = gql`
   mutation UpdateFontTag($font_id: Int, $tag_id: Int) {
     updateFontTag(font_id: $font_id, tag_id: $tag_id)
   }
-`
+`;
