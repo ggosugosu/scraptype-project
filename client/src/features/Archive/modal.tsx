@@ -7,6 +7,7 @@ import HighlightButton, { HighlightButtonOption } from 'components/HighlightButt
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_FONT_BY_FONT_ID, UPDATE_FONT_TAG } from './gql';
 import { main } from 'common/colors';
+import { googleDriveLinkToSource } from 'features/utils';
 
 interface Props {
   font_id: number;
@@ -43,6 +44,7 @@ export const ModalContentWrapper = styled.div`
   left: 0;
   width: 396px;
   height: 598px;
+
 `;
 
 const ContainerTagsWrapper = styled.div`
@@ -90,8 +92,7 @@ export default function ArchiveItemModal({ font_id, handleVisible }: Props) {
         <Image alt="modal_background" src={ModalSVG} />
         <ModalContentWrapper>
           <Image alt="btn_close" src={CloseSVG} onClick={handleVisible} />
-          <div>이미지</div>
-          <span>Detail View</span>
+          <Image alt="img_archive" src={googleDriveLinkToSource('https://drive.google.com/file/d/1qIAB6MEeN6FYuAwMs4xAoZeQXkLxAHer/view?usp=sharing')} layout="fill" className={`filter_turbo`} />
           <hr />
           <ContainerTags>
             <ModalItem key={-1} name={'추가하기'} selected={false} onClick={() => {}} option={{ textColor: `${main}`, underline: true }} />
