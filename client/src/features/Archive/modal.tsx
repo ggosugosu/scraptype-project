@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 import ModalSVG from 'assets/images/modal_archive.svg';
@@ -62,7 +62,12 @@ interface Tag {
   name: string;
 }
 const ModalItem = ({ name, selected, onClick, option }: ItemProps) => {
-  return <HighlightButton name={name} selected={selected} onClick={onClick} option={option} />;
+  const [_selected, _setSelected] = useState<boolean>(selected);
+  const handleSelected = () => {
+    _setSelected(!selected);
+    onClick();
+  };
+  return <HighlightButton name={name} selected={_selected} onClick={handleSelected} option={option} />;
 };
 
 const ContainerTags = ({ children }) => {
@@ -71,7 +76,7 @@ const ContainerTags = ({ children }) => {
 
 export default function ArchiveItemModal({ font_id, handleVisible }: Props) {
   const { loading, error, data, refetch } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id } });
-  const [updateFontTags, { data: queryData, error: queryError }] = useMutation(UPDATE_FONT_TAG);
+  const [updateFontTags] = useMutation(UPDATE_FONT_TAG);
 
   if (loading || error) return null;
 
@@ -96,7 +101,7 @@ export default function ArchiveItemModal({ font_id, handleVisible }: Props) {
                   key={index}
                   name={item.name}
                   selected={data.getFontByFontId.fontTags.map((fontTag) => fontTag.tags.id).includes(item.id)}
-                  onClick={() => handleSelectedTag(item.id)}
+                  onClick={(e) => handleSelectedTag(item.id)}
                 />
               ))}
           </ContainerTags>

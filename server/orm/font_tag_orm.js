@@ -51,7 +51,6 @@ const fontTagORM = {
   },
 
   updateFontTag: async ({ font_id, tag_id }) => {
-    if (!font_id || !tag_id) return false;
     try {
       const prevFontTags = await FontTag.findAll({ where: { font_id } });
       prevFontTags.map((prev) => prev.tag_id).includes(tag_id)

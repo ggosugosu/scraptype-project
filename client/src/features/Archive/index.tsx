@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import styled from 'styled-components';
-import ArchiveItem from './ArchiveItem';
-import { WebFont } from './ArchiveItem';
-import logo from 'assets/images/logo_no_icon.svg';
 import logoBistro from 'assets/images/logo_bistro.svg';
+import logo from 'assets/images/logo_no_icon.svg';
 import { grey_200 } from 'common/colors';
+import Image from 'next/image';
+import { useState } from 'react';
+import styled from 'styled-components';
+import ArchiveItem, { WebFont } from './ArchiveItem';
 
-import { GET_FONT_ALL, UPDATE_FONT_TAG } from './gql';
-import { useMutation, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { GET_FONT_ALL } from './gql';
 import ArchiveItemModal from './modal';
 
 const ArchiveWrapper = styled.div`
@@ -44,7 +43,7 @@ const LogoWrapper = styled.div`
 
 export default function Archive() {
   const { loading, error, data } = useQuery(GET_FONT_ALL);
-  const [selectedFontId, setSelectedFontId] = useState<number>(0);
+  const [selectedFontId, setSelectedFontId] = useState<number>();
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
   if (loading || error) return null;
 
@@ -84,7 +83,7 @@ export default function Archive() {
               onClick={handleClicked}
             />
           ))}
-        {modalIsVisible && <ArchiveItemModal font_id={selectedFontId} handleVisible={handleVisible} />}
+        {data && modalIsVisible && <ArchiveItemModal font_id={selectedFontId ?? -1} handleVisible={handleVisible} />}
       </ArchiveWrapper>
     </>
   );

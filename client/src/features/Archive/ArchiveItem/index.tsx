@@ -24,6 +24,7 @@ export interface WebFont {
 export default function ArchiveItem({ font_id, name, description, corporation, tags, webFonts, onClick }: Props) {
   const [char, setChar] = useState<String>(charList[0]);
   const [color, setColor] = useState<ItemColor>(colorList[0]);
+  
   useEffect(() => {
     setChar(charList[Math.floor(Math.random() * charList.length)]);
     setColor(colorList[Math.floor(Math.random() * colorList.length)]);
