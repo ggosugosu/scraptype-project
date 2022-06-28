@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styled from 'styled-components';
 import ModalSVG from 'assets/images/modal_archive.svg';
 import CloseSVG from 'assets/images/ic_close.svg';
 import HighlightButton, { HighlightButtonOption } from 'components/HighlightButton';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_FONT_BY_FONT_ID, UPDATE_FONT_TAG } from './gql';
-import { main } from 'common/colors';
+import { grey_400, main } from 'common/colors';
 import { googleDriveLinkToSource } from 'features/utils';
 
 interface Props {
@@ -38,6 +39,7 @@ export const ModalWrapper = styled.div`
   width: 396px;
   height: 598px;
 `;
+
 export const ModalContentWrapper = styled.div`
   position: absolute;
   top: 0;
@@ -45,6 +47,32 @@ export const ModalContentWrapper = styled.div`
   width: 396px;
   height: 598px;
 
+  .btn-close-wrapper {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+  }
+
+  .img-archive-wrapper {
+    position: relative;
+    width: 116px;
+    height: 116px;
+    margin: 68px auto 0 auto;
+  }
+
+  .detail-view-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  a {
+    margin: 6px auto 54px auto;
+    padding: 4px 46px;
+    text-decoration: underline;
+    color: ${grey_400};
+    cursor: pointer;
+  }
 `;
 
 const ContainerTagsWrapper = styled.div`
@@ -91,8 +119,22 @@ export default function ArchiveItemModal({ font_id, handleVisible }: Props) {
       <ModalWrapper>
         <Image alt="modal_background" src={ModalSVG} />
         <ModalContentWrapper>
-          <Image alt="btn_close" src={CloseSVG} onClick={handleVisible} />
-          <Image alt="img_archive" src={googleDriveLinkToSource('https://drive.google.com/file/d/1qIAB6MEeN6FYuAwMs4xAoZeQXkLxAHer/view?usp=sharing')} layout="fill" className={`filter_turbo`} />
+          <button className="btn-close-wrapper">
+            <Image alt="btn_close" src={CloseSVG} onClick={handleVisible} className="btn-close" />
+          </button>
+          <div className="img-archive-wrapper">
+            <Image
+              alt="img_archive"
+              src={googleDriveLinkToSource('https://drive.google.com/file/d/1qIAB6MEeN6FYuAwMs4xAoZeQXkLxAHer/view?usp=sharing')}
+              layout="fill"
+              className={`filter_turbo`}
+            />
+          </div>
+          <div className="detail-view-wrapper">
+            <Link href="/" passHref>
+              <a>detail view</a>
+            </Link>
+          </div>
           <hr />
           <ContainerTags>
             <ModalItem key={-1} name={'추가하기'} selected={false} onClick={() => {}} option={{ textColor: `${main}`, underline: true }} />
