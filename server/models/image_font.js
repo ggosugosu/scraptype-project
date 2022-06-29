@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
-    "Tag",
+    "ImageFont",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,9 +8,17 @@ module.exports = (sequelize, DataTypes) =>
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
-        type: DataTypes.STRING(10),
-        allowNull: false,
+      font_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      title: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      unit: {
+        type: DataTypes.TEXT,
+        allowNull: true,
       },
     },
     {

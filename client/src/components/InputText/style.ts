@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 export const InputTextWrapper = styled.input.attrs((props) => ({
   type: "text",
-}))`
+}))<{width: string | null}>`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   border: none;
   border-bottom: solid 2px ${black};
   flex: 1 1 auto;
-  width: 0px;
+  width: ${({width}) => width ? width : `0px`};
   height: 54px;
   font-size: 20px;
 
@@ -20,9 +20,9 @@ export const InputTextWrapper = styled.input.attrs((props) => ({
   }
 `;
 
-export const InputFixedTextWrapper = styled.div`
+export const InputFixedTextWrapper = styled.div<{width: string | null}>`
   display: inline-block;
-  width: auto;
+  width: ${({width}) => width ? width : `auto`};
   height: 54px;
   border-bottom: solid 2px ${main};
   padding: 0 16px;

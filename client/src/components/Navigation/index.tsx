@@ -48,7 +48,7 @@ export default function Navigation() {
 
       <NavButtons>
         <li>
-          <Link href="/admin/font-tag" passHref>
+          <Link href="/admin/font" passHref>
             <NavButton>
               <span>Settings</span>
               <Image src={isWide ? iconSettings : iconSettingsMobile} alt="icon-settings" />

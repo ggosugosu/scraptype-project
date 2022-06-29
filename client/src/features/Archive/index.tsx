@@ -45,7 +45,10 @@ export default function Archive() {
   const { loading, error, data } = useQuery(GET_FONT_ALL);
   const [selectedFontId, setSelectedFontId] = useState<number>();
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
-  if (loading || error) return null;
+  if (loading || error) {
+    console.log(`${error?.message}`);
+    return null;
+  }
 
   const handleClicked = (font_id: number) => {
     setSelectedFontId(font_id);
@@ -76,7 +79,6 @@ export default function Archive() {
               tags={item.fontTags.tags}
               webFonts={item.webFonts.map(
                 (item): WebFont => ({
-                  family: item.family,
                   source: item.source,
                 })
               )}

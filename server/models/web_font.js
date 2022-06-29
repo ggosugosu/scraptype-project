@@ -12,10 +12,6 @@ module.exports = (sequelize, DataTypes) =>
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      family: {
-        type: DataTypes.STRING(10),
-        allowNull: true,
-      },
       source: {
         type: DataTypes.TEXT,
         allowNull: true,

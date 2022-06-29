@@ -34,8 +34,15 @@ const typeDefs = gql`
   type WebFont {
     id: Int
     font_id: Int
-    family: String
     source: String
+    font: Font
+  }
+
+  type ImageFont {
+    id: Int
+    font_id: Int
+    title: String
+    unit: String
     font: Font
   }
 

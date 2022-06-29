@@ -17,7 +17,6 @@ interface Props {
 }
 
 export interface WebFont {
-  family: string;
   source: string;
 }
 
