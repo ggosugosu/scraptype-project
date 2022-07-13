@@ -1,8 +1,7 @@
-import { createGlobalStyle } from "styled-components";
-import styled from "styled-components";
-import { white, grey_400, black, grey_300, grey_200, grey_100 } from "./colors";
-import { getSvgUrl } from "../features/utils";
-
+import { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
+import { white, grey_400, black, grey_300, grey_200, grey_100 } from './colors';
+import { getSvgUrl } from '../features/utils';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -33,6 +32,13 @@ export const GlobalStyle = createGlobalStyle`
 	  cursor: pointer;
 	  outline: inherit;
   }
+
+  .col-1 {grid-column: span 1;}
+  .col-2 {grid-column: span 2;}
+  .col-3 {grid-column: span 3;}
+  .col-4 {grid-column: span 4;}
+  .col-5 {grid-column: span 5;}
+  .col-6 {grid-column: span 6;}
 `;
 
 export const DashLineHorizontal = styled.hr`

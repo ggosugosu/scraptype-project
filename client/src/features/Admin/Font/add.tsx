@@ -1,4 +1,7 @@
+import Form from 'components/Form';
+import Grid from 'components/Grid';
 import InputText from 'components/InputText';
+import InputTextArea from 'components/InputTextArea';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -27,25 +30,28 @@ export default function AddFont() {
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
   };
+
+  const handleSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+  };
   return (
-    <>
-      <Row>
-        <Column>
-          <label>
+    <Form onSubmit={handleSubmit}>
+      <Grid gap={`32px 22px`}>
+        <div>
+          <label htmlFor="name">
             Font name<span>*</span>
           </label>
-          <InputText placeholder="text" value={font} width={'fit-content'} onChange={handleFontChange} />
+          <InputText id="name" placeholder="text" value={font} onChange={handleFontChange} />
           <label>
             Corporation<span>*</span>
           </label>
-          <InputText placeholder="text" value={corporation} width={'fit-content'} onChange={handleCorporationChange} />
-        </Column>
-
-        <Column>
-          <label>Memo</label>
-          <InputText placeholder="text" value={description} width={'fit-content'} onChange={handleDescriptionChange} />
-        </Column>
-      </Row>
-    </>
+          <InputText placeholder="text" value={corporation} onChange={handleCorporationChange} />
+        </div>
+        <div>
+          <label htmlFor="description">Memo?</label>
+          <InputTextArea id="description" placeholder="text" value={description} onChange={handleDescriptionChange} />
+        </div>
+      </Grid>
+    </Form>
   );
 }

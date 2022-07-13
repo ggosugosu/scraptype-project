@@ -2,15 +2,13 @@ import { black, main } from "common/colors";
 import styled from "styled-components";
 
 export const InputTextWrapper = styled.input.attrs((props) => ({
-  type: "text",
-}))<{width: string | null}>`
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  type: props.type ? props.type : "text",
+}))<{width?: string, type?: string}>`
   appearance: none;
   border: none;
   border-bottom: solid 2px ${black};
   flex: 1 1 auto;
-  width: ${({width}) => width ? width : `0px`};
+  width: ${({width}) => width ? width : `100%`};
   height: 54px;
   font-size: 20px;
 
