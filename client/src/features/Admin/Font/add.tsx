@@ -1,9 +1,10 @@
 import { grey_150 } from 'common/colors';
 import Form from 'components/Form';
 import Grid from 'components/Grid';
-import { GridLayout } from 'components/Grid/style';
+import { GridDivider, GridLayout } from 'components/Grid/style';
 import InputText from 'components/InputText';
 import InputTextArea from 'components/InputTextArea';
+import Radio from 'components/Radio';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -37,7 +38,7 @@ export default function AddFont() {
     e.preventDefault();
   };
   return (
-    <Form isGrey={true}  onSubmit={handleSubmit}>
+    <Form isGrey={true} onSubmit={handleSubmit}>
       <Grid gap={`36px 22px`} padding={`36px 24px`}>
         <GridLayout>
           <label htmlFor="name">
@@ -56,12 +57,23 @@ export default function AddFont() {
           <InputTextArea id="description" placeholder="text" value={description} onChange={handleDescriptionChange} />
         </GridLayout>
       </Grid>
-      <GridDivider/>
+      <GridDivider />
+      <Grid gap={`36px 22px`} padding={`36px 24px`}>
+        <GridLayout>
+          <Radio>
+            <input type="radio" name="fontType" id="webFont" value="web" defaultChecked={true}/>
+            <label htmlFor="webFont">
+              웹 폰트
+            </label>
+          </Radio>
+          <Radio>
+            <input type="radio" name="fontType" id="imageFont" value="image" />
+            <label htmlFor="imageFont">
+              이미지 폰트
+            </label>
+          </Radio>
+        </GridLayout>
+      </Grid>
     </Form>
   );
 }
-const GridDivider = styled.div`
-width: 100%;
-height: 20px;
-background-color: ${grey_150};
-`
