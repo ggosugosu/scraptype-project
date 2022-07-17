@@ -1,9 +1,11 @@
 import CharContainer from 'components/CharContainer/CharContainer';
-import ArchiveItem, { WebFont } from 'components/CharContainer/Item';
+import  { WebFont } from 'components/CharContainer/Item';
 import ArchiveItemModal from 'features/Archive/modal';
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_FONT_ALL } from './gql';
+import CharItem from 'components/CharContainer/Item/CharItem';
+import AddCharItem from 'components/CharContainer/Item/AddCharItem';
 
 export default function Overview() {
   const { loading, error, data } = useQuery(GET_FONT_ALL);
@@ -28,9 +30,10 @@ export default function Overview() {
   return (
     <>
       <CharContainer>
+        <AddCharItem onClick={() => {}} />
         {data &&
           data.getFontAll.map((item, index) => (
-            <ArchiveItem
+            <CharItem
               key={index}
               font_id={item.id}
               name={item.name}
@@ -42,6 +45,7 @@ export default function Overview() {
                   source: item.source,
                 })
               )}
+              isArchive={false}
               onClick={handleClicked}
             />
           ))}

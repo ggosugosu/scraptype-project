@@ -2,10 +2,11 @@ import logoBistro from 'assets/images/logo_bistro.svg';
 import logo from 'assets/images/logo_no_icon.svg';
 import Image from 'next/image';
 import { useState } from 'react';
-import ArchiveItem, { WebFont } from '../../components/CharContainer/Item';
+import { WebFont } from '../../components/CharContainer/Item';
 
 import { useQuery } from '@apollo/client';
 import CharContainer from 'components/CharContainer/CharContainer';
+import CharItem from 'components/CharContainer/Item/CharItem';
 import { GET_FONT_ALL } from './gql';
 import ArchiveItemModal from './modal';
 import { LogoWrapper } from './style';
@@ -39,7 +40,7 @@ export default function Archive() {
       <CharContainer>
         {data &&
           data.getFontAll.map((item, index) => (
-            <ArchiveItem
+            <CharItem
               key={index}
               font_id={item.id}
               name={item.name}
@@ -51,6 +52,7 @@ export default function Archive() {
                   source: item.source,
                 })
               )}
+              isArchive={true}
               onClick={handleClicked}
             />
           ))}
