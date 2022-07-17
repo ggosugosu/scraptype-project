@@ -1,12 +1,13 @@
 import React from 'react';
-import { InputTextAreaWrapper } from './style';
+import { InputTextAreaStyle } from './style';
 
 type Props = {
   id?: string;
   placeholder?: string;
-  value: string;
+  value: string | undefined;
+  height?: string;
   onChange?: (e: any) => void;
 };
-export default function InputTextArea({ id, placeholder, value, onChange }) {
-  return <InputTextAreaWrapper id={id} placeholder={placeholder} value={value} onChange={onChange} />;
+export default function InputTextArea({ id, placeholder, value, height, onChange }: Props) {
+  return <InputTextAreaStyle id={id} placeholder={placeholder} value={value} height={height} onChange={onChange} />;
 }

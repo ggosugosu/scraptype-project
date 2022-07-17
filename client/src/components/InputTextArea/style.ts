@@ -1,7 +1,7 @@
 import { black, main } from 'common/colors';
 import styled from 'styled-components';
 
-export const InputTextAreaWrapper = styled.textarea<{ height?: string }>`
+export const InputTextAreaStyle = styled.textarea<{ height?: string }>`
   flex: 1 1 auto;
 
   width: 100%;

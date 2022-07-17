@@ -90,7 +90,7 @@ const WebFont = () => {
         <label>
           Font face <span className="required"> *</span>
         </label>
-        <InputTextArea id="fontFace" placeholder="text" value={fontFace} onChange={handleFontFaceChange} />
+        <InputTextArea id="fontFace" placeholder="text" value={fontFace} height={`188px`} onChange={handleFontFaceChange} />
       </GridLayout>
     </Grid>
   );
@@ -151,7 +151,7 @@ const ImageFont = () => {
             Image link <span>{item.description}</span>
             <span className="required"> *</span>
           </label>
-          <InputTextArea id={item.name} placeholder="text" value={item.value} onChange={(e) => handleChange(e, item.setValue)} />
+          <InputTextArea id={item.name} placeholder="text" value={item.value} height={`188px`} onChange={(e) => handleChange(e, item.setValue)} />
         </GridLayout>
       ))}
     </Grid>
