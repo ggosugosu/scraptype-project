@@ -10,7 +10,7 @@ export const InputTextWrapper = styled.input.attrs((props) => ({
   flex: 1 1 auto;
   width: ${({width}) => width ? width : `100%`};
   height: 54px;
-  font-size: 20px;
+  font-size: 16px;
 
   &:focus {
     outline: none;
@@ -25,6 +25,6 @@ export const InputFixedTextWrapper = styled.div<{width: string | null}>`
   border-bottom: solid 2px ${main};
   padding: 0 16px;
   color: ${main};
-  font-size: 20px;
+  font-size: 16px;
   line-height: 54px;
 `;

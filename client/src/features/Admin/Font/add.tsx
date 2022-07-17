@@ -1,5 +1,6 @@
 import Form from 'components/Form';
 import Grid from 'components/Grid';
+import { GridLayout } from 'components/Grid/style';
 import InputText from 'components/InputText';
 import InputTextArea from 'components/InputTextArea';
 import React, { useState } from 'react';
@@ -36,21 +37,23 @@ export default function AddFont() {
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <Grid gap={`32px 22px`}>
-        <div>
+      <Grid gap={`36px 22px`}>
+        <GridLayout>
           <label htmlFor="name">
             Font name<span>*</span>
           </label>
           <InputText id="name" placeholder="text" value={font} onChange={handleFontChange} />
+        </GridLayout>
+        <GridLayout>
           <label>
             Corporation<span>*</span>
           </label>
           <InputText placeholder="text" value={corporation} onChange={handleCorporationChange} />
-        </div>
-        <div>
-          <label htmlFor="description">Memo?</label>
+        </GridLayout>
+        <GridLayout row={`1 / span 2`} column={`2 / span 1`}>
+          <label htmlFor="description">Memo</label>
           <InputTextArea id="description" placeholder="text" value={description} onChange={handleDescriptionChange} />
-        </div>
+        </GridLayout>
       </Grid>
     </Form>
   );
