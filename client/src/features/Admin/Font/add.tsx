@@ -1,3 +1,4 @@
+import { grey_150 } from 'common/colors';
 import Form from 'components/Form';
 import Grid from 'components/Grid';
 import { GridLayout } from 'components/Grid/style';
@@ -36,8 +37,8 @@ export default function AddFont() {
     e.preventDefault();
   };
   return (
-    <Form onSubmit={handleSubmit}>
-      <Grid gap={`36px 22px`}>
+    <Form isGrey={true}  onSubmit={handleSubmit}>
+      <Grid gap={`36px 22px`} padding={`36px 24px`}>
         <GridLayout>
           <label htmlFor="name">
             Font name<span>*</span>
@@ -55,6 +56,12 @@ export default function AddFont() {
           <InputTextArea id="description" placeholder="text" value={description} onChange={handleDescriptionChange} />
         </GridLayout>
       </Grid>
+      <GridDivider/>
     </Form>
   );
 }
+const GridDivider = styled.div`
+width: 100%;
+height: 20px;
+background-color: ${grey_150};
+`

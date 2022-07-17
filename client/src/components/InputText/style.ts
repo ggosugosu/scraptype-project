@@ -8,6 +8,7 @@ export const InputTextWrapper = styled.input.attrs((props) => ({
 
   width: ${({ width }) => (width ? width : `100%`)};
   height: 54px;
+  padding: 0 16px;
   appearance: none;
   border: none;
   border-bottom: solid 2px ${black};

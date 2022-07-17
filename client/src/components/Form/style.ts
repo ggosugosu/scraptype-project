@@ -1,4 +1,4 @@
-import { grey_100 } from 'common/colors';
+import { grey_100, hot_pink } from 'common/colors';
 import styled from 'styled-components';
 
 export const FormStyle = styled.form<{ isGrey?: boolean }>`
@@ -12,5 +12,9 @@ export const FormStyle = styled.form<{ isGrey?: boolean }>`
 
     font-size: 20px;
     font-weight: 600;
+
+    span {
+      color: ${hot_pink};
+    }
   }
 `;

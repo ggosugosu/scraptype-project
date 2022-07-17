@@ -1,13 +1,14 @@
 import { black, main } from 'common/colors';
 import styled from 'styled-components';
 
-export const InputTextAreaWrapper = styled.textarea`
+export const InputTextAreaWrapper = styled.textarea<{ height?: string }>`
   flex: 1 1 auto;
 
   width: 100%;
-  height: calc(100% - 24px);
+  height: ${({ height }) => (height ? height : `calc(100% - 32px)`)};
+  padding: 14px 16px;
+  resize: none;
   appearance: none;
-  padding-top: 14px;
   border: none;
   border-bottom: solid 2px ${black};
   background-color: white;
