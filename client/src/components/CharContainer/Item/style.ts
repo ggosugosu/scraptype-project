@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { ItemColor } from "./models";
+import styled from 'styled-components';
+import { ItemColor } from './models';
 
 export const CharBox = styled.button<{ selectedColor: ItemColor; fontFamily: string }>`
 position: relative;

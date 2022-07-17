@@ -1,16 +1,11 @@
-import logoBistro from 'assets/images/logo_bistro.svg';
-import logo from 'assets/images/logo_no_icon.svg';
-import Image from 'next/image';
-import { useState } from 'react';
-import ArchiveItem, { WebFont } from '../../components/CharContainer/Item';
-
-import { useQuery } from '@apollo/client';
 import CharContainer from 'components/CharContainer/CharContainer';
+import ArchiveItem, { WebFont } from 'components/CharContainer/Item';
+import ArchiveItemModal from 'features/Archive/modal';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import { GET_FONT_ALL } from './gql';
-import ArchiveItemModal from './modal';
-import { LogoWrapper } from './style';
 
-export default function Archive() {
+export default function Overview() {
   const { loading, error, data } = useQuery(GET_FONT_ALL);
   const [selectedFontId, setSelectedFontId] = useState<number>();
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
@@ -32,10 +27,6 @@ export default function Archive() {
 
   return (
     <>
-      <LogoWrapper>
-        <Image src={logo} alt="logo" />
-        <Image src={logoBistro} alt="logo_bistro" width="72" height="42" />
-      </LogoWrapper>
       <CharContainer>
         {data &&
           data.getFontAll.map((item, index) => (
