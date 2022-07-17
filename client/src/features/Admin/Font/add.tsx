@@ -42,13 +42,13 @@ export default function AddFont() {
       <Grid gap={`36px 22px`} padding={`36px 24px`}>
         <GridLayout>
           <label htmlFor="name">
-            Font name<span>*</span>
+            Font name <span>*</span>
           </label>
           <InputText id="name" placeholder="text" value={font} onChange={handleFontChange} />
         </GridLayout>
         <GridLayout>
           <label>
-            Corporation<span>*</span>
+            Corporation <span>*</span>
           </label>
           <InputText placeholder="text" value={corporation} onChange={handleCorporationChange} />
         </GridLayout>
@@ -59,18 +59,17 @@ export default function AddFont() {
       </Grid>
       <GridDivider />
       <Grid gap={`36px 22px`} padding={`36px 24px`}>
-        <GridLayout>
+        <GridLayout column={`span 2`}>
+          <label>
+            어떤 유형의 폰트를 추가하시겠습니까? <span>*</span>
+          </label>
           <Radio>
-            <input type="radio" name="fontType" id="webFont" value="web" defaultChecked={true}/>
-            <label htmlFor="webFont">
-              웹 폰트
-            </label>
+            <input type="radio" name="fontType" id="webFont" value="web" defaultChecked={true} />
+            <label htmlFor="webFont">웹 폰트</label>
           </Radio>
           <Radio>
             <input type="radio" name="fontType" id="imageFont" value="image" />
-            <label htmlFor="imageFont">
-              이미지 폰트
-            </label>
+            <label htmlFor="imageFont">이미지 폰트</label>
           </Radio>
         </GridLayout>
       </Grid>

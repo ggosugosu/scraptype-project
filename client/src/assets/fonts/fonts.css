@@ -2,7 +2,7 @@
   font-family: 'Gothic';
   src: url('apple-sd-gothic-neo-b.otf');
   font-weight: 600;
-  font-style: Bold;
+  font-style: normal;
 }
 @font-face {
   font-family: 'Gothic';
@@ -23,7 +23,7 @@
   font-style: normal;
 }
 @font-face {
-  font-family: 'Elice-B';
+  font-family: 'Elice';
   src: url('elice-digital-baeum-b.otf');
   font-weight: 600;
   unicode-range: U+AC00-D7A3;
@@ -31,6 +31,6 @@
 @font-face {
   font-family: 'Elice';
   src: url('elice-digital-baeum-r.otf');
-  font-weight: 400;
+  font-weight: 300,500;
   unicode-range: U+AC00-D7A3;
 }

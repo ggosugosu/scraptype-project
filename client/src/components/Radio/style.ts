@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const RadioStyle = styled.div`
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
 
   height: 32px;
@@ -37,7 +37,7 @@ export const RadioStyle = styled.div`
     margin-right: 16px;
 
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     color: ${black};
 
     cursor: pointer;
