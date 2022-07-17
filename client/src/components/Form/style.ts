@@ -14,6 +14,13 @@ export const FormStyle = styled.form<{ isGrey?: boolean }>`
     font-weight: 600;
 
     span {
+      font-weight: 300;
+      font-size: 16px;
+    }
+
+    .required {
+      font-weight: 600;
+      font-size: 20px;
       color: ${hot_pink};
     }
   }
