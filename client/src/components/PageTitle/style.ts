@@ -9,7 +9,7 @@ export const Title = styled.header`
   height: 48px;
 
   span {
-    font-family: "Gothic-M";
+    font-weight: 500;
     font-size: 32px;
   }
 

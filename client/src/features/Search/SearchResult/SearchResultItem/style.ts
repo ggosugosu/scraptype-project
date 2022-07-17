@@ -30,10 +30,10 @@ export const ItemTitle = styled.div`
   h1 {
     margin: 0;
     font-size: 20px;
-    font-family: "Elice-R", "Gothic-R", sans-serif;
+    font-weight: 500;
   }
   span {
-    font-family: "Elice-R", "Gothic-R", sans-serif;
+    font-weight: 500;
     font-size: 12px;
     text-align: right;
   }
@@ -52,7 +52,6 @@ export const ItemContent = styled.div`
     display: -webkit-box;
     margin: 0;
     padding: 20px 0 0 0;
-    font-family: "Elice-R", "Gothic-R", sans-serif;
     font-size: 12px;
     text-align: left;
     -webkit-line-clamp: 4;

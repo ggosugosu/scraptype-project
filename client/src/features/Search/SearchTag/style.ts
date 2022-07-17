@@ -26,7 +26,7 @@ export const Container = styled.div`
   overflow: auto;
 
   span {
-    font-family: "Elice-R", "Gothic-L", sans-serif;
+    font-weight: 300;
     font-size: 44px;
     line-height: 55px;
     color: ${grey_300};

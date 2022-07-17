@@ -10,6 +10,7 @@ export const InputTextAreaWrapper = styled.textarea`
   padding-top: 14px;
   border: none;
   border-bottom: solid 2px ${black};
+  background-color: white;
 
   font-size: 16px;
   vertical-align: top;

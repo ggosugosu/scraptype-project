@@ -47,7 +47,7 @@ export const NavBar = styled.header`
       flex-flow: column;
       align-items: center;
       span {
-        font-family: "Gothic-M", sans-serif;
+        font-weight: 500;
         font-size: 9px;
         white-space: nowrap;
       }
@@ -84,7 +84,6 @@ export const NavLogo = styled.div`
 export const NavDesc = styled.p`
   width: 100%;
   text-align: center;
-  font-family: "Gothic-R", sans-serif;
   font-size: 16px;
   @media (max-width: 480px) {
     display: none;

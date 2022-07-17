@@ -12,7 +12,7 @@ export const ButtonPositiveWrapper = styled.button`
     width: 184px;
     height: 54px;
     line-height: 54px;
-    font-family: "Gothic-M", sans-serif;
+    font-weight: 500;
     font-size: 20px;
     color: white;
   }
@@ -23,7 +23,7 @@ export const ButtonNegativeWrapper = styled.button<{ disabled: Boolean }>`
   height: 54px;
   padding: 8px 24px;
   div {
-    font-family: "Gothic-M", sans-serif;
+    font-weight: 500;
     font-size: 20px;
     color: ${({ disabled }) => (disabled ? grey_100 : grey_200)};
   }

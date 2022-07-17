@@ -6,7 +6,8 @@ import { getSvgUrl } from '../features/utils';
 export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
-    font-family:'Elice-R' ,'Gothic-R', 'sans-serif';
+    font-family:'Elice' ,'Gothic', 'sans-serif';
+    font-weight: 400;
     color: ${black};
   }
 
