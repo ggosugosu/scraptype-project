@@ -1,7 +1,7 @@
 import { grey_100, grey_200 } from "common/colors";
 import styled from "styled-components";
 
-export const ButtonPositiveWrapper = styled.button`
+export const ButtonPositiveStyle = styled.button`
   position: relative;
   width: 184px;
   height: 54px;
@@ -18,7 +18,7 @@ export const ButtonPositiveWrapper = styled.button`
   }
 `;
 
-export const ButtonNegativeWrapper = styled.button<{ disabled: Boolean }>`
+export const ButtonNegativeStyle = styled.button<{ disabled: Boolean }>`
   width: auto;
   height: 54px;
   padding: 8px 24px;

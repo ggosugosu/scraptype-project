@@ -1,4 +1,4 @@
-import { grey_150 } from 'common/colors';
+import { ButtonPositive } from 'components/Button';
 import Form from 'components/Form';
 import Grid from 'components/Grid';
 import { GridDivider, GridLayout } from 'components/Grid/style';
@@ -7,17 +7,6 @@ import InputTextArea from 'components/InputTextArea';
 import Radio from 'components/Radio';
 import React, { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
-
-const Column = styled.div`
-  display: flex;
-  flex-flow: column wrap;
-  flex: 1 1 50%;
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-`;
 
 export default function AddFont() {
   const [font, setFont] = useState<string>('');
@@ -80,6 +69,10 @@ export default function AddFont() {
       </Grid>
       <GridDivider />
       {isWebFont ? <WebFont /> : <ImageFont />}
+      <GridDivider />
+      <Grid template={`1fr`} padding={`36px 24px 56px 24px`}>
+        <ButtonPositive enabled={true} text={`폰트 추가`} onClick={() => {}} />
+      </Grid>
     </Form>
   );
 }
@@ -124,25 +117,25 @@ const ImageFont = () => {
     (): ImageFontItem[] => [
       {
         name: 'unit',
-        description: '( Unit / 90x90 )',
+        description: '( Unit / 90 x 90 )',
         value: unit,
         setValue: setUnit,
       },
       {
         name: 'title',
-        description: '( Title / Hugx108 )',
+        description: '( Title / Hug x 108 )',
         value: title,
         setValue: setTitle,
       },
       {
         name: 'detailP',
-        description: '( Detailveiw Contents / PC / JPG )',
+        description: '( Detail View Contents / PC / JPG )',
         value: detailP,
         setValue: setDetailP,
       },
       {
         name: 'detailM',
-        description: '( Detailveiw Contents / MO / JPG )',
+        description: '( Detail View Contents / MO / JPG )',
         value: detailM,
         setValue: setDetailM,
       },
