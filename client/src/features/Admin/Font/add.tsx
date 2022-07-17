@@ -5,7 +5,7 @@ import { GridDivider, GridLayout } from 'components/Grid/style';
 import InputText from 'components/InputText';
 import InputTextArea from 'components/InputTextArea';
 import Radio from 'components/Radio';
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 const Column = styled.div`
@@ -106,7 +106,7 @@ const WebFont = () => {
 type ImageFontItem = {
   name: string;
   description: string;
-  value: string;
+  value: string | undefined;
   setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
@@ -116,40 +116,51 @@ const ImageFont = () => {
   const [detailP, setDetailP] = useState<string>();
   const [detailM, setDetailM] = useState<string>();
 
-  const handleChange = (e, func: React.Dispatch<React.SetStateAction<string | undefined>>) => {
+  const handleChange = useCallback((e, func: React.Dispatch<React.SetStateAction<string | undefined>>) => {
     func(e.target.value);
-  };
+  }, []);
+
+  const imageFontItems = useMemo(
+    (): ImageFontItem[] => [
+      {
+        name: 'unit',
+        description: '( Unit / 90x90 )',
+        value: unit,
+        setValue: setUnit,
+      },
+      {
+        name: 'title',
+        description: '( Title / Hugx108 )',
+        value: title,
+        setValue: setTitle,
+      },
+      {
+        name: 'detailP',
+        description: '( Detailveiw Contents / PC / JPG )',
+        value: detailP,
+        setValue: setDetailP,
+      },
+      {
+        name: 'detailM',
+        description: '( Detailveiw Contents / MO / JPG )',
+        value: detailM,
+        setValue: setDetailM,
+      },
+    ],
+    []
+  );
 
   return (
     <Grid gap={`36px 22px`} padding={`36px 24px`}>
-      <GridLayout>
-        <label htmlFor="unit">
-          Image link <span>( Unit / 90x90 )</span>
-          <span className="required"> *</span>
-        </label>
-        <InputTextArea id="unit" placeholder="text" value={unit} onChange={(e) => handleChange(e, setUnit)} />
-      </GridLayout>
-      <GridLayout>
-        <label htmlFor="title">
-          Image link <span>( Title / Hugx108 )</span>
-          <span className="required"> *</span>
-        </label>
-        <InputTextArea id="title" placeholder="text" value={title} onChange={(e) => handleChange(e, setTitle)} />
-      </GridLayout>
-      <GridLayout>
-        <label htmlFor="detailP">
-          Image link <span>( Detailveiw Contents / PC / JPG )</span>
-          <span className="required"> *</span>
-        </label>
-        <InputTextArea id="detailP" placeholder="text" value={detailP} onChange={(e) => handleChange(e, setDetailP)} />
-      </GridLayout>
-      <GridLayout>
-        <label htmlFor="detailM">
-          Image link <span>( Detailveiw Contents / MO / JPG )</span>
-          <span className="required"> *</span>
-        </label>
-        <InputTextArea id="detailM" placeholder="text" value={detailM} onChange={(e) => handleChange(e, setDetailM)} />
-      </GridLayout>
+      {imageFontItems.map((item) => (
+        <GridLayout key={item.name}>
+          <label htmlFor={item.name}>
+            Image link <span>{item.description}</span>
+            <span className="required"> *</span>
+          </label>
+          <InputTextArea id={item.name} placeholder="text" value={item.value} onChange={(e) => handleChange(e, item.setValue)} />
+        </GridLayout>
+      ))}
     </Grid>
   );
 };
