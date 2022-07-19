@@ -20,6 +20,14 @@ module.exports = (sequelize, DataTypes) =>
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      detail_mobile: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      detail_pc: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
     },
     {
       timestamps: false,

@@ -1,4 +1,4 @@
-const { Font, FontTag, Tag, WebFont } = require('../models/index');
+const { Font, FontTag, Tag, WebFont, ImageFont } = require('../models/index');
 const { Op } = require('sequelize');
 const sequelize = require('sequelize');
 
@@ -20,6 +20,10 @@ const fontORM = {
         {
           model: WebFont,
           as: 'webFonts',
+        },
+        {
+          model: ImageFont,
+          as: 'imageFonts',
         },
       ],
     }).then((data) => data),

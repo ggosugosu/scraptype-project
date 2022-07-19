@@ -16,6 +16,7 @@ const typeDefs = gql`
     corporation: String
     fontTags: [FontTag]
     webFonts: [WebFont]
+    imageFonts: [ImageFont]
   }
 
   type Tag {
@@ -43,6 +44,8 @@ const typeDefs = gql`
     font_id: Int
     title: String
     unit: String
+    detail_mobile: String
+    detail_pc: String
     font: Font
   }
 
