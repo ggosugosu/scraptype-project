@@ -15,8 +15,8 @@ const typeDefs = gql`
     description: String
     corporation: String
     fontTags: [FontTag]
-    webFonts: [WebFont]
-    imageFonts: [ImageFont]
+    webFont: WebFont
+    imageFont: ImageFont
   }
 
   type Tag {

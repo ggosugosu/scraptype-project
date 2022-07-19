@@ -21,8 +21,8 @@ const ImageFont = require("./image_font")(sequelize, Sequelize);
 
 // Association
 Font.hasMany(FontTag, {targetKey: 'id', foreignKey: 'font_id', as: 'fontTags'});
-Font.hasMany(WebFont, {targetKey: 'id', foreignKey: 'font_id', as: 'webFonts'});
-Font.hasMany(ImageFont, {targetKey: 'id', foreignKey: 'font_id', as: 'imageFonts'});
+Font.hasOne(WebFont, {targetKey: 'id', foreignKey: 'font_id', as: 'webFont'});
+Font.hasOne(ImageFont, {targetKey: 'id', foreignKey: 'font_id', as: 'imageFont'});
 Tag.hasMany(FontTag);
 FontTag.belongsTo(Font, {foreignKey: 'font_id', as: 'fonts'});
 FontTag.belongsTo(Tag, {foreignKey: 'tag_id', as: 'tags'});

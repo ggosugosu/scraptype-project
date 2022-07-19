@@ -19,11 +19,11 @@ const fontORM = {
         },
         {
           model: WebFont,
-          as: 'webFonts',
+          as: 'webFont',
         },
         {
           model: ImageFont,
-          as: 'imageFonts',
+          as: 'imageFont',
         },
       ],
     }).then((data) => data),
