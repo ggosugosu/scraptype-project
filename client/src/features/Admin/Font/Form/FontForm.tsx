@@ -20,7 +20,20 @@ type FormData = {
   corporation?: string;
   description?: string;
   isWebFont: boolean;
+  webFontData: WebFontData;
+  imageFontData: ImageFontData;
 };
+
+type WebFontData = {
+  source: string
+}
+
+type ImageFontData = {
+  title: string;
+  unit: string;
+  detailMob: string;
+  detailPc: string;
+}
 
 const FontForm = ({ font_id }: Props) => {
   const { data } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id: Number(font_id) } });

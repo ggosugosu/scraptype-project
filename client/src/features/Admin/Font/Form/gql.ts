@@ -7,6 +7,15 @@ export const GET_FONT_BY_FONT_ID = gql`
       name
       description
       corporation
+      webFont {
+        source
+      }
+      imageFont {
+        title
+        unit
+        detail_mobile
+        detail_pc
+      }
     }
   }
 `;

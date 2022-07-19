@@ -29,11 +29,7 @@ export default function Overview() {
               description={item.description}
               corporation={item.corporation}
               tags={item.fontTags.tags}
-              webFonts={item.webFonts.map(
-                (item): WebFont => ({
-                  source: item.source,
-                })
-              )}
+              webFont={item.webFont}
               isArchive={false}
               onClick={() => handleClicked(item.id)}
             />

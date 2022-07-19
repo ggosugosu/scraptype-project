@@ -12,7 +12,7 @@ export const GET_FONT_ALL = gql`
           name
         }
       }
-      webFonts {
+      webFont {
         source
       }
     }

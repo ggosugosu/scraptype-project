@@ -47,11 +47,7 @@ export default function Archive() {
               description={item.description}
               corporation={item.corporation}
               tags={item.fontTags.tags}
-              webFonts={item.webFonts.map(
-                (item): WebFont => ({
-                  source: item.source,
-                })
-              )}
+              webFont={item.webFont}
               isArchive={true}
               onClick={handleClicked}
             />

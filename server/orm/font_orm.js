@@ -43,7 +43,7 @@ const fontORM = {
         },
         {
           model: WebFont,
-          as: 'webFonts',
+          as: 'webFont',
         },
       ],
     });

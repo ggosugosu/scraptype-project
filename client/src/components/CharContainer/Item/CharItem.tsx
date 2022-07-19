@@ -13,7 +13,7 @@ interface Props {
   description: string;
   corporation: string;
   tags: string[];
-  webFonts: WebFont[];
+  webFont: WebFont;
   isArchive?: boolean;
   onClick: (id: number) => void;
 }
@@ -22,7 +22,7 @@ export interface WebFont {
   source: string;
 }
 
-export default function CharItem({ font_id, name, description, corporation, tags, webFonts, isArchive, onClick }: Props) {
+export default function CharItem({ font_id, name, description, corporation, tags, webFont, isArchive, onClick }: Props) {
   const [char, setChar] = useState<String>(charList[0]);
   const [color, setColor] = useState<ItemColor>(isArchive ? colorList[0] : defaultItemColor);
 
@@ -34,8 +34,8 @@ export default function CharItem({ font_id, name, description, corporation, tags
   }, []);
   return (
     <>
-      <InjectFontFace fontFace={webFonts.length !== 0 ? webFonts[0].source : ''} />
-      <CharBox selectedColor={color} fontFamily={webFonts.length !== 0 ? filterFontFamily(webFonts[0].source) : ''} onClick={() => onClick(font_id)}>
+      <InjectFontFace fontFace={webFont ? webFont.source : ''} />
+      <CharBox selectedColor={color} fontFamily={webFont ? filterFontFamily(webFont.source) : ''} onClick={() => onClick(font_id)}>
         <Image alt="button-text" src={ArchiveSVG} layout="fill" className={`filter_${color.background}`} />
         <span className="char-text">{char}</span>
         {isArchive ? (
