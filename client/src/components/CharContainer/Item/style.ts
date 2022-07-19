@@ -6,22 +6,31 @@ export const CharBox = styled.button<{ selectedColor?: ItemColor; fontFamily?: s
   position: relative;
   width: 168px;
   height: 168px;
-  span {
+  .char-text {
     position: relative;
     top: 5px;
     left: 0;
     font-family: ${({ fontFamily }) => (fontFamily ? fontFamily : `inherit`)}, sans-serif;
-    font-size: 100px;
+    font-size: 96px;
     line-height: 90px;
     color: ${({ selectedColor }) => (selectedColor ? selectedColor.text : `${grey_300}`)};
   }
 
-  .barcode_wrapper {
+  .barcode-wrapper {
     position: absolute;
     left: 16px;
     bottom: 16px;
     width: 36px;
     height: 36px;
+  }
+
+  .char-name {
+    position: absolute;
+    bottom: 10%;
+
+    width: 100%;
+
+    color: ${grey_300};
   }
 
   @media (max-width: 480px) {

@@ -37,12 +37,14 @@ export default function CharItem({ font_id, name, description, corporation, tags
       <InjectFontFace fontFace={webFonts.length !== 0 ? webFonts[0].source : ''} />
       <CharBox selectedColor={color} fontFamily={webFonts.length !== 0 ? filterFontFamily(webFonts[0].source) : ''} onClick={() => onClick(font_id)}>
         <Image alt="button-text" src={ArchiveSVG} layout="fill" className={`filter_${color.background}`} />
-        <span>{char}</span>
+        <span className="char-text">{char}</span>
         {isArchive ? (
-          <div className="barcode_wrapper">
+          <div className="barcode-wrapper">
             <Image alt="button-barcode" src={ArchiveBarcodeSVG} width="36" height="36" className={`filter_${color.barcode}`} />
           </div>
-        ) : <div>{name}</div>}
+        ) : (
+          <div className="char-name">{name}</div>
+        )}
       </CharBox>
     </>
   );
