@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client';
 import { ButtonPositive } from 'components/Button';
 import Form from 'components/Form';
 import Grid from 'components/Grid';
@@ -5,21 +6,37 @@ import { GridDivider, GridLayout } from 'components/Grid/style';
 import InputText from 'components/InputText';
 import InputTextArea from 'components/InputTextArea';
 import Radio from 'components/Radio';
-import React, { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { GET_FONT_BY_FONT_ID } from './gql';
 import ImageFont from './ImageFont';
 import WebFont from './WebFont';
 
 type Props = {
-  fontId: string;
+  font_id: string;
 };
 
-const FontForm = ({ fontId }: Props) => {
+type FormData = {
+  name: string;
+  corporation?: string;
+  description?: string;
+  isWebFont: boolean;
+};
+
+const FontForm = ({ font_id }: Props) => {
+  const { data } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id: Number(font_id) } });
+  const isCreate = useMemo(() => font_id === 'create', [font_id]);
   const [font, setFont] = useState<string>('');
   const [corporation, setCorporation] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [isWebFont, setIsWebFont] = useState<boolean>(true);
 
-  console.log(fontId);
+  useEffect(() => {
+    if (isCreate) return;
+    setFont(data?.getFontByFontId.name);
+    setCorporation(data?.getFontByFontId.corportation);
+    setDescription(data?.getFontByFontId.description);
+    setIsWebFont(data?.getFontByFontId.isWebFont);
+  }, [data]);
 
   const handleFontChange = (e) => {
     setFont(e.target.value);

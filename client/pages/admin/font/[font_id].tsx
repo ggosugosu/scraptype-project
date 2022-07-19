@@ -5,5 +5,5 @@ import React from 'react';
 export default function Font() {
   const router = useRouter();
   const { font_id } = router.query;
-  return <FontForm fontId={font_id?.toString() ?? `create`} />
+  return <FontForm font_id={font_id?.toString() ?? `create`} />
 }
