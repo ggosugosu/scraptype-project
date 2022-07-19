@@ -1,3 +1,4 @@
+import FontForm from './Form';
 import Overview from './Overview';
 
-export default Overview;
+export { FontForm, Overview };
