@@ -2,7 +2,6 @@ import logoBistro from 'assets/images/logo_bistro.svg';
 import logo from 'assets/images/logo_no_icon.svg';
 import Image from 'next/image';
 import { useState } from 'react';
-import { WebFont } from '../../components/CharContainer/Item';
 
 import { useQuery } from '@apollo/client';
 import CharContainer from 'components/CharContainer/CharContainer';
