@@ -1,77 +1,58 @@
-import React from "react";
-import Image from "next/image";
-import styled from "styled-components";
-import ArchiveItem from "./ArchiveItem";
-import { WebFont } from "./ArchiveItem";
-import logo from "assets/images/logo_no_icon.svg";
-import logoBistro from "assets/images/logo_bistro.svg";
-import { grey_200 } from "common/colors";
+import logoBistro from 'assets/images/logo_bistro.svg';
+import logo from 'assets/images/logo_no_icon.svg';
+import Image from 'next/image';
+import { useState } from 'react';
 
-import { GET_FONT_ALL } from "./gql";
-import { useQuery } from "@apollo/client";
-
-const sampleList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const ArchiveWrapper = styled.div`
-  display: inline-flex;
-  flex-flow: row wrap;
-  justify-content: flex-end;
-  gap: 12px;
-  width: auto;
-  height: auto;
-  padding-bottom: 16px;
-
-  @media (max-width: 480px) {
-    justify-content: center;
-    gap: 8px;
-    padding: 24px 0;
-  }
-`;
-
-const LogoWrapper = styled.div`
-  display: none;
-  width: 100%;
-  height: 188px;
-  border-bottom: 4px dotted ${grey_200};
-
-  @media (max-width: 480px) {
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-  }
-`;
+import { useQuery } from '@apollo/client';
+import CharContainer from 'components/CharContainer/CharContainer';
+import CharItem from 'components/CharContainer/Item/CharItem';
+import { GET_FONT_ALL } from './gql';
+import ArchiveItemModal from './modal';
+import { LogoWrapper } from './style';
 
 export default function Archive() {
   const { loading, error, data } = useQuery(GET_FONT_ALL);
+  const [selectedFontId, setSelectedFontId] = useState<number>();
+  const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
+  if (loading || error) {
+    console.log(`${error?.message}`);
+    return null;
+  }
 
-  if (loading || error) return null;
-  console.log(`${data}`);
+  const handleClicked = (font_id: number) => {
+    setSelectedFontId(font_id);
+    handleVisible();
+    console.log(`modalIsVisible: ${modalIsVisible}`);
+  };
+
+  const handleVisible = (e?) => {
+    e && e.stopPropagation();
+    (!e || e.target === e.currentTarget) && setModalIsVisible((props) => !props);
+  };
+
   return (
     <>
       <LogoWrapper>
         <Image src={logo} alt="logo" />
         <Image src={logoBistro} alt="logo_bistro" width="72" height="42" />
       </LogoWrapper>
-      <ArchiveWrapper>
+      <CharContainer>
         {data &&
           data.getFontAll.map((item, index) => (
-            <ArchiveItem
+            <CharItem
               key={index}
-              id={item.id}
+              font_id={item.id}
               name={item.name}
               description={item.description}
               corporation={item.corporation}
               tags={item.fontTags.tags}
-              webFonts={item.webFonts.map(
-                (item): WebFont => ({
-                  family: item.family,
-                  source: item.source,
-                })
-              )}
+              webFont={item.webFont}
+              isArchive={true}
+              onClick={handleClicked}
             />
           ))}
-      </ArchiveWrapper>
+        {data && modalIsVisible && <ArchiveItemModal font_id={selectedFontId ?? -1} handleVisible={handleVisible} />}
+      </CharContainer>
     </>
   );
 }

@@ -1,6 +1,3 @@
-const { sequelize } = require(".");
-const font_tag = require("./font_tag");
-
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     "Tag",

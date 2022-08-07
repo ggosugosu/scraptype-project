@@ -1,30 +1,31 @@
-const express = require("express");
+const express = require('express');
 const app = express();
 const PORT = 3200;
-const path = "/graphql";
-const { ApolloServer, gql } = require("apollo-server-express");
-const fontORM = require("./orm/font_orm");
-const tagORM = require("./orm/tag_orm");
-const fontTagORM = require("./orm/font_tag_orm");
-const webFontORM = require("./orm/web_font_orm");
+const path = '/graphql';
+const { ApolloServer, gql } = require('apollo-server-express');
+const fontORM = require('./orm/font_orm');
+const tagORM = require('./orm/tag_orm');
+const fontTagORM = require('./orm/font_tag_orm');
+const webFontORM = require('./orm/web_font_orm');
 
 const typeDefs = gql`
   type Font {
-    id: ID
+    id: Int
     name: String
     description: String
     corporation: String
     fontTags: [FontTag]
-    webFonts: [WebFont]
+    webFont: WebFont
+    imageFont: ImageFont
   }
 
   type Tag {
-    id: ID
+    id: Int
     name: String
   }
 
   type FontTag {
-    id: ID
+    id: Int
     font_id: Int
     fonts: Font
     tag_id: Int
@@ -32,15 +33,24 @@ const typeDefs = gql`
   }
 
   type WebFont {
-    id: ID
+    id: Int
     font_id: Int
-    family: String
     source: String
     font: Font
   }
 
+  type ImageFont {
+    id: Int
+    font_id: Int
+    title: String
+    unit: String
+    detail_mobile: String
+    detail_pc: String
+    font: Font
+  }
+
   type Query {
-    getFont(id: Int!): Font
+    getFontByFontId(font_id: Int): Font
     getFontAll: [Font!]!
     getFontsByTagId(tag_ids: [Int]): [Font]
     getFontsByCorpAndText(corporation: String, text: String): [Font]
@@ -55,11 +65,13 @@ const typeDefs = gql`
   type Mutation {
     createFontTag(font_id: Int!, tag_id: Int!): FontTag
     deleteFontTag(id: Int!): FontTag
+    updateFontTag(font_id: Int, tag_id: Int): Boolean
   }
 `;
 
 const resolvers = {
   Query: {
+    getFontByFontId: (_, { font_id }) => fontORM.getFontByFontId({ font_id }),
     getFontAll: () => fontORM.getFontAll(),
     getFontsByTagId: (_, { tag_ids }) => fontORM.getFontsByTagId({ tag_ids }),
     getFontsByCorpAndText: (_, { corporation, text }) => fontORM.getFontsByCorpAndText({ corporation, text }),
@@ -71,12 +83,9 @@ const resolvers = {
     getWebFontAll: () => webFontORM.getWebFontAll(),
   },
   Mutation: {
-    createFontTag: (_, { font_id, tag_id }) => {
-      return fontTagORM.createFontTag({ font_id, tag_id });
-    },
-    deleteFontTag: (_, { id }) => {
-      return fontTagORM.deleteFontTag({ id });
-    },
+    createFontTag: (_, { font_id, tag_id }) => fontTagORM.createFontTag({ font_id, tag_id }),
+    deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
+    updateFontTag: (_, {font_id, tag_id}) => fontTagORM.updateFontTag({font_id, tag_id})
   },
 };
 

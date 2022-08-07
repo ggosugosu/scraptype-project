@@ -35,3 +35,6 @@
 .filter_turbo {
   filter: invert(84%) sepia(44%) saturate(917%) hue-rotate(354deg) brightness(104%) contrast(108%);
 }
+.filter_main {
+  filter: invert(55%) sepia(77%) saturate(429%) hue-rotate(111deg) brightness(103%) contrast(97%);
+}
