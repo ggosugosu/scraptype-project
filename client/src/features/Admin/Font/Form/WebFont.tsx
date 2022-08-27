@@ -1,18 +1,24 @@
 import Grid from 'components/Grid';
 import { GridLayout } from 'components/Grid/style';
 import InputTextArea from 'components/InputTextArea';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { WebFontData } from './FontForm';
 
 type Props = {
-  fontFace?: string;
+  data: WebFontData;
+  onSubmit: (data: WebFontData) => void;
 };
 
-const WebFont = ({ fontFace: prevFace }: Props) => {
-  const [fontFace, setFontFace] = useState<string>(prevFace ?? ``);
+const WebFont = ({ data, onSubmit }: Props) => {
+  const [formData, setFormData] = useState<WebFontData>(data);
 
   const handleFontFaceChange = (e) => {
-    setFontFace(e.target.value);
+    setFormData(e.target.value);
   };
+
+  useEffect(() => {
+    formData && onSubmit(formData);
+  }, [formData]);
 
   return (
     <Grid gap={`36px 22px`} padding={`36px 24px`}>
@@ -20,7 +26,7 @@ const WebFont = ({ fontFace: prevFace }: Props) => {
         <label>
           Font face <span className="required"> *</span>
         </label>
-        <InputTextArea id="fontFace" placeholder="text" value={fontFace} height={`188px`} onChange={handleFontFaceChange} />
+        <InputTextArea id="fontFace" placeholder="text" value={formData?.source} height={`188px`} onChange={handleFontFaceChange} />
       </GridLayout>
     </Grid>
   );

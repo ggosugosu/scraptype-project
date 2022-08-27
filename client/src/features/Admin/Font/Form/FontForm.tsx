@@ -20,15 +20,15 @@ type FormData = {
   corporation: string;
   description: string;
   isWebFont: boolean;
-  webFont: WebFont;
-  imageFont: ImageFont;
+  webFont: WebFontData;
+  imageFont: ImageFontData;
 };
 
-type WebFont = {
+export type WebFontData = {
   source: string;
 };
 
-type ImageFont = {
+export type ImageFontData = {
   title: string;
   unit: string;
   detailMob: string;
@@ -77,8 +77,17 @@ const FontForm = ({ font_id }: Props) => {
     }));
   };
 
+  const handleFormData = (data: FormData) => {
+    setFormData({ ...formData, ...data });
+  };
+
   const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
+
+    const confirmed = confirm('정보를 저장하시겠습니까?');
+    if (!confirmed) return;
+
+    console.log(JSON.stringify(formData));
   };
 
   return (
@@ -119,7 +128,11 @@ const FontForm = ({ font_id }: Props) => {
           </GridLayout>
         </Grid>
         <GridDivider />
-        {formData.isWebFont ? <WebFont /> : <ImageFont />}
+        {formData.isWebFont ? (
+          <WebFont data={{ ...formData.webFont }} onSubmit={(data) => handleFormData({ ...formData, isWebFont: true, webFont: data })} />
+        ) : (
+          <ImageFont data={{ ...formData.imageFont }} onSubmit={(data) => handleFormData({ ...formData, isWebFont: false, imageFont: data })} />
+        )}
         <GridDivider />
         <Grid template={`1fr`} padding={`36px 24px 56px 24px`}>
           <ButtonPositive enabled={true} text={`폰트 추가`} onClick={() => {}} />
