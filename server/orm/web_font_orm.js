@@ -21,10 +21,13 @@ const webFontORM = {
 
   createWebFont: async ({ name, description, corporation, is_web_font, source }) => {
     console.log(`${name}\n${description}\n${corporation}\n${is_web_font}\n${source}\n`);
-    const newFontData = await Font.create({ name, description, corporation, is_web_font });
-    console.log(`newFont: ${newFontData.font_id}`);
+
+    await Font.create({ name, description, corporation, is_web_font });
+    const font_id = await Font.findOne({ where: { name, description, corporation } }).then((data) => data.id);
+
+    console.log(`newFont: ${font_id}`);
     const resultData = await WebFont.create({
-      font_id: newFontData.font_id,
+      font_id: font_id,
       source,
     });
 

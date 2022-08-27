@@ -63,15 +63,17 @@ const FontForm = ({ font_id }: Props) => {
   const [updateImageFont] = useMutation(UPDATE_IMAGE_FONT);
 
   useEffect(() => {
-    if (isCreate) return;
-    const font = data?.getFontByFontId;
+    if (isCreate || !data) return;
+    const font = data.getFontByFontId;
     const imageFont = font?.imageFont ?? ``;
+    console.log(JSON.stringify(font));
+
     setFormData({
       name: font?.name,
       corporation: font?.corporation,
       description: font?.description,
-      isWebFont: font?.isWebFont,
-      webFont: font?.webFont?.source ?? ``,
+      isWebFont: font?.is_web_font,
+      webFont: font?.webFont,
       imageFont: { title: imageFont.title, unit: imageFont.unit, detailMob: imageFont.detail_mobile, detailPc: imageFont.detail_pc },
     });
   }, [data]);
@@ -104,14 +106,13 @@ const FontForm = ({ font_id }: Props) => {
     if (formData.name === '') return alert('폰트 이름을 입력하세요.');
     else if (formData.corporation === '') return alert('폰트사를 입력하세요.');
 
-    console.log("handleSubmit")
-    
     const fontFormat = {
       name: formData.name,
       description: formData.description,
       corporation: formData.corporation,
       is_web_font: formData.isWebFont,
     };
+
     console.log(JSON.stringify({ ...fontFormat, source: formData.webFont.source }));
 
     if (isCreate) {
@@ -124,7 +125,7 @@ const FontForm = ({ font_id }: Props) => {
               }
             },
             onError: (error) => {
-              console.log(error.message)
+              console.log(error.message);
             },
           })
         : createImageFont({
@@ -212,9 +213,9 @@ const FontForm = ({ font_id }: Props) => {
         </Grid>
         <GridDivider />
         {formData.isWebFont ? (
-          <WebFont data={{ ...formData.webFont }} onSubmit={(data) => handleFormData({ ...formData, isWebFont: true, webFont: data })} />
+          <WebFont data={formData.webFont} onSubmit={(data) => handleFormData({ ...formData, isWebFont: true, webFont: data })} />
         ) : (
-          <ImageFont data={{ ...formData.imageFont }} onSubmit={(data) => handleFormData({ ...formData, isWebFont: false, imageFont: data })} />
+          <ImageFont data={formData.imageFont} onSubmit={(data) => handleFormData({ ...formData, isWebFont: false, imageFont: data })} />
         )}
         <GridDivider />
         <Grid template={`1fr`} padding={`36px 24px 56px 24px`}>

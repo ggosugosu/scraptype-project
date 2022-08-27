@@ -7,6 +7,7 @@ export const GET_FONT_BY_FONT_ID = gql`
       name
       description
       corporation
+      is_web_font
       webFont {
         source
       }
