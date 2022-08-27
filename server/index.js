@@ -7,6 +7,7 @@ const fontORM = require('./orm/font_orm');
 const tagORM = require('./orm/tag_orm');
 const fontTagORM = require('./orm/font_tag_orm');
 const webFontORM = require('./orm/web_font_orm');
+const imageFontORM = require('./orm/image_font_orm');
 
 const typeDefs = gql`
   type Font {
@@ -14,6 +15,7 @@ const typeDefs = gql`
     name: String
     description: String
     corporation: String
+    isWebFont: Boolean
     fontTags: [FontTag]
     webFont: WebFont
     imageFont: ImageFont
@@ -59,13 +61,40 @@ const typeDefs = gql`
     getTagsByTagId(tag_ids: [Int]): [Tag]
     getFontTagAll: [FontTag]
     getFontTags(tag_ids: [Int]): [FontTag]
+    getWebFontByFontId: WebFont
     getWebFontAll: [WebFont]
+    getImageFontByFontId: ImageFont
+    getImageFontAll: [ImageFont]
   }
 
   type Mutation {
     createFontTag(font_id: Int!, tag_id: Int!): FontTag
     deleteFontTag(id: Int!): FontTag
     updateFontTag(font_id: Int, tag_id: Int): Boolean
+    createWebFont(font_id: Int!, name: String, description: String, corporation: String, isWebFont: Boolean, source: String): WebFont
+    updateWebFont(font_id: Int!, name: String, description: String, corporation: String, isWebFont: Boolean, source: String): Boolean
+    createImageFont(
+      font_id: Int!,
+      name: String,
+      description: String,
+      corporation: String,
+      isWebFont: Boolean,
+      title: String,
+      unit: String,
+      detail_mobile: String,
+      detail_pc: String
+    ): ImageFont
+    updateImageFont(
+      font_id: Int!,
+      name: String,
+      description: String,
+      corporation: String,
+      isWebFont: Boolean,
+      title: String,
+      unit: String,
+      detail_mobile: String,
+      detail_pc: String
+    ): Boolean
   }
 `;
 
@@ -76,16 +105,31 @@ const resolvers = {
     getFontsByTagId: (_, { tag_ids }) => fontORM.getFontsByTagId({ tag_ids }),
     getFontsByCorpAndText: (_, { corporation, text }) => fontORM.getFontsByCorpAndText({ corporation, text }),
     getCorporationAll: () => fontORM.getCorporationAll(),
+
     getTagAll: () => tagORM.getTagAll(),
     getTagsByTagId: (_, { tag_ids }) => tagORM.getTagsByTagId({ tag_ids }),
+
     getFontTagAll: () => fontTagORM.getFontTagAll(),
     getFontTags: (_, { tag_ids }) => fontTagORM.getFontTags({ tag_ids }),
+
+    getWebFontByFontId: (_, { font_id }) => webFontORM.getWebFontByFontId({ font_id }),
     getWebFontAll: () => webFontORM.getWebFontAll(),
+
+    getImageFontByFontId: (_, { font_id }) => imageFontORM.getImageFontByFontId({ font_id }),
+    getImageFontAll: () => imageFontORM.getImageFontAll(),
   },
   Mutation: {
     createFontTag: (_, { font_id, tag_id }) => fontTagORM.createFontTag({ font_id, tag_id }),
     deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
-    updateFontTag: (_, {font_id, tag_id}) => fontTagORM.updateFontTag({font_id, tag_id})
+    updateFontTag: (_, { font_id, tag_id }) => fontTagORM.updateFontTag({ font_id, tag_id }),
+
+    createWebFont: (_, { name, description, corporation, isWebFont, source }) => webFontORM.createWebFont({ name, description, corporation, isWebFont, source }),
+    updateWebFont: (_, { font_id, name, description, corporation, isWebFont, source }) => webFontORM.updateWebFont({ font_id, name, description, corporation, isWebFont, source }),
+
+    createImageFont: (_, { name, description, corporation, isWebFont, title, unit, detail_mobile, detail_pc }) =>
+      imageFontORM.createImageFont({ name, description, corporation, isWebFont,title, unit, detail_mobile, detail_pc }),
+    updateImageFont: (_, { font_id, name, description, corporation, isWebFont,title, unit, detail_mobile, detail_pc }) =>
+      imageFontORM.updateImageFont({ font_id, name, description, corporation, isWebFont,title, unit, detail_mobile, detail_pc }),
   },
 };
 

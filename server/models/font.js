@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) =>
         type: DataTypes.STRING(25),
         allowNull: true,
       },
+      isWebFont: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      }
     },
     {
       timestamps: false,
