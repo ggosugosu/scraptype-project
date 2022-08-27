@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) =>
         type: DataTypes.STRING(25),
         allowNull: true,
       },
-      isWebFont: {
+      is_web_font: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       }

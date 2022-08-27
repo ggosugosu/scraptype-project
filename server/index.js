@@ -15,7 +15,7 @@ const typeDefs = gql`
     name: String
     description: String
     corporation: String
-    isWebFont: Boolean
+    is_web_font: Boolean
     fontTags: [FontTag]
     webFont: WebFont
     imageFont: ImageFont
@@ -71,28 +71,27 @@ const typeDefs = gql`
     createFontTag(font_id: Int!, tag_id: Int!): FontTag
     deleteFontTag(id: Int!): FontTag
     updateFontTag(font_id: Int, tag_id: Int): Boolean
-    createWebFont(font_id: Int!, name: String, description: String, corporation: String, isWebFont: Boolean, source: String): WebFont
-    updateWebFont(font_id: Int!, name: String, description: String, corporation: String, isWebFont: Boolean, source: String): Boolean
+    createWebFont(name: String, description: String, corporation: String, is_web_font: Boolean, source: String): WebFont
+    updateWebFont(font_id: Int!, name: String, description: String, corporation: String, is_web_font: Boolean, source: String): Boolean
     createImageFont(
-      font_id: Int!,
-      name: String,
-      description: String,
-      corporation: String,
-      isWebFont: Boolean,
-      title: String,
-      unit: String,
-      detail_mobile: String,
+      name: String
+      description: String
+      corporation: String
+      is_web_font: Boolean
+      title: String
+      unit: String
+      detail_mobile: String
       detail_pc: String
     ): ImageFont
     updateImageFont(
-      font_id: Int!,
-      name: String,
-      description: String,
-      corporation: String,
-      isWebFont: Boolean,
-      title: String,
-      unit: String,
-      detail_mobile: String,
+      font_id: Int!
+      name: String
+      description: String
+      corporation: String
+      is_web_font: Boolean
+      title: String
+      unit: String
+      detail_mobile: String
       detail_pc: String
     ): Boolean
   }
@@ -123,13 +122,18 @@ const resolvers = {
     deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
     updateFontTag: (_, { font_id, tag_id }) => fontTagORM.updateFontTag({ font_id, tag_id }),
 
-    createWebFont: (_, { name, description, corporation, isWebFont, source }) => webFontORM.createWebFont({ name, description, corporation, isWebFont, source }),
-    updateWebFont: (_, { font_id, name, description, corporation, isWebFont, source }) => webFontORM.updateWebFont({ font_id, name, description, corporation, isWebFont, source }),
+    createWebFont: (_, { name, description, corporation, is_web_font, source }) =>
+      {
+      console.log(`'createWebFont': ${name}`);
+        return webFontORM.createWebFont({ name, description, corporation, is_web_font, source })
+      },
+    updateWebFont: (_, { font_id, name, description, corporation, is_web_font, source }) =>
+      webFontORM.updateWebFont({ font_id, name, description, corporation, is_web_font, source }),
 
-    createImageFont: (_, { name, description, corporation, isWebFont, title, unit, detail_mobile, detail_pc }) =>
-      imageFontORM.createImageFont({ name, description, corporation, isWebFont,title, unit, detail_mobile, detail_pc }),
-    updateImageFont: (_, { font_id, name, description, corporation, isWebFont,title, unit, detail_mobile, detail_pc }) =>
-      imageFontORM.updateImageFont({ font_id, name, description, corporation, isWebFont,title, unit, detail_mobile, detail_pc }),
+    createImageFont: (_, { name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }) =>
+      imageFontORM.createImageFont({ name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }),
+    updateImageFont: (_, { font_id, name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }) =>
+      imageFontORM.updateImageFont({ font_id, name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }),
   },
 };
 

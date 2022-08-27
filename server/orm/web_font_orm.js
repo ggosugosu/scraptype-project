@@ -19,9 +19,10 @@ const webFontORM = {
     return resultData;
   },
 
-  createWebFont: async (_, { name, description, corporation, isWebFont, source }) => {
-    const newFontData = await Font.create({ name, description, corporation, isWebFont });
-
+  createWebFont: async ({ name, description, corporation, is_web_font, source }) => {
+    console.log(`${name}\n${description}\n${corporation}\n${is_web_font}\n${source}\n`);
+    const newFontData = await Font.create({ name, description, corporation, is_web_font });
+    console.log(`newFont: ${newFontData.font_id}`);
     const resultData = await WebFont.create({
       font_id: newFontData.font_id,
       source,
@@ -30,10 +31,10 @@ const webFontORM = {
     return resultData;
   },
 
-  updateWebFont: async (_, { font_id, name, description, corporation, isWebFont, source }) => {
+  updateWebFont: async ({ font_id, name, description, corporation, is_web_font, source }) => {
     if (!(await fontExists(font_id))) return false;
 
-    await Font.update({ name, description, corporation, isWebFont }, { where: { font_id } });
+    await Font.update({ name, description, corporation, is_web_font }, { where: { font_id } });
 
     (await webFontExists(font_id))
       ? await WebFont.update({ source }, { where: { font_id } })

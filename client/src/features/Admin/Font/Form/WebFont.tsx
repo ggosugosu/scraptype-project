@@ -13,7 +13,7 @@ const WebFont = ({ data, onSubmit }: Props) => {
   const [formData, setFormData] = useState<WebFontData>(data);
 
   const handleFontFaceChange = (e) => {
-    setFormData(e.target.value);
+    setFormData({source: e.target.value});
   };
 
   useEffect(() => {

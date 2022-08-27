@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { ButtonPositive } from 'components/Button';
 import Form from 'components/Form';
 import Grid from 'components/Grid';
@@ -6,8 +6,9 @@ import { GridDivider, GridLayout } from 'components/Grid/style';
 import InputText from 'components/InputText';
 import InputTextArea from 'components/InputTextArea';
 import Radio from 'components/Radio';
+import { NextRouter, useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import { GET_FONT_BY_FONT_ID } from './gql';
+import { CREATE_IMAGE_FONT, CREATE_WEB_FONT, GET_FONT_BY_FONT_ID, UPDATE_IMAGE_FONT, UPDATE_WEB_FONT } from './gql';
 import ImageFont from './ImageFont';
 import WebFont from './WebFont';
 
@@ -44,10 +45,22 @@ const initFontForm: FormData = {
   imageFont: { title: ``, unit: ``, detailMob: ``, detailPc: `` },
 };
 
+const completeFunc = (router: NextRouter) => {
+  alert('정상적으로 추가되었습니다!');
+  router.push(`/admin/font`);
+};
+
+const failFunc = () => alert('오류가 발생했습니다. 잠시 후 다시 시도하세요.');
+
 const FontForm = ({ font_id }: Props) => {
+  const router = useRouter();
   const { data } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id: Number(font_id) } });
   const isCreate = useMemo(() => font_id === 'create', [font_id]);
   const [formData, setFormData] = useState<FormData>(initFontForm);
+  const [createWebFont] = useMutation(CREATE_WEB_FONT);
+  const [updateWebFont] = useMutation(UPDATE_WEB_FONT);
+  const [createImageFont] = useMutation(CREATE_IMAGE_FONT);
+  const [updateImageFont] = useMutation(UPDATE_IMAGE_FONT);
 
   useEffect(() => {
     if (isCreate) return;
@@ -78,7 +91,7 @@ const FontForm = ({ font_id }: Props) => {
   };
 
   const handleFormData = (data: FormData) => {
-    setFormData({ ...formData, ...data });
+    setFormData(data);
   };
 
   const handleSubmit = (e: SubmitEvent) => {
@@ -87,7 +100,77 @@ const FontForm = ({ font_id }: Props) => {
     const confirmed = confirm('정보를 저장하시겠습니까?');
     if (!confirmed) return;
 
-    console.log(JSON.stringify(formData));
+    // TODO: alert 대신 view로 수정
+    if (formData.name === '') return alert('폰트 이름을 입력하세요.');
+    else if (formData.corporation === '') return alert('폰트사를 입력하세요.');
+
+    console.log("handleSubmit")
+    
+    const fontFormat = {
+      name: formData.name,
+      description: formData.description,
+      corporation: formData.corporation,
+      is_web_font: formData.isWebFont,
+    };
+    console.log(JSON.stringify({ ...fontFormat, source: formData.webFont.source }));
+
+    if (isCreate) {
+      formData.isWebFont
+        ? createWebFont({
+            variables: { ...fontFormat, source: formData.webFont.source },
+            onCompleted: (data) => {
+              if (data) {
+                completeFunc(router);
+              }
+            },
+            onError: (error) => {
+              console.log(error.message)
+            },
+          })
+        : createImageFont({
+            variables: {
+              ...fontFormat,
+              title: formData.imageFont.title,
+              unit: formData.imageFont.unit,
+              detail_mobile: formData.imageFont.detailMob,
+              detail_pc: formData.imageFont.detailPc,
+            },
+            onCompleted: (data) => {
+              if (data) {
+                completeFunc(router);
+              }
+            },
+          });
+    } else {
+      formData.isWebFont
+        ? updateWebFont({
+            variables: { ...fontFormat, font_id, source: formData.webFont.source },
+            onCompleted: (data) => {
+              if (data) {
+                completeFunc(router);
+              } else {
+                failFunc;
+              }
+            },
+          })
+        : updateImageFont({
+            variables: {
+              ...fontFormat,
+              font_id,
+              title: formData.imageFont.title,
+              unit: formData.imageFont.unit,
+              detail_mobile: formData.imageFont.detailMob,
+              detail_pc: formData.imageFont.detailPc,
+            },
+            onCompleted: (data) => {
+              if (data) {
+                completeFunc(router);
+              } else {
+                failFunc;
+              }
+            },
+          });
+    }
   };
 
   return (

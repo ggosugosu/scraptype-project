@@ -19,8 +19,8 @@ const imageFontORM = {
     return resultData;
   },
 
-  createImageFont: async (_, { name, description, corporation, isWebFont, title, unit, detail_mobile, detail_pc }) => {
-    const newFontData = await Font.create({ name, description, corporation, isWebFont });
+  createImageFont: async ({ name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }) => {
+    const newFontData = await Font.create({ name, description, corporation, is_web_font });
 
     const resultData = await ImageFont.create({
       font_id: newFontData.font_id,
@@ -33,9 +33,9 @@ const imageFontORM = {
     return resultData;
   },
 
-  updateImageFont: async (_, { font_id, name, description, corporation, isWebFont, title, unit, detail_mobile, detail_pc }) => {
+  updateImageFont: async ({ font_id, name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }) => {
     if (!(await fontExists(font_id))) return false;
-    await Font.update({ name, description, corporation, isWebFont }, { where: { font_id } });
+    await Font.update({ name, description, corporation, is_web_font }, { where: { font_id } });
 
     (await imageFontExists(font_id))
       ? await ImageFont.update({ font_id, title, unit, detail_mobile, detail_pc }, { where: { font_id } })
