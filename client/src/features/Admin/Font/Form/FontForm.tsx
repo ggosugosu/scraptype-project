@@ -145,7 +145,7 @@ const FontForm = ({ font_id }: Props) => {
     } else {
       formData.isWebFont
         ? updateWebFont({
-            variables: { ...fontFormat, font_id, source: formData.webFont.source },
+            variables: { ...fontFormat, font_id: Number(font_id), source: formData.webFont.source },
             onCompleted: (data) => {
               if (data) {
                 completeFunc(router);
@@ -157,7 +157,7 @@ const FontForm = ({ font_id }: Props) => {
         : updateImageFont({
             variables: {
               ...fontFormat,
-              font_id,
+              font_id: Number(font_id),
               title: formData.imageFont.title,
               unit: formData.imageFont.unit,
               detail_mobile: formData.imageFont.detailMob,

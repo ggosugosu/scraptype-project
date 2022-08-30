@@ -37,7 +37,7 @@ const webFontORM = {
   updateWebFont: async ({ font_id, name, description, corporation, is_web_font, source }) => {
     if (!(await fontExists(font_id))) return false;
 
-    await Font.update({ name, description, corporation, is_web_font }, { where: { font_id } });
+    await Font.update({ name, description, corporation, is_web_font }, { where: { id: font_id } });
 
     (await webFontExists(font_id))
       ? await WebFont.update({ source }, { where: { font_id } })
@@ -51,7 +51,7 @@ const webFontORM = {
 };
 
 const fontExists = async (font_id) =>
-  await Font.findOne({ where: { font_id } })
+  await Font.findOne({ where: { id: font_id } })
     .then((data) => data !== null)
     .then((existsData) => existsData);
 

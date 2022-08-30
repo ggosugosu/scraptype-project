@@ -35,7 +35,7 @@ const imageFontORM = {
 
   updateImageFont: async ({ font_id, name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }) => {
     if (!(await fontExists(font_id))) return false;
-    await Font.update({ name, description, corporation, is_web_font }, { where: { font_id } });
+    await Font.update({ name, description, corporation, is_web_font }, { where: { id: font_id } });
 
     (await imageFontExists(font_id))
       ? await ImageFont.update({ font_id, title, unit, detail_mobile, detail_pc }, { where: { font_id } })
@@ -52,7 +52,7 @@ const imageFontORM = {
 };
 
 const fontExists = async (font_id) =>
-  await Font.findOne({ where: { font_id } })
+  await Font.findOne({ where: { id: font_id } })
     .then((data) => data !== null)
     .then((existsData) => existsData);
 

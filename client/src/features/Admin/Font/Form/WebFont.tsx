@@ -26,7 +26,7 @@ const WebFont = ({ data, onSubmit }: Props) => {
         <label>
           Font face <span className="required"> *</span>
         </label>
-        <InputTextArea id="fontFace" placeholder="text" value={data.source || formData?.source} height={`188px`} onChange={handleFontFaceChange} />
+        <InputTextArea id="fontFace" placeholder="text" value={data?.source || formData?.source} height={`188px`} onChange={handleFontFaceChange} />
       </GridLayout>
     </Grid>
   );
