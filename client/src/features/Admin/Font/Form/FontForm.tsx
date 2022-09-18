@@ -105,6 +105,8 @@ const FontForm = ({ font_id }: Props) => {
     // TODO: alert 대신 view로 수정
     if (formData.name === '') return alert('폰트 이름을 입력하세요.');
     else if (formData.corporation === '') return alert('폰트사를 입력하세요.');
+    else if (formData.isWebFont && !formData.webFont.source) return alert ('font-face를 입력하세요.');
+    else if (!formData.isWebFont && !(formData.imageFont.detailMob && formData.imageFont.detailPc && formData.imageFont.title && formData.imageFont.unit )) return alert ('링크를 모두 입력하세요.')
 
     const fontFormat = {
       name: formData.name,
@@ -112,8 +114,6 @@ const FontForm = ({ font_id }: Props) => {
       corporation: formData.corporation,
       is_web_font: formData.isWebFont,
     };
-
-    console.log(JSON.stringify({ ...fontFormat, source: formData.webFont.source }));
 
     if (isCreate) {
       formData.isWebFont
@@ -141,6 +141,9 @@ const FontForm = ({ font_id }: Props) => {
                 completeFunc(router);
               }
             },
+            onError: (data) => {
+              console.log(data);
+            }
           });
     } else {
       formData.isWebFont

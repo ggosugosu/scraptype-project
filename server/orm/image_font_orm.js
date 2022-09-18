@@ -1,4 +1,4 @@
-const { Font, ImageFont } = require('../models/index');
+const { Font, ImageFont } = require("../models/index");
 
 const imageFontORM = {
   getImageFontAll: () => {
@@ -6,7 +6,7 @@ const imageFontORM = {
       include: [
         {
           model: Font,
-          as: 'font',
+          as: "font",
         },
       ],
     });
@@ -19,11 +19,24 @@ const imageFontORM = {
     return resultData;
   },
 
-  createImageFont: async ({ name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }) => {
-    const newFontData = await Font.create({ name, description, corporation, is_web_font });
+  createImageFont: async ({
+    name,
+    description,
+    corporation,
+    is_web_font,
+    title,
+    unit,
+    detail_mobile,
+    detail_pc,
+  }) => {
+    await Font.create({ name, description, corporation, is_web_font });
+    const font_id = await Font.findOne({
+      where: { name, description, corporation },
+    }).then((data) => data.id);
 
+    console.log(`font_id: ${font_id}`);
     const resultData = await ImageFont.create({
-      font_id: newFontData.font_id,
+      font_id: font_id,
       title,
       unit,
       detail_mobile,
@@ -33,12 +46,28 @@ const imageFontORM = {
     return resultData;
   },
 
-  updateImageFont: async ({ font_id, name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }) => {
+  updateImageFont: async ({
+    font_id,
+    name,
+    description,
+    corporation,
+    is_web_font,
+    title,
+    unit,
+    detail_mobile,
+    detail_pc,
+  }) => {
     if (!(await fontExists(font_id))) return false;
-    await Font.update({ name, description, corporation, is_web_font }, { where: { id: font_id } });
+    await Font.update(
+      { name, description, corporation, is_web_font },
+      { where: { id: font_id } }
+    );
 
     (await imageFontExists(font_id))
-      ? await ImageFont.update({ font_id, title, unit, detail_mobile, detail_pc }, { where: { font_id } })
+      ? await ImageFont.update(
+          { font_id, title, unit, detail_mobile, detail_pc },
+          { where: { font_id } }
+        )
       : await ImageFont.create({
           font_id,
           title,

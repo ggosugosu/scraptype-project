@@ -1,13 +1,13 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const PORT = 3200;
-const path = '/graphql';
-const { ApolloServer, gql } = require('apollo-server-express');
-const fontORM = require('./orm/font_orm');
-const tagORM = require('./orm/tag_orm');
-const fontTagORM = require('./orm/font_tag_orm');
-const webFontORM = require('./orm/web_font_orm');
-const imageFontORM = require('./orm/image_font_orm');
+const path = "/graphql";
+const { ApolloServer, gql } = require("apollo-server-express");
+const fontORM = require("./orm/font_orm");
+const tagORM = require("./orm/tag_orm");
+const fontTagORM = require("./orm/font_tag_orm");
+const webFontORM = require("./orm/web_font_orm");
+const imageFontORM = require("./orm/image_font_orm");
 
 const typeDefs = gql`
   type Font {
@@ -71,8 +71,21 @@ const typeDefs = gql`
     createFontTag(font_id: Int!, tag_id: Int!): FontTag
     deleteFontTag(id: Int!): FontTag
     updateFontTag(font_id: Int, tag_id: Int): Boolean
-    createWebFont(name: String, description: String, corporation: String, is_web_font: Boolean, source: String): WebFont
-    updateWebFont(font_id: Int!, name: String, description: String, corporation: String, is_web_font: Boolean, source: String): Boolean
+    createWebFont(
+      name: String
+      description: String
+      corporation: String
+      is_web_font: Boolean
+      source: String
+    ): WebFont
+    updateWebFont(
+      font_id: Int!
+      name: String
+      description: String
+      corporation: String
+      is_web_font: Boolean
+      source: String
+    ): Boolean
     createImageFont(
       name: String
       description: String
@@ -102,7 +115,8 @@ const resolvers = {
     getFontByFontId: (_, { font_id }) => fontORM.getFontByFontId({ font_id }),
     getFontAll: () => fontORM.getFontAll(),
     getFontsByTagId: (_, { tag_ids }) => fontORM.getFontsByTagId({ tag_ids }),
-    getFontsByCorpAndText: (_, { corporation, text }) => fontORM.getFontsByCorpAndText({ corporation, text }),
+    getFontsByCorpAndText: (_, { corporation, text }) =>
+      fontORM.getFontsByCorpAndText({ corporation, text }),
     getCorporationAll: () => fontORM.getCorporationAll(),
 
     getTagAll: () => tagORM.getTagAll(),
@@ -111,29 +125,93 @@ const resolvers = {
     getFontTagAll: () => fontTagORM.getFontTagAll(),
     getFontTags: (_, { tag_ids }) => fontTagORM.getFontTags({ tag_ids }),
 
-    getWebFontByFontId: (_, { font_id }) => webFontORM.getWebFontByFontId({ font_id }),
+    getWebFontByFontId: (_, { font_id }) =>
+      webFontORM.getWebFontByFontId({ font_id }),
     getWebFontAll: () => webFontORM.getWebFontAll(),
 
-    getImageFontByFontId: (_, { font_id }) => imageFontORM.getImageFontByFontId({ font_id }),
+    getImageFontByFontId: (_, { font_id }) =>
+      imageFontORM.getImageFontByFontId({ font_id }),
     getImageFontAll: () => imageFontORM.getImageFontAll(),
   },
   Mutation: {
-    createFontTag: (_, { font_id, tag_id }) => fontTagORM.createFontTag({ font_id, tag_id }),
+    createFontTag: (_, { font_id, tag_id }) =>
+      fontTagORM.createFontTag({ font_id, tag_id }),
     deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
-    updateFontTag: (_, { font_id, tag_id }) => fontTagORM.updateFontTag({ font_id, tag_id }),
+    updateFontTag: (_, { font_id, tag_id }) =>
+      fontTagORM.updateFontTag({ font_id, tag_id }),
 
-    createWebFont: (_, { name, description, corporation, is_web_font, source }) =>
+    createWebFont: (
+      _,
+      { name, description, corporation, is_web_font, source }
+    ) =>
+      webFontORM.createWebFont({
+        name,
+        description,
+        corporation,
+        is_web_font,
+        source,
+      }),
+    updateWebFont: (
+      _,
+      { font_id, name, description, corporation, is_web_font, source }
+    ) =>
+      webFontORM.updateWebFont({
+        font_id,
+        name,
+        description,
+        corporation,
+        is_web_font,
+        source,
+      }),
+
+    createImageFont: (
+      _,
       {
-      console.log(`'createWebFont': ${name}`);
-        return webFontORM.createWebFont({ name, description, corporation, is_web_font, source })
-      },
-    updateWebFont: (_, { font_id, name, description, corporation, is_web_font, source }) =>
-      webFontORM.updateWebFont({ font_id, name, description, corporation, is_web_font, source }),
-
-    createImageFont: (_, { name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }) =>
-      imageFontORM.createImageFont({ name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }),
-    updateImageFont: (_, { font_id, name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }) =>
-      imageFontORM.updateImageFont({ font_id, name, description, corporation, is_web_font, title, unit, detail_mobile, detail_pc }),
+        name,
+        description,
+        corporation,
+        is_web_font,
+        title,
+        unit,
+        detail_mobile,
+        detail_pc,
+      }
+    ) =>
+      imageFontORM.createImageFont({
+        name,
+        description,
+        corporation,
+        is_web_font,
+        title,
+        unit,
+        detail_mobile,
+        detail_pc,
+      }),
+    updateImageFont: (
+      _,
+      {
+        font_id,
+        name,
+        description,
+        corporation,
+        is_web_font,
+        title,
+        unit,
+        detail_mobile,
+        detail_pc,
+      }
+    ) =>
+      imageFontORM.updateImageFont({
+        font_id,
+        name,
+        description,
+        corporation,
+        is_web_font,
+        title,
+        unit,
+        detail_mobile,
+        detail_pc,
+      }),
   },
 };
 
@@ -142,5 +220,7 @@ const server = new ApolloServer({ typeDefs, resolvers });
 // The `listen` method launches a web server.
 server.start().then((res) => {
   server.applyMiddleware({ app, path });
-  app.listen({ port: PORT }, () => console.log(`🚀 Server ready at http://localhost:${PORT}${path}`));
+  app.listen({ port: PORT }, () =>
+    console.log(`🚀 Server ready at http://localhost:${PORT}${path}`)
+  );
 });

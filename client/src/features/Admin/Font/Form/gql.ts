@@ -83,6 +83,9 @@ export const CREATE_IMAGE_FONT = gql`
       detail_mobile: $detail_mobile
       detail_pc: $detail_pc
     )
+    {
+      id
+    }
   }
 `;
 
