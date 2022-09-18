@@ -7,9 +7,10 @@ import InputText from 'components/InputText';
 import InputTextArea from 'components/InputTextArea';
 import Radio from 'components/Radio';
 import { NextRouter, useRouter } from 'next/router';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { CREATE_IMAGE_FONT, CREATE_WEB_FONT, GET_FONT_BY_FONT_ID, UPDATE_IMAGE_FONT, UPDATE_WEB_FONT } from './gql';
 import ImageFont from './ImageFont';
+import { DeleteFontBtnStyle } from './style';
 import WebFont from './WebFont';
 
 type Props = {
@@ -52,6 +53,18 @@ const completeFunc = (router: NextRouter) => {
 
 const failFunc = () => alert('오류가 발생했습니다. 잠시 후 다시 시도하세요.');
 
+export const DeleteFontButton = ({font_id}: Props) => {
+  // create 일 때는 보이지 않음.
+  const handleClick = useCallback(() => {
+    const confirmed = confirm("삭제하시겠습니까? 삭제는 되돌릴 수 없어용");
+    if (!confirmed) return;
+    
+    //TODO: 삭제 실행
+  }, []);
+  return <DeleteFontBtnStyle onClick={handleClick}>
+    폰트 삭제
+  </DeleteFontBtnStyle>
+}
 const FontForm = ({ font_id }: Props) => {
   const router = useRouter();
   const { data } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id: Number(font_id) } });
@@ -140,9 +153,6 @@ const FontForm = ({ font_id }: Props) => {
               if (data) {
                 completeFunc(router);
               }
-            },
-            onError: (data) => {
-              console.log(data);
             }
           });
     } else {
