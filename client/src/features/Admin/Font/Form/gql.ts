@@ -114,3 +114,9 @@ export const UPDATE_IMAGE_FONT = gql`
     )
   }
 `;
+
+export const DELETE_FONT = gql`
+  mutation DeleteFontByFontId($font_id: Int!) {
+    deleteFontByFontId(font_id: $font_id)
+  }
+`;
