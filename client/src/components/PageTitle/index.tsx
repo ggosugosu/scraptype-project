@@ -1,18 +1,20 @@
-import React from "react";
-import { Title } from "./style";
+import React, { ReactNode } from "react";
+import { PageTitleStyle } from "./style";
 import Image from "next/image";
 import back from "assets/images/ic_back.svg";
 
 interface Props {
   title: String;
+  endItem?: ReactNode;
   onClick: () => void;
 }
 
-export default function PageTitle({ title, onClick }: Props) {
+export default function PageTitle({ title, endItem, onClick }: Props) {
   return (
-    <Title>
+    <PageTitleStyle>
       <Image src={back} alt="back" onClick={onClick} />
       <span>{title}</span>
-    </Title>
+      {endItem}
+    </PageTitleStyle>
   );
 }

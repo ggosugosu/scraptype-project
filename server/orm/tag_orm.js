@@ -40,6 +40,7 @@ const tagORM = {
     const tag = await Tag.findOne({ where: { id: id } });
     return tag;
   },
+  
   deleteTag: async (_, { id }) => {
     console.log(id);
     const oldTag = await Tag.destroy({ where: { id: id } });

@@ -1,61 +1,59 @@
 import Grid from 'components/Grid';
 import { GridLayout } from 'components/Grid/style';
 import InputTextArea from 'components/InputTextArea';
-import { useState, useCallback, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { ImageFontData } from './FontForm';
 
 type Props = {
-  unit?: string;
-  title?: string;
-  detailP?: string;
-  detailM?: string;
+  data: ImageFontData;
+  onSubmit: (data: ImageFontData) => void;
 };
 
 type ImageFontItem = {
   name: string;
   description: string;
   value: string | undefined;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const ImageFont = ({ unit: prevUnit, title: prevTitle, detailP: prevDetailP, detailM: prevDetailM }: Props) => {
-  const [unit, setUnit] = useState<string>(prevUnit ?? ``);
-  const [title, setTitle] = useState<string>(prevTitle ?? ``);
-  const [detailP, setDetailP] = useState<string>(prevDetailP ?? ``);
-  const [detailM, setDetailM] = useState<string>(prevDetailM ?? ``);
+const ImageFont = ({ data, onSubmit }: Props) => {
+  const [formData, setFormData] = useState<ImageFontData>(data);
 
-  const handleChange = useCallback((e, func: React.Dispatch<React.SetStateAction<string>>) => {
-    func(e.target.value);
-  }, []);
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
+  };
 
   const imageFontItems = useMemo(
     (): ImageFontItem[] => [
       {
         name: 'unit',
         description: '( Unit / 90 x 90 )',
-        value: unit,
-        setValue: setUnit,
+        value: formData?.unit,
       },
       {
         name: 'title',
         description: '( Title / Hug x 108 )',
-        value: title,
-        setValue: setTitle,
+        value: formData?.title,
       },
       {
-        name: 'detailP',
+        name: 'detailPc',
         description: '( Detail View Contents / PC / JPG )',
-        value: detailP,
-        setValue: setDetailP,
+        value: formData?.detailPc,
       },
       {
-        name: 'detailM',
+        name: 'detailMob',
         description: '( Detail View Contents / MO / JPG )',
-        value: detailM,
-        setValue: setDetailM,
+        value: formData?.detailMob,
       },
     ],
-    []
+    [formData]
   );
+
+  useEffect(() => {
+    formData && onSubmit(formData);
+  }, [formData]);
 
   return (
     <Grid gap={`36px 22px`} padding={`36px 24px`}>
@@ -65,7 +63,7 @@ const ImageFont = ({ unit: prevUnit, title: prevTitle, detailP: prevDetailP, det
             Image link <span>{item.description}</span>
             <span className="required"> *</span>
           </label>
-          <InputTextArea id={item.name} placeholder="text" value={item.value} height={`188px`} onChange={(e) => handleChange(e, item.setValue)} />
+          <InputTextArea id={item.name} placeholder="text" value={data[item.name] || item.value} height={`188px`} onChange={(e) => handleChange(e)} />
         </GridLayout>
       ))}
     </Grid>

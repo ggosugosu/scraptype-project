@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-export const Title = styled.header`
-  display: flex;
+export const PageTitleStyle = styled.header`
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
   flex: row wrap;
   justify-content: flex-start;
   align-items: center;
