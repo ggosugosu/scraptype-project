@@ -94,11 +94,12 @@ const fontORM = {
 
     deleteFontByFontId: async ({font_id}) => {
         try {
-            await Font.destroy({where: {id: font_id}});
-            await ImageFont.destroy({where: {font_id}});
-            await WebFont.destroy({where: {font_id}});
+            await ImageFont.destroy({where: {font_id: font_id}});
+            await WebFont.destroy({where: {font_id: font_id}});
 
-            await FontTag.destroy({where: {font_id}});
+            await FontTag.destroy({where: {font_id: font_id}});
+
+            await Font.destroy({where: {id: font_id}});
         } catch (e) {
             return false;
         }
