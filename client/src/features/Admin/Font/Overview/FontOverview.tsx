@@ -5,7 +5,7 @@ import CharItem, { WebFont } from 'components/CharContainer/Item/CharItem';
 import { useRouter } from 'next/router';
 import { GET_FONT_ALL } from './gql';
 
-export default function Overview() {
+export default function FontOverview() {
   const router = useRouter();
   const { loading, error, data } = useQuery(GET_FONT_ALL);
   if (loading || error) {

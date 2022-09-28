@@ -1,3 +1,3 @@
-import Overview from './Overview';
+import Overview from './FontOverview';
 
 export default Overview;
