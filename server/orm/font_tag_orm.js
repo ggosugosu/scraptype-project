@@ -40,12 +40,12 @@ const fontTagORM = {
   },
 
   createFontTag: async ({ font_id, tag_id }) => {
-    if (await exists(font_id, tag_id)) throw new ApolloError('Data already exists.', 'BAD_INPUT', { status: 400, error: true });
-
     const newFontTag = await FontTag.create({
       font_id,
       tag_id,
     });
+
+    if (await exists(font_id, tag_id)) throw new ApolloError('Data already exists.', 'BAD_INPUT', { status: 400, error: true });
 
     return newFontTag;
   },

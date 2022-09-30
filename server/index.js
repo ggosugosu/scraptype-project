@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = 3200;
 const path = "/graphql";
-const {ApolloServer, gql} = require("apollo-server-express");
+const { ApolloServer, gql } = require("apollo-server-express");
 const fontORM = require("./orm/font_orm");
 const tagORM = require("./orm/tag_orm");
 const fontTagORM = require("./orm/font_tag_orm");
@@ -24,6 +24,7 @@ const typeDefs = gql`
     type Tag {
         id: Int
         name: String
+        fontTags: [FontTag]
     }
 
     type FontTag {
@@ -110,42 +111,47 @@ const typeDefs = gql`
         deleteFontByFontId(
             font_id: Int!
         ): Boolean
+        createTag(
+            name: String
+        ): Tag
+        updateTag(
+            id: Int!
+            name: String
+        ): Tag
+        deleteTagByTagId(
+            tag_id: Int!
+        ): Boolean
     }
 `;
 
 const resolvers = {
     Query: {
-        getFontByFontId: (_, {font_id}) => fontORM.getFontByFontId({font_id}),
+        getFontByFontId: (_, { font_id }) => fontORM.getFontByFontId({ font_id }),
         getFontAll: () => fontORM.getFontAll(),
-        getFontsByTagId: (_, {tag_ids}) => fontORM.getFontsByTagId({tag_ids}),
-        getFontsByCorpAndText: (_, {corporation, text}) =>
-            fontORM.getFontsByCorpAndText({corporation, text}),
+        getFontsByTagId: (_, { tag_ids }) => fontORM.getFontsByTagId({ tag_ids }),
+        getFontsByCorpAndText: (_, { corporation, text }) =>
+            fontORM.getFontsByCorpAndText({ corporation, text }),
         getCorporationAll: () => fontORM.getCorporationAll(),
 
         getTagAll: () => tagORM.getTagAll(),
-        getTagsByTagId: (_, {tag_ids}) => tagORM.getTagsByTagId({tag_ids}),
+        getTagsByTagId: (_, { tag_ids }) => tagORM.getTagsByTagId({ tag_ids }),
 
         getFontTagAll: () => fontTagORM.getFontTagAll(),
-        getFontTags: (_, {tag_ids}) => fontTagORM.getFontTags({tag_ids}),
+        getFontTags: (_, { tag_ids }) => fontTagORM.getFontTags({ tag_ids }),
 
-        getWebFontByFontId: (_, {font_id}) =>
-            webFontORM.getWebFontByFontId({font_id}),
         getWebFontAll: () => webFontORM.getWebFontAll(),
-
-        getImageFontByFontId: (_, {font_id}) =>
-            imageFontORM.getImageFontByFontId({font_id}),
         getImageFontAll: () => imageFontORM.getImageFontAll(),
     },
     Mutation: {
-        createFontTag: (_, {font_id, tag_id}) =>
-            fontTagORM.createFontTag({font_id, tag_id}),
-        deleteFontTag: (_, {id}) => fontTagORM.deleteFontTag({id}),
-        updateFontTag: (_, {font_id, tag_id}) =>
-            fontTagORM.updateFontTag({font_id, tag_id}),
+        createFontTag: (_, { font_id, tag_id }) =>
+            fontTagORM.createFontTag({ font_id, tag_id }),
+        deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
+        updateFontTag: (_, { font_id, tag_id }) =>
+            fontTagORM.updateFontTag({ font_id, tag_id }),
 
         createWebFont: (
             _,
-            {name, description, corporation, is_web_font, source}
+            { name, description, corporation, is_web_font, source }
         ) =>
             webFontORM.createWebFont({
                 name,
@@ -156,7 +162,7 @@ const resolvers = {
             }),
         updateWebFont: (
             _,
-            {font_id, name, description, corporation, is_web_font, source}
+            { font_id, name, description, corporation, is_web_font, source }
         ) =>
             webFontORM.updateWebFont({
                 font_id,
@@ -215,16 +221,19 @@ const resolvers = {
                 detail_mobile,
                 detail_pc,
             }),
-        deleteFontByFontId: (_, {font_id}) => fontORM.deleteFontByFontId({font_id})
+        deleteFontByFontId: (_, { font_id }) => fontORM.deleteFontByFontId({ font_id }),
+        createTag: (_, { name }) => tagORM.createTag({ name }),
+        updateTag: (_, { id, name }) => tagORM.updateTag({ id, name }),
+        deleteTagByTagId: (_, { tag_id }) => tagORM.deleteTagByTagId({ tag_id })
     },
 };
 
-const server = new ApolloServer({typeDefs, resolvers});
+const server = new ApolloServer({ typeDefs, resolvers });
 
 // The `listen` method launches a web server.
 server.start().then((res) => {
-    server.applyMiddleware({app, path});
-    app.listen({port: PORT}, () =>
+    server.applyMiddleware({ app, path });
+    app.listen({ port: PORT }, () =>
         console.log(`🚀 Server ready at http://localhost:${PORT}${path}`)
     );
 });

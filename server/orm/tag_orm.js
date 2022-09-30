@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const { Tag } = require("../models/index");
 const { FontTag } = require("../models");
+const { ApolloError } = require("apollo-server-micro");
 
 const tagORM = {
     getTagAll: () => {
@@ -26,36 +27,33 @@ const tagORM = {
         return newTags;
     },
 
-    getTag: async (_, args) => {
-        await context.Tag.findOne();
-        const { id } = args;
-        const resultData = await Tag.findOne({ where: { id: id } });
-        return resultData;
-    },
-
-    createTag: async ({id, name}) => {
-        // TODO: 같은 글자가 있을 경우 추가x (where not exist)
-        const newTag = await Tag.create({
-            name,
+    createTag: async ({ name }) => {
+        if (await existsTagName((name))) throw new ApolloError('Data already exists.', 'BAD_INPUT', {
+            status: 400,
+            error: true
         });
-        const tag = await Tag.findOne({ where: { id: id } });
-        return tag;
+        return await Tag.create({ name });
     },
 
-    updateTag: async (_, { id, name, description }) => {
-        console.log(id);
-        const tag = await Tag.findOne({ where: { id: id } });
-        return tag;
+    updateTag: async ({ id, name }) => {
+        return await Tag.update({ id, name }, { where: { id } });
     },
 
-    deleteTag: async (_, { id }) => {
-        console.log(id);
-        const oldTag = await Tag.destroy({ where: { id: id } });
-        const tag = await Tag.findOne({ where: { id: id } });
-        return tag;
+    deleteTagByTagId: async ({ tag_id }) => {
+        try {
+            await FontTag.destroy({ where: { tag_id } });
+            await Tag.destroy({ where: { id: tag_id } });
+        } catch (e) {
+            return false;
+        }
+
+        return true;
     },
 };
 
-
+const existsTagName = async (name) =>
+    await Tag.findOne({ where: { name: name } })
+        .then((data) => data !== null)
+        .then((existsData) => existsData);
 
 module.exports = tagORM;

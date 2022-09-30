@@ -34,7 +34,6 @@ const imageFontORM = {
       where: { name, description, corporation },
     }).then((data) => data.id);
 
-    console.log(`font_id: ${font_id}`);
     const resultData = await ImageFont.create({
       font_id: font_id,
       title,

@@ -1,11 +1,11 @@
-const {Font, FontTag, Tag, WebFont, ImageFont} = require('../models/index');
-const {Op} = require('sequelize');
+const { Font, FontTag, Tag, WebFont, ImageFont } = require('../models/index');
+const { Op } = require('sequelize');
 const sequelize = require('sequelize');
 
 const fontORM = {
-    getFontByFontId: ({font_id}) =>
+    getFontByFontId: ({ font_id }) =>
         Font.findOne({
-            where: {id: font_id},
+            where: { id: font_id },
             include: [
                 {
                     model: FontTag,
@@ -50,7 +50,7 @@ const fontORM = {
         return getFonts;
     },
 
-    getFontsByTagId: ({tag_ids}) => {
+    getFontsByTagId: ({ tag_ids }) => {
         const getFonts = Font.findAll({
             include: [
                 {
@@ -74,7 +74,7 @@ const fontORM = {
         return getFonts;
     },
 
-    getFontsByCorpAndText: ({corporation, text}) =>
+    getFontsByCorpAndText: ({ corporation, text }) =>
         Font.findAll({
             where: {
                 name: {
@@ -92,14 +92,14 @@ const fontORM = {
             group: ['corporation'],
         }).then((corporation) => corporation),
 
-    deleteFontByFontId: async ({font_id}) => {
+    deleteFontByFontId: async ({ font_id }) => {
         try {
-            await ImageFont.destroy({where: {font_id: font_id}});
-            await WebFont.destroy({where: {font_id: font_id}});
+            await ImageFont.destroy({ where: { font_id } });
+            await WebFont.destroy({ where: { font_id } });
 
-            await FontTag.destroy({where: {font_id: font_id}});
+            await FontTag.destroy({ where: { font_id } });
 
-            await Font.destroy({where: {id: font_id}});
+            await Font.destroy({ where: { id: font_id } });
         } catch (e) {
             return false;
         }
@@ -107,26 +107,26 @@ const fontORM = {
         return true;
     },
 
-    createFont: async (_, {name, description}) => {
+    createFont: async (_, { name, description }) => {
         const newFont = await Font.create({
             name,
             description,
         });
 
-        const font = await Font.findOne({where: {id: id}});
+        const font = await Font.findOne({ where: { id } });
         return font;
     },
 
-    updateFont: async (_, {id, name, description}) => {
+    updateFont: async (_, { id, name, description }) => {
         console.log(id);
-        const font = await Font.findOne({where: {id: id}});
+        const font = await Font.findOne({ where: { id } });
         return font;
     },
 
-    deleteFont: async (_, {id}) => {
+    deleteFont: async (_, { id }) => {
         console.log(id);
-        const oldFont = await Font.destroy({where: {id: id}});
-        const font = await Font.findOne({where: {id: id}});
+        const oldFont = await Font.destroy({ where: { id } });
+        const font = await Font.findOne({ where: { id } });
         return font;
     },
 };
