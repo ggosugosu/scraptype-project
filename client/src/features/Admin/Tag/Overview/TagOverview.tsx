@@ -34,9 +34,9 @@ const TagOverview = () => {
             <TagNewItem/>
             {
                 data &&
-                data.getTagAll.map((item, index) => (
+                data.getTagAll.map((item) => (
                     <TagItemStyle key={item.tag_id}>
-                        <div>{item.name}</div>
+                        <div>{item.name}({item.fontTags.length})</div>
                         <ButtonModifyStyle onClick={() => handleModify(item.tag_id)}>수정</ButtonModifyStyle>
                         <ButtonDeleteStyle onClick={() => handleDelete(item.tag_id)}>삭제</ButtonDeleteStyle>
                     </TagItemStyle>
