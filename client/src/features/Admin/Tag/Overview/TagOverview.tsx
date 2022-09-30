@@ -35,10 +35,10 @@ const TagOverview = () => {
             {
                 data &&
                 data.getTagAll.map((item) => (
-                    <TagItemStyle key={item.tag_id}>
+                    <TagItemStyle key={item.id}>
                         <div>{item.name}({item.fontTags.length})</div>
-                        <ButtonModifyStyle onClick={() => handleModify(item.tag_id)}>수정</ButtonModifyStyle>
-                        <ButtonDeleteStyle onClick={() => handleDelete(item.tag_id)}>삭제</ButtonDeleteStyle>
+                        <ButtonModifyStyle onClick={() => handleModify(item.id)}>수정</ButtonModifyStyle>
+                        <ButtonDeleteStyle onClick={() => handleDelete(item.id)}>삭제</ButtonDeleteStyle>
                     </TagItemStyle>
                 ))
             }
