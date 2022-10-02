@@ -4,6 +4,7 @@ import {black, grey_100, grey_300, main} from "common/colors";
 export const TagWrapperStyle = styled.ul`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: minmax(68px, 1fr);
   grid-gap: 12px 14px;
 
   margin: 8px 0 24px 0;
@@ -19,7 +20,7 @@ export const TagItemStyle = styled.div`
   grid-auto-flow: column;
   grid-template-columns: 1fr auto auto;
 
-  height: 68px;
+  min-height: 100%;
   padding: 16px;
   background-color: ${grey_100};
 

@@ -188,6 +188,11 @@ export const DropSettingsStyle = styled.ul`
 export const DropSettingItemWrapperStyle = styled.li`
   list-style: none;
   padding: 0;
+  border-bottom: 1px dashed white;
+
+  &:last-child {
+    border-bottom: none;
+  }
 `
 
 export const DropSettingItemStyle = styled.button`
@@ -198,14 +203,9 @@ export const DropSettingItemStyle = styled.button`
 
   width: 100%;
   height: 56px;
-  border-bottom: 1px dashed white;
   
   color: white;
-
-  &:nth-last-child {
-    border-bottom: none;
-  }
-
+  
   .icon-wrapper {
     width: 32px;
     padding: 6px 4px 4px 4px;

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-    DropSettingItemStyle, DropSettingItemWrapperStyle,
+    DropSettingItemStyle,
+    DropSettingItemWrapperStyle,
     DropSettingsStyle,
     DropSettingsWrapperStyle,
     NavBarStyle,
@@ -24,13 +25,20 @@ import logoSm from "assets/images/logo_sm.svg";
 import logoBistro from "assets/images/logo_bistro.svg";
 import { useRecoilState } from "recoil";
 import { windowWideState } from "./atom";
+import { useRouter } from "next/router";
 
 export default function Navigation() {
+    const router = useRouter();
     const [width, setWidth] = useState(0);
     const [isWide, setIsWide] = useRecoilState(windowWideState);
     const [openSettings, setOpenSettings] = useState<boolean>(false);
 
     const handleClickSettings = () => setOpenSettings(!openSettings);
+
+    const handleChangePage = async (link: string) => {
+        setOpenSettings(false);
+        await router.push(link);
+    }
 
     useEffect(() => {
         function handleResize() {
@@ -73,7 +81,7 @@ export default function Navigation() {
                             <DropSettingsStyle>
                                 <DropSettingItemWrapperStyle>
                                     <Link href="/admin/font" passHref>
-                                        <DropSettingItemStyle>
+                                        <DropSettingItemStyle onClick={() => handleChangePage("/admin/font")}>
                                             <div className={"icon-wrapper"}>
                                                 <Image src={iconFont} alt="icon-font" width={24}/>
                                             </div>
@@ -82,34 +90,32 @@ export default function Navigation() {
                                     </Link>
                                 </DropSettingItemWrapperStyle>
                                 <DropSettingItemWrapperStyle>
-                                    <Link href="/admin/tag" passHref>
-                                        <DropSettingItemStyle>
-                                            <div className={"icon-wrapper"}>
-                                                <Image src={iconHash} alt="icon-hash"/>
-                                            </div>
-                                            <span>Tag Settings</span>
-                                        </DropSettingItemStyle>
-                                    </Link>
+                                    <DropSettingItemStyle onClick={() => handleChangePage("/admin/tag")}>
+                                        <div className={"icon-wrapper"}>
+                                            <Image src={iconHash} alt="icon-hash"/>
+                                        </div>
+                                        <span>Tag Settings</span>
+                                    </DropSettingItemStyle>
                                 </DropSettingItemWrapperStyle>
                             </DropSettingsStyle>
                         </DropSettingsWrapperStyle>
                     }
                 </li>
                 <li className={"nav-button"}>
-                    <Link href="/search/tag/" passHref>
-                        <NavButton>
-                            <span>Tag Search</span>
-                            <Image src={isWide ? iconTag : iconTagMobile} alt="icon-tag"/>
-                        </NavButton>
-                    </Link>
+
+                    <NavButton onClick={() => handleChangePage("/search/tag")}>
+                        <span>Tag Search</span>
+                        <Image src={isWide ? iconTag : iconTagMobile} alt="icon-tag"/>
+                    </NavButton>
+
                 </li>
                 <li className={"nav-button"}>
-                    <Link href="/search/font/" passHref>
-                        <NavButton>
-                            <span>Name Search</span>
-                            <Image src={isWide ? iconName : iconNameMobile} alt="icon-name" className="nav-icon"/>
-                        </NavButton>
-                    </Link>
+
+                    <NavButton onClick={() => handleChangePage("/search/font")}>
+                        <span>Name Search</span>
+                        <Image src={isWide ? iconName : iconNameMobile} alt="icon-name" className="nav-icon"/>
+                    </NavButton>
+
                 </li>
                 <li className={"nav-button"}>
                     <Image src={logoBistro} alt="logo-bistro"/>

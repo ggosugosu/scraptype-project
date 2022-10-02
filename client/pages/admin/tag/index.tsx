@@ -9,7 +9,7 @@ export default function TagPage() {
 
     return (
         <>
-            <PageTitle title="Font Setting" onClick={() => router.push('/')}/>
+            <PageTitle title="Tag Setting" onClick={() => router.push('/')}/>
             <TagOverview/>
         </>
     )

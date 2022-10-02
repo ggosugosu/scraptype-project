@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const CharContainerStyle = styled.div`
   display: inline-flex;
   flex-flow: row wrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 12px;
   width: auto;
   height: auto;
