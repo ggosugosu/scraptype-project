@@ -1,20 +1,24 @@
 import { black, main } from "common/colors";
 import styled from "styled-components";
 
-export const FlexWrapper = styled.div`
+export const FlexWrapperStyle = styled.form`
   position: absolute;
   bottom: 426px;
-  display: flex;
-  flex-flow: row wrap;
-  gap: 16px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 270px 1fr 184px;
+  grid-gap: 16px;
+  align-items: center;
+
   width: 100%;
 `;
 
-export const SelectorWrapper = styled.div`
+export const SelectorWrapperStyle = styled.div`
   position: relative;
   display: inline-block;
   width: auto;
   height: auto;
+
   .arrow_wrapper {
     position: absolute;
     right: 16px;
@@ -25,7 +29,7 @@ export const SelectorWrapper = styled.div`
   }
 `;
 
-export const Selector = styled.select`
+export const SelectorStyle = styled.select`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -55,3 +59,12 @@ export const Selector = styled.select`
     font-size: 20px;
   }
 `;
+
+export const InputWrapperStyle = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 184px;
+  align-items: center;
+
+  width: 100%;
+`

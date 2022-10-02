@@ -11,7 +11,7 @@ export default function AdminFontPage() {
     return (
         <>
             <PageTitle
-                title={font_id?.toString() !== "create" ? "Edit" : "Add"}
+                title={font_id?.toString() !== "create" ? "Font Setting / Edit" : "Font Setting / Add"}
                 endItem={
                     font_id?.toString() !== "create" && (
                         <DeleteFontButton font_id={font_id!!.toString()}/>

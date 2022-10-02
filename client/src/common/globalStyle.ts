@@ -1,12 +1,10 @@
-import { createGlobalStyle } from 'styled-components';
-import styled from 'styled-components';
-import { white, grey_400, black, grey_300, grey_200, grey_100 } from './colors';
-import { getSvgUrl } from '../features/utils';
+import styled, {createGlobalStyle} from 'styled-components';
+import {black, grey_400} from './colors';
 
 export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
-    font-family:'Elice' ,'Gothic', 'sans-serif';
+    font-family: 'Elice', 'Gothic', 'sans-serif';
     font-weight: 400;
     color: ${black};
   }
@@ -20,26 +18,47 @@ export const GlobalStyle = createGlobalStyle`
     padding-right: 60px;
     overflow: hidden;
     @media (max-width: 480px) {
-    padding: 0;
-  }
+      padding: 0;
+    }
   }
 
   button {
     background: none;
-	  color: inherit;
-	  border: none;
-	  padding: 0;
-	  font: inherit;
-	  cursor: pointer;
-	  outline: inherit;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
   }
 
-  .col-1 {grid-column: span 1;}
-  .col-2 {grid-column: span 2;}
-  .col-3 {grid-column: span 3;}
-  .col-4 {grid-column: span 4;}
-  .col-5 {grid-column: span 5;}
-  .col-6 {grid-column: span 6;}
+  .col-1 {
+    grid-column: span 1;
+  }
+
+  .col-2 {
+    grid-column: span 2;
+  }
+
+  .col-3 {
+    grid-column: span 3;
+  }
+
+  .col-4 {
+    grid-column: span 4;
+  }
+
+  .col-5 {
+    grid-column: span 5;
+  }
+
+  .col-6 {
+    grid-column: span 6;
+  }
+  
+  .hidden {
+    display: none;
+  }
 `;
 
 export const DashLineHorizontal = styled.hr`
@@ -48,3 +67,4 @@ export const DashLineHorizontal = styled.hr`
   border: none;
   border-top: 2px dotted ${grey_400};
 `;
+

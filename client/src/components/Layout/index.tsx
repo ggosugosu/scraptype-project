@@ -1,11 +1,12 @@
 import Navigation from "../Navigation/index";
-import { BodyWrapper, Main } from "./style";
+import { BodyWrapperStyle, MainStyle } from "./style";
 
-export default function Layout({ children }) {
-  return (
-    <BodyWrapper>
-      <Navigation />
-      <Main>{children}</Main>
-    </BodyWrapper>
-  );
+export default function Layout({children}) {
+    return (
+        <BodyWrapperStyle>
+            <Navigation/>
+            <div />
+            <MainStyle>{children}</MainStyle>
+        </BodyWrapperStyle>
+    );
 }

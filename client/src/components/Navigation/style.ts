@@ -1,20 +1,16 @@
 import styled from "styled-components";
-import { grey_300, grey_400, black } from "../../common/colors";
 
-export const NavBar = styled.header`
+import { grey_300, black } from "../../common/colors";
+
+export const NavBarStyle = styled.header`
   position: relative;
   display: inline-flex;
   flex-flow: column;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 318px;
   height: 100vh;
   margin-right: 128px;
-
-  ul {
-    list-style: none;
-    padding-left: 0px;
-  }
 
   .logo-large,
   .logo-small {
@@ -24,6 +20,7 @@ export const NavBar = styled.header`
   .logo {
     cursor: pointer;
   }
+
 
   @media (max-width: 480px) {
     width: 100%;
@@ -37,15 +34,18 @@ export const NavBar = styled.header`
     hr {
       display: none;
     }
+
     ul {
       display: inline-flex;
       flex-flow: row-reverse wrap;
       gap: 12px;
     }
+
     ul li {
       display: inline-flex;
       flex-flow: column;
       align-items: center;
+
       span {
         font-weight: 500;
         font-size: 9px;
@@ -63,6 +63,7 @@ export const NavBar = styled.header`
 // TODO: 삭제할 컴포넌트
 export const NavLogo = styled.div`
   width: 100%;
+
   > div {
     position: unset !important;
   }
@@ -73,6 +74,7 @@ export const NavLogo = styled.div`
     position: relative !important;
     height: unset !important;
   }
+
   //content: url("http://drive.google.com/uc?export=view&id=1PnKUOUlXYTwNhzU2l6uI6FHnLg-WYAOD");
   @media (max-width: 480px) {
     display: inline-block;
@@ -99,9 +101,11 @@ export const NavButton = styled.button`
   height: 84px;
   border: none;
   background-color: white;
+
   span {
     font-size: 24px;
   }
+
   @media (max-width: 480px) {
     position: relative;
     width: 48px;
@@ -116,8 +120,13 @@ export const NavButtons = styled.ul`
   position: absolute;
   bottom: 100px;
   width: 100%;
-  li {
+  
+  padding: 0;
+
+  .nav-button {
+    list-style: none;
     border-top: 2px dotted ${grey_300};
+
     &:last-child {
       display: flex;
       align-items: center;
@@ -126,16 +135,86 @@ export const NavButtons = styled.ul`
       height: 126px;
     }
   }
+
   @media (max-width: 480px) {
     position: relative;
     top: 0;
     margin: 0;
 
-    li {
+    .nav-button {
       border-top: none;
+
       &:last-child {
         display: none;
       }
     }
   }
 `;
+
+export const DropSettingsWrapperStyle = styled.div`
+  position: absolute;
+  top: 42px;
+  left: 318px;
+
+  width: 206px;
+  height: 110px;
+
+  z-index: 99;
+
+  .bg-settings-drop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    width: 206px;
+    height: 110px;
+  }
+`;
+
+
+export const DropSettingsStyle = styled.ul`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr;
+
+  width: 206px;
+  height: 110px;
+  padding: 0 6px 0 16px;
+`;
+
+export const DropSettingItemWrapperStyle = styled.li`
+  list-style: none;
+  padding: 0;
+  border-bottom: 1px dashed white;
+
+  &:last-child {
+    border-bottom: none;
+  }
+`
+
+export const DropSettingItemStyle = styled.button`
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 32px 1fr;
+  align-items: center;
+
+  width: 100%;
+  height: 56px;
+  
+  color: white;
+  
+  .icon-wrapper {
+    width: 32px;
+    padding: 6px 4px 4px 4px;
+  }
+  
+  span {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: start;
+    color: white;
+  }
+`
