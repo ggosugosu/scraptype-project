@@ -16,26 +16,22 @@ const tagORM = {
     },
 
     getTagsByTagId: ({ tag_ids }) => {
-        const newTags = Tag.findAll({
+        return Tag.findAll({
             where: {
                 id: {
                     [Op.or]: tag_ids,
                 },
             },
         });
-
-        return newTags;
     },
 
     createTag: async ({ name }) => {
-        if (await existsTagName((name))) throw new ApolloError('Data already exists.', 'BAD_INPUT', {
-            status: 400,
-            error: true
-        });
+        await checkExist(name);
         return await Tag.create({ name });
     },
 
     updateTag: async ({ id, name }) => {
+        await checkExist(name);
         return await Tag.update({ id, name }, { where: { id } });
     },
 
@@ -55,5 +51,12 @@ const existsTagName = async (name) =>
     await Tag.findOne({ where: { name: name } })
         .then((data) => data !== null)
         .then((existsData) => existsData);
+
+const checkExist = async (name) => {
+    if (await existsTagName((name))) throw new ApolloError('Data already exists.', 'BAD_INPUT', {
+        status: 400,
+        error: true
+    });
+}
 
 module.exports = tagORM;

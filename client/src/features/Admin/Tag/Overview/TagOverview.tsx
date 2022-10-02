@@ -56,6 +56,11 @@ const TagItem = (item: TagItemProps) => {
     const handleModifyCompleted = useCallback(async (e) => {
         e.preventDefault();
 
+        if (modifiedTagName === prevTagName.current) {
+            handleCancel();
+            return;
+        }
+
         await updateTag(
             {
                 variables: {id: item.id, name: modifiedTagName},
@@ -68,11 +73,15 @@ const TagItem = (item: TagItemProps) => {
                     }
                 },
                 onError: (error) => {
-                    console.log(error.message);
+                    const status = error.graphQLErrors[0].extensions.status
+                    if (status === 400) {
+                        alert("이미 존재하는 태그 이름입니다.");
+                    } else {
+                    }
                 }
             }
         );
-    }, [modifiedTagName, item.id]);
+    }, [modifiedTagName, item.id, prevTagName, handleCancel, updateTag]);
 
     const handleShowModifyView = useCallback(async () => {
         prevTagName.current = modifiedTagName;

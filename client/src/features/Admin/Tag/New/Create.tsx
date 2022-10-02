@@ -28,6 +28,13 @@ const CreateTag = () => {
                     } else {
                         alert("잠시 후 다시 시도해주세요.");
                     }
+                },
+                onError: (error) => {
+                    const status = error.graphQLErrors[0].extensions.status
+                    if (status === 400) {
+                        alert("이미 존재하는 태그 이름입니다.");
+                    } else {
+                    }
                 }
             }
         )
