@@ -98,7 +98,7 @@ const TagItem = (item: TagItemProps) => {
                 variables: {tag_id: item.id},
                 onCompleted: (data) => {
                     if (data) {
-                        alert("수정을 완료하였습니다!");
+                        alert("삭제를 완료하였습니다!");
                         refreshCurrentPage();
                     } else {
                         alert("잠시 후 다시 시도해주세요.")
