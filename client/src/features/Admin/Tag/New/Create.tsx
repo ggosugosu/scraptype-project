@@ -4,6 +4,7 @@ import { ButtonPositive } from "../../../../components/Button";
 import { useRouter } from "next/router";
 import { CREATE_TAG } from "./gql";
 import { useMutation } from "@apollo/client";
+import { CreateForm } from "./style";
 
 const CreateTag = () => {
     const router = useRouter();
@@ -31,16 +32,16 @@ const CreateTag = () => {
             }
         )
 
-    }, [tagText]);
+    }, [tagText, createTag, router]);
 
     return (
         <section>
-            <form onSubmit={handleSubmit}>
+            <CreateForm onSubmit={handleSubmit}>
                 <h1>새로운 태그를 추가하세요.</h1>
                 <label id="input-new-tag" className="hidden">새로운 태그를 추가하세요.</label>
                 <InputText id="input-new-tag" value={tagText} onChange={handleChange}/>
                 <ButtonPositive enabled={tagText !== ''} text={"완료"} type={'submit'}/>
-            </form>
+            </CreateForm>
         </section>
     );
 }
