@@ -6,11 +6,15 @@ export const TagWrapperStyle = styled.ul`
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-gap: 12px 14px;
 
-  margin: 8px 0 0 0;
+  margin: 8px 0 24px 0;
   padding: 0;
 `;
 
-export const TagItemStyle = styled.li`
+export const TagItemWrapperStyle = styled.li`
+    list-style: none;
+`;
+
+export const TagItemStyle = styled.div`
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 1fr auto auto;
@@ -30,18 +34,19 @@ export const TagItemStyle = styled.li`
   }
 `;
 
-export const NewTagItemStyle = styled.li`
+export const NewTagItemStyle = styled.button`
   display: grid;
   justify-content: center;
   align-items: center;
   
   width: 100%;
+  height: 68px;
   border: 1px dotted ${main};
   
   cursor: pointer;
 `;
 
-export const ButtonModifyStyle = styled.button`
+export const ButtonPositiveStyle = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,7 +55,7 @@ export const ButtonModifyStyle = styled.button`
   color: ${black};
 `;
 
-export const ButtonDeleteStyle = styled.button`
+export const ButtonNegativeStyle = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,9 +1,9 @@
 import InputText from "../../../../components/InputText";
-import {ChangeEvent, FormEvent, useCallback, useState} from "react";
-import {ButtonPositive} from "../../../../components/Button";
-import {useRouter} from "next/router";
-import {CREATE_TAG} from "./gql";
-import {useMutation} from "@apollo/client";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import { ButtonPositive } from "../../../../components/Button";
+import { useRouter } from "next/router";
+import { CREATE_TAG } from "./gql";
+import { useMutation } from "@apollo/client";
 
 const CreateTag = () => {
     const router = useRouter();
