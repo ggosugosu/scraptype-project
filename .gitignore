@@ -15,7 +15,7 @@ pids
 *.pid.lock
 
 # dependencies
-server/node_modules
+server/node_modules/*
 server/.pnp
 server/.pnp.js
 
@@ -57,7 +57,7 @@ client/logs
 **/*.backup.*
 **/*.back.*
 
-client/node_modules
+client/node_modules/*
 client/bower_components
 
 *.sublime*
