@@ -313,11 +313,7 @@ const FontForm = ({ font_id }: Props) => {
         )}
         <GridDivider />
         <Grid template={`1fr`} padding={`36px 24px 56px 24px`}>
-          <ButtonPositive
-            enabled={true}
-            text={`폰트 추가`}
-            onClick={() => {}}
-          />
+          <ButtonPositive type="submit" enabled={true} text={`폰트 추가`} />
         </Grid>
       </Form>
     </section>
