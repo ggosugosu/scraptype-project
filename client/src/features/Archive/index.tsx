@@ -1,14 +1,14 @@
-import logoBistro from 'assets/images/logo_bistro.svg';
-import logo from 'assets/images/logo_no_icon.svg';
-import Image from 'next/image';
-import { useState } from 'react';
+import logoBistro from "assets/images/logo_bistro.svg";
+import logo from "assets/images/logo_no_icon.svg";
+import Image from "next/image";
+import { useState } from "react";
 
-import { useQuery } from '@apollo/client';
-import CharContainer from 'components/CharContainer/CharContainer';
-import CharItem from 'components/CharContainer/Item/CharItem';
-import { GET_FONT_ALL } from './gql';
-import ArchiveItemModal from './modal';
-import { LogoWrapper } from './style';
+import { useQuery } from "@apollo/client";
+import CharContainer from "components/CharContainer/CharContainer";
+import CharItem from "components/CharContainer/Item/CharItem";
+import { GET_FONT_ALL } from "./gql";
+import ArchiveItemModal from "./modal";
+import { LogoWrapper } from "./style";
 
 export default function Archive() {
   const { loading, error, data } = useQuery(GET_FONT_ALL);
@@ -27,7 +27,8 @@ export default function Archive() {
 
   const handleVisible = (e?) => {
     e && e.stopPropagation();
-    (!e || e.target === e.currentTarget) && setModalIsVisible((props) => !props);
+    (!e || e.target === e.currentTarget) &&
+      setModalIsVisible((props) => !props);
   };
 
   return (
@@ -38,20 +39,28 @@ export default function Archive() {
       </LogoWrapper>
       <CharContainer>
         {data &&
-          data.getFontAll.map((item, index) => (
-            <CharItem
-              key={index}
-              font_id={item.id}
-              name={item.name}
-              description={item.description}
-              corporation={item.corporation}
-              tags={item.fontTags.tags}
-              webFont={item.webFont}
-              isArchive={true}
-              onClick={handleClicked}
-            />
-          ))}
-        {data && modalIsVisible && <ArchiveItemModal font_id={selectedFontId ?? -1} handleVisible={handleVisible} />}
+          data.getFontAll.map((item, index) => {
+            console.log(JSON.stringify(item));
+            return (
+              <CharItem
+                key={index}
+                font_id={item.id}
+                name={item.name}
+                description={item.description}
+                corporation={item.corporation}
+                tags={item.fontTags}
+                webFont={item.webFont}
+                isArchive={true}
+                onClick={handleClicked}
+              />
+            );
+          })}
+        {data && modalIsVisible && (
+          <ArchiveItemModal
+            font_id={selectedFontId ?? -1}
+            handleVisible={handleVisible}
+          />
+        )}
       </CharContainer>
     </>
   );
