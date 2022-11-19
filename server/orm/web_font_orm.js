@@ -1,4 +1,4 @@
-const { Font, WebFont } = require('../models/index');
+const { Font, WebFont } = require("../models/index");
 
 const webFontORM = {
   getWebFontAll: () => {
@@ -6,7 +6,7 @@ const webFontORM = {
       include: [
         {
           model: Font,
-          as: 'font',
+          as: "font",
         },
       ],
     });
@@ -19,13 +19,18 @@ const webFontORM = {
     return resultData;
   },
 
-  createWebFont: async ({ name, description, corporation, is_web_font, source }) => {
-    console.log(`${name}\n${description}\n${corporation}\n${is_web_font}\n${source}\n`);
-
+  createWebFont: async ({
+    name,
+    description,
+    corporation,
+    is_web_font,
+    source,
+  }) => {
     await Font.create({ name, description, corporation, is_web_font });
-    const font_id = await Font.findOne({ where: { name, description, corporation } }).then((data) => data.id);
+    const font_id = await Font.findOne({
+      where: { name, description, corporation },
+    }).then((data) => data.id);
 
-    console.log(`newFont: ${font_id}`);
     const resultData = await WebFont.create({
       font_id: font_id,
       source,
@@ -34,10 +39,20 @@ const webFontORM = {
     return resultData;
   },
 
-  updateWebFont: async ({ font_id, name, description, corporation, is_web_font, source }) => {
+  updateWebFont: async ({
+    font_id,
+    name,
+    description,
+    corporation,
+    is_web_font,
+    source,
+  }) => {
     if (!(await fontExists(font_id))) return false;
 
-    await Font.update({ name, description, corporation, is_web_font }, { where: { id: font_id } });
+    await Font.update(
+      { name, description, corporation, is_web_font },
+      { where: { id: font_id } }
+    );
 
     (await webFontExists(font_id))
       ? await WebFont.update({ source }, { where: { font_id } })
