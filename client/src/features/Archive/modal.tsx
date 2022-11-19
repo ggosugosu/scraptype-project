@@ -63,14 +63,20 @@ export const ModalContentWrapper = styled.div`
   }
 
   .detail-view-wrapper {
-    display: flex;
+    display: grid;
+    grid-template-rows: auto auto;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+
+    margin-top: 8px;
+    margin-bottom: 48px;
+
+    text-align: center;
   }
 
   a {
-    margin: 6px auto 54px auto;
-    padding: 4px 46px;
+    margin-top: 6px;
+    padding: 2px 46px;
     text-decoration: underline;
     color: ${grey_400};
     cursor: pointer;
@@ -152,6 +158,7 @@ export default function ArchiveItemModal({ font_id, handleVisible }: Props) {
             />
           </div>
           <div className="detail-view-wrapper">
+            <span>{data.getFontByFontId.name}</span>
             <Link href="/" passHref>
               detail view
             </Link>

@@ -49,20 +49,23 @@ export default function CharItem({
   }, []);
 
   const Barcode = () => {
-    <div className="barcode-wrapper">
-      <Image
-        alt="button-barcode"
-        src={ArchiveBarcodeSVG}
-        width="36"
-        height="36"
-        className={`filter_${color.barcode}`}
-      />
-    </div>;
+    return (
+      <div className="barcode-wrapper">
+        <Image
+          alt="button-barcode"
+          src={ArchiveBarcodeSVG}
+          width="36"
+          height="36"
+          className={`filter_${color.barcode}`}
+        />
+      </div>
+    );
   };
 
   const CharName = () => {
-    <div className="char-name">{name}</div>;
+    return <div className="char-name">{name}</div>;
   };
+
   return (
     <>
       <InjectFontFace fontFace={webFont ? webFont.source : ""} />
@@ -78,21 +81,7 @@ export default function CharItem({
           className={`filter_${color.background}`}
         />
         <span className="char-text">{char}</span>
-        {isArchive ? (
-          !_.isEmpty(tags) && (
-            <div className="barcode-wrapper">
-              <Image
-                alt="button-barcode"
-                src={ArchiveBarcodeSVG}
-                width="36"
-                height="36"
-                className={`filter_${color.barcode}`}
-              />
-            </div>
-          )
-        ) : (
-          <div className="char-name">{name}</div>
-        )}
+        {isArchive ? !_.isEmpty(tags) && <Barcode /> : <CharName />}
       </CharBox>
     </>
   );
