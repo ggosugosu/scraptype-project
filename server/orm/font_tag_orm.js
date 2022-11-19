@@ -1,6 +1,6 @@
-const { ApolloError } = require('apollo-server-micro');
-const { FontTag, Font, Tag } = require('../models/index');
-const { Op } = require('sequelize');
+const { GraphQLError } = require("graphql");
+const { FontTag, Font, Tag } = require("../models/index");
+const { Op } = require("sequelize");
 
 const fontTagORM = {
   getFontTagAll: () =>
@@ -8,11 +8,11 @@ const fontTagORM = {
       include: [
         {
           model: Font,
-          as: 'fonts',
+          as: "fonts",
         },
         {
           model: Tag,
-          as: 'tags',
+          as: "tags",
         },
       ],
     }).then((data) => data),
@@ -27,11 +27,11 @@ const fontTagORM = {
       include: [
         {
           model: Font,
-          as: 'fonts',
+          as: "fonts",
         },
         {
           model: Tag,
-          as: 'tags',
+          as: "tags",
         },
       ],
     });
@@ -45,7 +45,11 @@ const fontTagORM = {
       tag_id,
     });
 
-    if (await exists(font_id, tag_id)) throw new ApolloError('Data already exists.', 'BAD_INPUT', { status: 400, error: true });
+    if (await exists(font_id, tag_id))
+      throw new GraphQLError("Data already exists.", "BAD_INPUT", {
+        status: 400,
+        error: true,
+      });
 
     return newFontTag;
   },
@@ -58,7 +62,10 @@ const fontTagORM = {
         : FontTag.create({ font_id, tag_id });
     } catch (e) {
       console.log(e.message);
-      throw new ApolloError('DB Error', 'BAD_INPUT', { status: 500, error: true });
+      throw new GraphQLError("DB Error", "BAD_INPUT", {
+        status: 500,
+        error: true,
+      });
     }
 
     return true;
