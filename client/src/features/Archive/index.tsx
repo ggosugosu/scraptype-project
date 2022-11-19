@@ -40,7 +40,6 @@ export default function Archive() {
       <CharContainer>
         {data &&
           data.getFontAll.map((item, index) => {
-            console.log(JSON.stringify(item));
             return (
               <CharItem
                 key={index}
