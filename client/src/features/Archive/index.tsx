@@ -5,10 +5,13 @@ import { useState } from "react";
 
 import { useQuery } from "@apollo/client";
 import CharContainer from "components/CharContainer/CharContainer";
-import CharItem from "components/CharContainer/Item/CharItem";
 import { GET_FONT_ALL } from "./gql";
 import ArchiveItemModal from "./modal";
 import { LogoWrapper } from "./style";
+import {
+  ImageFontCharBox,
+  WebFontCharBox,
+} from "components/CharContainer/Item/CharItem";
 
 export default function Archive() {
   const { loading, error, data } = useQuery(GET_FONT_ALL);
@@ -40,18 +43,35 @@ export default function Archive() {
       <CharContainer>
         {data &&
           data.getFontAll.map((item, index) => {
+            console.log(JSON.stringify(item));
             return (
-              <CharItem
-                key={index}
-                font_id={item.id}
-                name={item.name}
-                description={item.description}
-                corporation={item.corporation}
-                tags={item.fontTags}
-                webFont={item.webFont}
-                isArchive={true}
-                onClick={handleClicked}
-              />
+              <>
+                {item.is_web_font ? (
+                  <WebFontCharBox
+                    key={index}
+                    font_id={item.id}
+                    name={item.name}
+                    description={item.description}
+                    corporation={item.corporation}
+                    tags={item.fontTags}
+                    webFont={item.webFont}
+                    isArchive={true}
+                    onClick={handleClicked}
+                  />
+                ) : (
+                  <ImageFontCharBox
+                    key={index}
+                    font_id={item.id}
+                    name={item.name}
+                    description={item.description}
+                    corporation={item.corporation}
+                    tags={item.fontTags}
+                    imageFont={item.imageFont}
+                    isArchive={true}
+                    onClick={handleClicked}
+                  />
+                )}
+              </>
             );
           })}
         {data && modalIsVisible && (
