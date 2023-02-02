@@ -1,5 +1,6 @@
 import Grid from 'components/Grid';
 import { GridLayout } from 'components/Grid/style';
+import ImageUploader from "components/ImageUploader";
 import InputTextArea from 'components/InputTextArea';
 import { useEffect, useMemo, useState } from 'react';
 import { ImageFontData } from './FontForm';
@@ -15,7 +16,7 @@ type ImageFontItem = {
   value: string | undefined;
 };
 
-const ImageFont = ({ data, onSubmit }: Props) => {
+const ImageFont = ({data, onSubmit}: Props) => {
   const [formData, setFormData] = useState<ImageFontData>(data);
 
   const handleChange = (e) => {
@@ -63,7 +64,9 @@ const ImageFont = ({ data, onSubmit }: Props) => {
             Image link <span>{item.description}</span>
             <span className="required"> *</span>
           </label>
-          <InputTextArea id={item.name} placeholder="text" value={data[item.name] || item.value} height={`188px`} onChange={(e) => handleChange(e)} />
+          <ImageUploader/>
+          <InputTextArea id={item.name} placeholder="text" value={data[item.name] || item.value} height={`188px`}
+                         onChange={(e) => handleChange(e)}/>
         </GridLayout>
       ))}
     </Grid>
