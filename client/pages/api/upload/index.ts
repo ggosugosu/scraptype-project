@@ -14,12 +14,13 @@ export default async (req, res) => {
     const form = new IncomingForm()
 
     form.parse(req, (err, fields, files) => {
-      if (err) return reject(err)
-      //console.log(fields, files)
-      //console.log(files.file.filepath)
-      console.log(files.file.filepath);
+      if (err) {
+        return reject(err);
+      }
+
       const oldPath = files.file.filepath;
-      const newPath = `./public/imageFonts/${'test'}.png`;
+      const newPath = `./public/imageFonts/${fields['id']}_${fields['type']}.png`;
+
       mv(oldPath, newPath, function (err) {
       });
       res.status(200).json({fields, files})

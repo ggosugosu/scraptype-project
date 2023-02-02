@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 
-const enum UploadType {
+export const enum UploadType {
   UNIT = 'unit',
   TITLE = 'title',
   DETAIL_DESKTOP = 'detail_desktop',
   DETAIL_MOBILE = 'detail_mobile'
 }
 
-function Index(props) {
+type ImageUploaderProps = {
+  fontId: string;
+  type: UploadType;
+}
+
+function ImageUploader({fontId, type}: ImageUploaderProps) {
   const [image, setImage] = useState<Blob>();
   const [createObjectURL, setCreateObjectURL] = useState<string>();
 
@@ -25,9 +30,9 @@ function Index(props) {
     }
     const body = new FormData();
     console.log("file", image)
-
+    body.append("id", fontId);
     body.append("file", image);
-    body.append("type", UploadType.TITLE);
+    body.append("type", type);
     const response = await fetch("/api/upload", {
       method: "POST",
       body
@@ -53,4 +58,4 @@ function Index(props) {
   );
 }
 
-export default Index;
+export default ImageUploader;

@@ -49,8 +49,8 @@ const initFontForm: FormData = {
   corporation: ``,
   description: ``,
   isWebFont: true,
-  webFont: { source: `` },
-  imageFont: { title: ``, unit: ``, detailMob: ``, detailPc: `` },
+  webFont: {source: ``},
+  imageFont: {title: ``, unit: ``, detailMob: ``, detailPc: ``},
 };
 
 const completeFunc = (router: NextRouter) => {
@@ -60,7 +60,7 @@ const completeFunc = (router: NextRouter) => {
 
 const failFunc = () => alert("오류가 발생했습니다. 잠시 후 다시 시도하세요.");
 
-export const DeleteFontButton = ({ font_id }: Props) => {
+export const DeleteFontButton = ({font_id}: Props) => {
   const router = useRouter();
   const [deleteFont] = useMutation(DELETE_FONT);
 
@@ -70,7 +70,7 @@ export const DeleteFontButton = ({ font_id }: Props) => {
     if (!confirmed) return;
 
     await deleteFont({
-      variables: { font_id: Number(font_id) },
+      variables: {font_id: Number(font_id)},
       onCompleted: (data) => {
         if (data) {
           completeFunc(router);
@@ -85,10 +85,10 @@ export const DeleteFontButton = ({ font_id }: Props) => {
     <DeleteFontBtnStyle onClick={handleClick}>폰트 삭제</DeleteFontBtnStyle>
   );
 };
-const FontForm = ({ font_id }: Props) => {
+const FontForm = ({font_id}: Props) => {
   const router = useRouter();
-  const { data } = useQuery(GET_FONT_BY_FONT_ID, {
-    variables: { font_id: Number(font_id) },
+  const {data} = useQuery(GET_FONT_BY_FONT_ID, {
+    variables: {font_id: Number(font_id)},
   });
   const isCreate = useMemo(() => font_id === "create", [font_id]);
   const [formData, setFormData] = useState<FormData>(initFontForm);
@@ -168,63 +168,63 @@ const FontForm = ({ font_id }: Props) => {
     if (isCreate) {
       formData.isWebFont
         ? createWebFont({
-            variables: { ...fontFormat, source: formData.webFont.source },
-            onCompleted: (data) => {
-              if (data) {
-                completeFunc(router);
-              }
-            },
-            onError: (error) => {
-              console.log(error.message);
-            },
-          })
+          variables: {...fontFormat, source: formData.webFont.source},
+          onCompleted: (data) => {
+            if (data) {
+              completeFunc(router);
+            }
+          },
+          onError: (error) => {
+            console.log(error.message);
+          },
+        })
         : createImageFont({
-            variables: {
-              ...fontFormat,
-              title: formData.imageFont.title,
-              unit: formData.imageFont.unit,
-              detail_mobile: formData.imageFont.detailMob,
-              detail_pc: formData.imageFont.detailPc,
-            },
-            onCompleted: (data) => {
-              if (data) {
-                completeFunc(router);
-              }
-            },
-          });
+          variables: {
+            ...fontFormat,
+            title: formData.imageFont.title,
+            unit: formData.imageFont.unit,
+            detail_mobile: formData.imageFont.detailMob,
+            detail_pc: formData.imageFont.detailPc,
+          },
+          onCompleted: (data) => {
+            if (data) {
+              completeFunc(router);
+            }
+          },
+        });
     } else {
       formData.isWebFont
         ? updateWebFont({
-            variables: {
-              ...fontFormat,
-              font_id: Number(font_id),
-              source: formData.webFont.source,
-            },
-            onCompleted: (data) => {
-              if (data) {
-                completeFunc(router);
-              } else {
-                failFunc;
-              }
-            },
-          })
+          variables: {
+            ...fontFormat,
+            font_id: Number(font_id),
+            source: formData.webFont.source,
+          },
+          onCompleted: (data) => {
+            if (data) {
+              completeFunc(router);
+            } else {
+              failFunc;
+            }
+          },
+        })
         : updateImageFont({
-            variables: {
-              ...fontFormat,
-              font_id: Number(font_id),
-              title: formData.imageFont.title,
-              unit: formData.imageFont.unit,
-              detail_mobile: formData.imageFont.detailMob,
-              detail_pc: formData.imageFont.detailPc,
-            },
-            onCompleted: (data) => {
-              if (data) {
-                completeFunc(router);
-              } else {
-                failFunc;
-              }
-            },
-          });
+          variables: {
+            ...fontFormat,
+            font_id: Number(font_id),
+            title: formData.imageFont.title,
+            unit: formData.imageFont.unit,
+            detail_mobile: formData.imageFont.detailMob,
+            detail_pc: formData.imageFont.detailPc,
+          },
+          onCompleted: (data) => {
+            if (data) {
+              completeFunc(router);
+            } else {
+              failFunc;
+            }
+          },
+        });
     }
   };
 
@@ -264,7 +264,7 @@ const FontForm = ({ font_id }: Props) => {
             />
           </GridLayout>
         </Grid>
-        <GridDivider />
+        <GridDivider/>
         <Grid gap={`36px 22px`} padding={`36px 24px`}>
           <GridLayout column={`span 2`}>
             <label>
@@ -295,25 +295,26 @@ const FontForm = ({ font_id }: Props) => {
             </Radio>
           </GridLayout>
         </Grid>
-        <GridDivider />
+        <GridDivider/>
         {formData.isWebFont ? (
           <WebFont
             data={formData.webFont}
             onSubmit={(data) =>
-              handleFormData({ ...formData, isWebFont: true, webFont: data })
+              handleFormData({...formData, isWebFont: true, webFont: data})
             }
           />
         ) : (
           <ImageFont
+            fontId={font_id}
             data={formData.imageFont}
             onSubmit={(data) =>
-              handleFormData({ ...formData, isWebFont: false, imageFont: data })
+              handleFormData({...formData, isWebFont: false, imageFont: data})
             }
           />
         )}
-        <GridDivider />
+        <GridDivider/>
         <Grid template={`1fr`} padding={`36px 24px 56px 24px`}>
-          <ButtonPositive type="submit" enabled={true} text={`폰트 추가`} />
+          <ButtonPositive type="submit" enabled={true} text={`폰트 추가`}/>
         </Grid>
       </Form>
     </section>
