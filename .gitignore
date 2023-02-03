@@ -122,3 +122,5 @@ fabric.properties
 # modules.xml
 
 
+
+client/server/config/config.json
