@@ -1,116 +1,119 @@
-import { gql } from "@apollo/client";
-import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import { gql } from "graphql-tag";
+import { ApolloServer } from "@apollo/server";
+import { createSchema, createYoga } from "graphql-yoga";
+import { NextApiRequest, NextApiResponse } from "next";
 import fontORM from './../../server/orm/font_orm'
 import fontTagORM from './../../server/orm/font_tag_orm'
 import imageFontORM from './../../server/orm/image_font_orm'
 import tagORM from './../../server/orm/tag_orm'
 import webFontORM from './../../server/orm/web_font_orm'
+import { startServerAndCreateNextHandler } from '@as-integrations/next';
 
 const typeDefs = gql`
-  type Font {
-    id: Int
-    name: String
-    description: String
-    corporation: String
-    is_web_font: Boolean
-    fontTags: [FontTag]
-    webFont: WebFont
-    imageFont: ImageFont
-  }
+    type Font {
+        id: Int
+        name: String
+        description: String
+        corporation: String
+        is_web_font: Boolean
+        fontTags: [FontTag]
+        webFont: WebFont
+        imageFont: ImageFont
+    }
 
-  type Tag {
-    id: Int
-    name: String
-    fontTags: [FontTag]
-  }
+    type Tag {
+        id: Int
+        name: String
+        fontTags: [FontTag]
+    }
 
-  type FontTag {
-    id: Int
-    font_id: Int
-    fonts: Font
-    tag_id: Int
-    tags: Tag
-  }
+    type FontTag {
+        id: Int
+        font_id: Int
+        fonts: Font
+        tag_id: Int
+        tags: Tag
+    }
 
-  type WebFont {
-    id: Int
-    font_id: Int
-    source: String
-    font: Font
-  }
+    type WebFont {
+        id: Int
+        font_id: Int
+        source: String
+        font: Font
+    }
 
-  type ImageFont {
-    id: Int
-    font_id: Int
-    title: String
-    unit: String
-    detail_mobile: String
-    detail_pc: String
-    font: Font
-  }
+    type ImageFont {
+        id: Int
+        font_id: Int
+        title: String
+        unit: String
+        detail_mobile: String
+        detail_pc: String
+        font: Font
+    }
 
-  type Query {
-    getFontByFontId(font_id: Int): Font
-    getFontAll: [Font!]!
-    getFontsByTagId(tag_ids: [Int]): [Font]
-    getFontsByCorpAndText(corporation: String, text: String): [Font]
-    getCorporationAll: [Font]
-    getTagAll: [Tag!]!
-    getTagsByTagId(tag_ids: [Int]): [Tag]
-    getFontTagAll: [FontTag]
-    getFontTags(tag_ids: [Int]): [FontTag]
-    getWebFontByFontId: WebFont
-    getWebFontAll: [WebFont]
-    getImageFontByFontId: ImageFont
-    getImageFontAll: [ImageFont]
-  }
+    type Query {
+        getFontByFontId(font_id: Int): Font
+        getFontAll: [Font!]!
+        getFontsByTagId(tag_ids: [Int]): [Font]
+        getFontsByCorpAndText(corporation: String, text: String): [Font]
+        getCorporationAll: [Font]
+        getTagAll: [Tag!]!
+        getTagsByTagId(tag_ids: [Int]): [Tag]
+        getFontTagAll: [FontTag]
+        getFontTags(tag_ids: [Int]): [FontTag]
+        getWebFontByFontId: WebFont
+        getWebFontAll: [WebFont]
+        getImageFontByFontId: ImageFont
+        getImageFontAll: [ImageFont]
+    }
 
-  type Mutation {
-    createFontTag(font_id: Int!, tag_id: Int!): FontTag
-    deleteFontTag(id: Int!): FontTag
-    updateFontTag(font_id: Int, tag_id: Int): Boolean
-    createWebFont(
-      name: String
-      description: String
-      corporation: String
-      is_web_font: Boolean
-      source: String
-    ): WebFont
-    updateWebFont(
-      font_id: Int!
-      name: String
-      description: String
-      corporation: String
-      is_web_font: Boolean
-      source: String
-    ): Boolean
-    createImageFont(
-      name: String
-      description: String
-      corporation: String
-      is_web_font: Boolean
-      title: String
-      unit: String
-      detail_mobile: String
-      detail_pc: String
-    ): ImageFont
-    updateImageFont(
-      font_id: Int!
-      name: String
-      description: String
-      corporation: String
-      is_web_font: Boolean
-      title: String
-      unit: String
-      detail_mobile: String
-      detail_pc: String
-    ): Boolean
-    deleteFontByFontId(font_id: Int!): Boolean
-    createTag(name: String): Tag
-    updateTag(id: Int!, name: String): Tag
-    deleteTagByTagId(tag_id: Int!): Boolean
-  }
+    type Mutation {
+        createFontTag(font_id: Int!, tag_id: Int!): FontTag
+        deleteFontTag(id: Int!): FontTag
+        updateFontTag(font_id: Int, tag_id: Int): Boolean
+        createWebFont(
+            name: String
+            description: String
+            corporation: String
+            is_web_font: Boolean
+            source: String
+        ): WebFont
+        updateWebFont(
+            font_id: Int!
+            name: String
+            description: String
+            corporation: String
+            is_web_font: Boolean
+            source: String
+        ): Boolean
+        createImageFont(
+            name: String
+            description: String
+            corporation: String
+            is_web_font: Boolean
+            title: String
+            unit: String
+            detail_mobile: String
+            detail_pc: String
+        ): ImageFont
+        updateImageFont(
+            font_id: Int!
+            name: String
+            description: String
+            corporation: String
+            is_web_font: Boolean
+            title: String
+            unit: String
+            detail_mobile: String
+            detail_pc: String
+        ): Boolean
+        deleteFontByFontId(font_id: Int!): Boolean
+        createTag(name: String): Tag
+        updateTag(id: Int!, name: String): Tag
+        deleteTagByTagId(tag_id: Int!): Boolean
+    }
 `;
 
 const resolvers = {
@@ -217,18 +220,50 @@ const resolvers = {
     deleteTagByTagId: (_, {tag_id}) => tagORM.deleteTagByTagId({tag_id}),
   },
 };
-const apolloServer = new ApolloServer(({
-  typeDefs, resolvers,
-}))
 
+const GraphQL = () => {
+  const apolloServer = new ApolloServer(({
+    resolvers, typeDefs,
+    introspection: process.env.NODE_ENV !== 'production'
+  }))
 
-export default async function handler(req, res) {
-  const {url} = await startStandaloneServer(apolloServer, {
-    listen: {port: 3010, path: "/api/graphql"}
-  });
+// export default startServerAndCreateNextHandler(apolloServer, {
+//   context: async (req, res) => ({req, res}),
+// });
+//   startStandaloneServer(apolloServer, {
+//     listen: {path: '/api/graphql'},
+//   }).then(({url}) => {
+//     console.log(`🚀  Server ready at ${url}`);
+//   });
 
-  console.log(`🚀  Server ready at ${url}`);
 }
+const schema = createSchema<{
+  req: NextApiRequest
+  res: NextApiResponse
+}>({resolvers, typeDefs});
+//https://the-guild.dev/graphql/yoga-server/docs/integrations/integration-with-nextjs
+
+// export default GraphQL();
+export default createYoga<{
+  req: NextApiRequest
+  res: NextApiResponse
+}>({
+  schema,
+  // Needed to be defined explicitly because our endpoint lives at a different path other than `/graphql`
+  graphqlEndpoint: '/api/graphql'
+})
+//
+// try {
+//   const {url} = await startStandaloneServer(apolloServer, {
+//     listen: {port: 3000, path: '/api/graphql'},
+//   });
+//   console.log(`🚀  Server ready at ${url}`);
+//
+// } catch (e) {
+//
+// }
+
+
 export const config = {
   api: {
     bodyParser: false,
