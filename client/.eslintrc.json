@@ -6,5 +6,6 @@
     "next/core-web-vitals",
     "eslint:all",
     "plugin:react/all"
-  ]
+  ],
+  "prettier/prettier": "warn"
 }

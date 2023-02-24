@@ -39,7 +39,6 @@ export default async (req, res) => {
       const response = await s3Client.send(uploadCommand);
 
       res.status(200).json(response);
-      return console.log(response);
     })
   })
 }
