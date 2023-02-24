@@ -32,6 +32,16 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
     if (event.target.files && event.target.files[0]) {
       const file: Blob = event.target.files[0];
 
+      const maxSize = 1 * 1024 * 1024;
+      const fileSize = file.size;
+
+      if (fileSize > maxSize) {
+        alert("1MB 사이즈로만 추가 가능합니다. 늘리고 싶다면 담덕에게 문의");
+
+        setLoading(false);
+        return;
+      }
+
       await uploadToServer(file);
       setLoading(false);
 
