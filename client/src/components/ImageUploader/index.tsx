@@ -17,6 +17,7 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
   const [createObjectURL, setCreateObjectURL] = useState<string>();
 
   const uploadToClient = (event) => {
+    
     if (event.target.files && event.target.files[0]) {
       const file: Blob = event.target.files[0];
       setImage(file);
