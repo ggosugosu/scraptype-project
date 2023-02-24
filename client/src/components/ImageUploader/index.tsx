@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import { ImageContainer, InputFileContainer } from "components/ImageUploader/style";
+import React, { useState } from 'react';
 
 export const enum UploadType {
   UNIT = 'unit',
@@ -51,11 +52,11 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
 
   return (
     <div>
-      <h4>Select Image</h4>
-      <input type="file" name="myImage" onChange={uploadToClient}/>
+      <h4 className={'hidden'}>이미지 선택</h4>
+      <InputFileContainer type="file" name="myImage" onChange={uploadToClient}/>
       <div>
         {
-          isLoading ? <Loading/> : <img src={createObjectURL} onError={() => setCreateObjectURL('')}/>
+          isLoading ? <Loading/> : <ImageContainer src={createObjectURL} onError={() => setCreateObjectURL('')}/>
         }
       </div>
     </div>

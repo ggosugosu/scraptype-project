@@ -71,8 +71,6 @@ const ImageFont = ({fontId, data, onSubmit}: Props) => {
             <span className="required"> *</span>
           </label>
           <ImageUploader fontId={fontId} type={item.type}/>
-          <InputTextArea id={item.name} placeholder="text" value={data[item.name] || item.value} height={`188px`}
-                         onChange={(e) => handleChange(e)}/>
         </GridLayout>
       ))}
     </Grid>
