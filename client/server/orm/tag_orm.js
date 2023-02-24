@@ -60,4 +60,4 @@ const checkExist = async (name) => {
     });
 };
 
-module.exports = tagORM;
+export default tagORM;

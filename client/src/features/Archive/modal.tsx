@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import styled from 'styled-components';
-import ModalSVG from 'assets/images/modal_archive.svg';
-import CloseSVG from 'assets/images/ic_close.svg';
-import HighlightButton, { HighlightButtonOption } from 'components/HighlightButton';
-import { useMutation, useQuery } from '@apollo/client';
-import { GET_FONT_BY_FONT_ID, UPDATE_FONT_TAG } from './gql';
-import { grey_400, main } from 'common/colors';
-import { googleDriveLinkToSource } from 'features/utils';
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import styled from "styled-components";
+import ModalSVG from "assets/images/modal_archive.svg";
+import CloseSVG from "assets/images/ic_close.svg";
+import HighlightButton, {
+  HighlightButtonOption,
+} from "components/HighlightButton";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_FONT_BY_FONT_ID, UPDATE_FONT_TAG } from "./gql";
+import { grey_400, main } from "common/colors";
+import { googleDriveLinkToSource } from "features/utils";
 
 interface Props {
   font_id: number;
@@ -61,14 +63,20 @@ export const ModalContentWrapper = styled.div`
   }
 
   .detail-view-wrapper {
-    display: flex;
+    display: grid;
+    grid-template-rows: auto auto;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+
+    margin-top: 8px;
+    margin-bottom: 48px;
+
+    text-align: center;
   }
 
   a {
-    margin: 6px auto 54px auto;
-    padding: 4px 46px;
+    margin-top: 6px;
+    padding: 2px 46px;
     text-decoration: underline;
     color: ${grey_400};
     cursor: pointer;
@@ -97,7 +105,14 @@ const ModalItem = ({ name, selected, onClick, option }: ItemProps) => {
     _setSelected(!selected);
     onClick();
   };
-  return <HighlightButton name={name} selected={_selected} onClick={handleSelected} option={option} />;
+  return (
+    <HighlightButton
+      name={name}
+      selected={_selected}
+      onClick={handleSelected}
+      option={option}
+    />
+  );
 };
 
 const ContainerTags = ({ children }) => {
@@ -105,13 +120,18 @@ const ContainerTags = ({ children }) => {
 };
 
 export default function ArchiveItemModal({ font_id, handleVisible }: Props) {
-  const { loading, error, data, refetch } = useQuery(GET_FONT_BY_FONT_ID, { variables: { font_id } });
+  const { loading, error, data, refetch } = useQuery(GET_FONT_BY_FONT_ID, {
+    variables: { font_id },
+  });
   const [updateFontTags] = useMutation(UPDATE_FONT_TAG);
 
   if (loading || error) return null;
 
   const handleSelectedTag = (tag_id: number) => {
-    updateFontTags({ variables: { font_id, tag_id }, onCompleted: (data) => data && refetch({ font_id }) });
+    updateFontTags({
+      variables: { font_id, tag_id },
+      onCompleted: (data) => data && refetch({ font_id }),
+    });
   };
 
   return (
@@ -120,30 +140,46 @@ export default function ArchiveItemModal({ font_id, handleVisible }: Props) {
         <Image alt="modal_background" src={ModalSVG} />
         <ModalContentWrapper>
           <button className="btn-close-wrapper">
-            <Image alt="btn_close" src={CloseSVG} onClick={handleVisible} className="btn-close" />
+            <Image
+              alt="btn_close"
+              src={CloseSVG}
+              onClick={handleVisible}
+              className="btn-close"
+            />
           </button>
           <div className="img-archive-wrapper">
             <Image
               alt="img_archive"
-              src={googleDriveLinkToSource('https://drive.google.com/file/d/1qIAB6MEeN6FYuAwMs4xAoZeQXkLxAHer/view?usp=sharing')}
+              src={googleDriveLinkToSource(
+                "https://drive.google.com/file/d/1qIAB6MEeN6FYuAwMs4xAoZeQXkLxAHer/view?usp=sharing"
+              )}
               layout="fill"
               className={`filter_turbo`}
             />
           </div>
           <div className="detail-view-wrapper">
+            <span>{data.getFontByFontId.name}</span>
             <Link href="/" passHref>
-              <a>detail view</a>
+              detail view
             </Link>
           </div>
           <hr />
           <ContainerTags>
-            <ModalItem key={-1} name={'추가하기'} selected={false} onClick={() => {}} option={{ textColor: `${main}`, underline: true }} />
+            <ModalItem
+              key={-1}
+              name={"추가하기"}
+              selected={false}
+              onClick={() => {}}
+              option={{ textColor: `${main}`, underline: true }}
+            />
             {data &&
               data.getTagAll.map((item, index) => (
                 <ModalItem
                   key={index}
                   name={item.name}
-                  selected={data.getFontByFontId.fontTags.map((fontTag) => fontTag.tags.id).includes(item.id)}
+                  selected={data.getFontByFontId.fontTags
+                    .map((fontTag) => fontTag.tags.id)
+                    .includes(item.id)}
                   onClick={(e) => handleSelectedTag(item.id)}
                 />
               ))}

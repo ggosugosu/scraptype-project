@@ -135,4 +135,4 @@ const fontORM = {
   },
 };
 
-module.exports = fontORM;
+export default fontORM;

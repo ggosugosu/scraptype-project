@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     dangerouslyAllowSVG: true,
     domains: ['drive.google.com'],
-  }
+  },
 }
 
 module.exports = nextConfig;

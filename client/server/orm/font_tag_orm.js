@@ -83,4 +83,4 @@ const exists = async (font_id, tag_id) =>
     .then((data) => data !== null)
     .then((existsData) => existsData);
 
-module.exports = fontTagORM;
+export default fontTagORM;

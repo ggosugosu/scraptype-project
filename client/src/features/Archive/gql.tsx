@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_FONT_ALL = gql`
   query {
@@ -12,8 +12,13 @@ export const GET_FONT_ALL = gql`
           name
         }
       }
+      is_web_font
       webFont {
         source
+      }
+      imageFont {
+        id
+        unit
       }
     }
   }
