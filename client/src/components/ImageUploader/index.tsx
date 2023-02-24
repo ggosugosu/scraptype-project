@@ -10,11 +10,11 @@ export const enum UploadType {
 };
 
 const getExtension = (uploadType: UploadType) => {
-  return uploadType === UploadType.UNIT ? 'svg' : 'png';
+  return uploadType === UploadType.UNIT ? 'svg' : 'jpeg';
 }
 
 const getAcceptExtension = (uploadType: UploadType) => {
-  return uploadType === UploadType.UNIT ? 'svg+xml' : 'png';
+  return uploadType === UploadType.UNIT ? 'svg+xml' : 'jpeg';
 }
 
 type ImageUploaderProps = {
