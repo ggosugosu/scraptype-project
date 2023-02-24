@@ -32,13 +32,13 @@ type WebFontCharBoxProps = Props & {
 };
 
 export const WebFontCharBox = ({
-  font_id,
-  name,
-  tags,
-  webFont,
-  isArchive = false,
-  onClick,
-}: WebFontCharBoxProps) => {
+                                 font_id,
+                                 name,
+                                 tags,
+                                 webFont,
+                                 isArchive = false,
+                                 onClick,
+                               }: WebFontCharBoxProps) => {
   const [char, setChar] = useState<String>(charList[0]);
   const [color, setColor] = useState<ItemColor>(
     isArchive ? colorList[0] : defaultItemColor
@@ -56,7 +56,7 @@ export const WebFontCharBox = ({
 
   return (
     <>
-      <InjectFontFace fontFace={webFont?.source ?? ""} />
+      <InjectFontFace fontFace={webFont?.source ?? ""}/>
       <CharBox
         selectedColor={color}
         fontFamily={webFont ? filterFontFamily(webFont.source) : ""}
@@ -70,9 +70,9 @@ export const WebFontCharBox = ({
         />
         <span className="char-text">{char}</span>
         {isArchive ? (
-          <Barcode color={color} isVisible={!_.isEmpty(tags)} />
+          <Barcode color={color} isVisible={!_.isEmpty(tags)}/>
         ) : (
-          <CharName name={name} />
+          <CharName name={name}/>
         )}
       </CharBox>
     </>
@@ -84,13 +84,13 @@ type ImageFontCharBoxProps = Props & {
 };
 
 export const ImageFontCharBox = ({
-  font_id,
-  name,
-  tags,
-  imageFont,
-  isArchive = false,
-  onClick,
-}: ImageFontCharBoxProps) => {
+                                   font_id,
+                                   name,
+                                   tags,
+                                   imageFont,
+                                   isArchive = false,
+                                   onClick,
+                                 }: ImageFontCharBoxProps) => {
   const [char, setChar] = useState<String>(charList[0]);
   const [color, setColor] = useState<ItemColor>(
     isArchive ? colorList[0] : defaultItemColor
@@ -116,12 +116,12 @@ export const ImageFontCharBox = ({
           layout="fill"
           className={`filter_${color.background}`}
         />
-        {imageFont && <GenerateSVG svgCode={imageFont.unit} />}
+        {imageFont && <GenerateSVG svgCode={imageFont.unit}/>}
         <span className="char-text">{char}</span>
         {isArchive ? (
-          <Barcode color={color} isVisible={_.isEmpty(tags)} />
+          <Barcode color={color} isVisible={_.isEmpty(tags)}/>
         ) : (
-          <CharName name={name} />
+          <CharName name={name}/>
         )}
       </CharBox>
     </>
@@ -133,7 +133,7 @@ type BarcodeProps = {
   isVisible: boolean;
 };
 
-const Barcode = ({ color, isVisible }: BarcodeProps) => {
+const Barcode = ({color, isVisible}: BarcodeProps) => {
   if (!isVisible) {
     return <></>;
   }
@@ -155,18 +155,18 @@ type CharNameProps = {
   name: string;
 };
 
-const CharName = ({ name }: CharNameProps) => {
+const CharName = ({name}: CharNameProps) => {
   return <div className="char-name">{name}</div>;
 };
 
 type GenerateSVGProps = {
   svgCode: string;
 };
-const GenerateSVG = ({ svgCode }: GenerateSVGProps) => {
+const GenerateSVG = ({svgCode}: GenerateSVGProps) => {
   const buff = Buffer.from(svgCode);
   const base64data = buff.toString("base64");
 
-  return <img src={`data:image/svg+xml;base64,${base64data}`} alt="" />;
+  return <img src={`data:image/svg+xml;base64,${base64data}`} alt=""/>;
 };
 
 // TODO: 삭제해야하는 SVG

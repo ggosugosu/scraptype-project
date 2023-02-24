@@ -1,5 +1,6 @@
 import { ImageContainer, InputFileContainer } from "components/ImageUploader/style";
 import React, { useState } from 'react';
+import { extensions } from "sequelize/types/utils/validator-extras";
 
 export const enum UploadType {
   UNIT = 'unit',
@@ -8,6 +9,14 @@ export const enum UploadType {
   DETAIL_MOBILE = 'detail_mobile'
 };
 
+const getExtension = (uploadType: UploadType) => {
+  return uploadType === UploadType.UNIT ? 'svg' : 'png';
+}
+
+const getAcceptExtension = (uploadType: UploadType) => {
+  return uploadType === UploadType.UNIT ? 'svg+xml' : 'png';
+}
+
 type ImageUploaderProps = {
   fontId: string;
   type: UploadType;
@@ -15,7 +24,7 @@ type ImageUploaderProps = {
 
 function ImageUploader({fontId, type}: ImageUploaderProps) {
   const [image, setImage] = useState<Blob>();
-  const [createObjectURL, setCreateObjectURL] = useState<string>(`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${fontId}_${type}.png`);
+  const [createObjectURL, setCreateObjectURL] = useState<string>(`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${fontId}_${type}.${getExtension(type)}`);
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const uploadToClient = async (event) => {
@@ -41,6 +50,7 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
     body.append("id", fontId);
     body.append("file", file);
     body.append("type", type);
+    body.append("extension", getExtension(type))
 
     const response = await fetch("/api/upload", {
       method: "POST",
@@ -53,7 +63,8 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
   return (
     <div>
       <h4 className={'hidden'}>이미지 선택</h4>
-      <InputFileContainer type="file" name="myImage" onChange={uploadToClient}/>
+      <InputFileContainer type="file" name="myImage" onChange={uploadToClient}
+                          accept={`image/${getAcceptExtension(type)}`}/>
       <div>
         {
           isLoading ? <Loading/> : <ImageContainer src={createObjectURL} onError={() => setCreateObjectURL('')}/>

@@ -31,7 +31,7 @@ export default async (req, res) => {
 
       const uploadCommand = new PutObjectCommand({
         Bucket: process.env.S3_BUCKET_NAME,
-        Key: `${fields['id']}_${fields['type']}.png`,
+        Key: `${fields['id']}_${fields['type']}.${fields['extension']}`,
         Body: createReadStream(filePath),
       });
 
