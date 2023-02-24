@@ -1,5 +1,3 @@
-import { startStandaloneServer } from "@apollo/server/standalone";
-import { gql } from "graphql-tag";
 import { ApolloServer } from "@apollo/server";
 import { createSchema, createYoga } from "graphql-yoga";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -8,9 +6,8 @@ import fontTagORM from './../../server/orm/font_tag_orm'
 import imageFontORM from './../../server/orm/image_font_orm'
 import tagORM from './../../server/orm/tag_orm'
 import webFontORM from './../../server/orm/web_font_orm'
-import { startServerAndCreateNextHandler } from '@as-integrations/next';
 
-const typeDefs = gql`
+const typeDefs = `
     type Font {
         id: Int
         name: String
