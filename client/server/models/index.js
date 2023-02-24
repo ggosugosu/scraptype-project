@@ -1,17 +1,14 @@
 'use strict';
-import options from '../config/options';
 import { Sequelize } from "sequelize";
 
 
-console.log(options);
-
 const sequelize = new Sequelize(
-  options.database,
-  options.username,
-  options.password,
+  process.env.DB_DATABASE,
+  process.env.DB_USER_NAME,
+  process.env.DB_PASSWORD,
   {
-    "host": options.host,
-    "dialect": "mysql",
+    "host": process.env.DB_HOST,
+    "dialect": process.env.DB_DIALECT,
     "define": {
       "underscored": true
     }
