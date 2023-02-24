@@ -10,6 +10,7 @@ const sequelize = new Sequelize(
   options.username,
   options.password,
   {
+    "host": options.host,
     "dialect": "mysql",
     "define": {
       "underscored": true
