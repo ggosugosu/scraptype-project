@@ -1,15 +1,20 @@
 'use strict';
+import { Sequelize } from "sequelize";
+import mysql2 from "mysql2"
 
-const options = require("../config/option");
-const Sequelize = require("sequelize");
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
 
 const sequelize = new Sequelize(
-    options.storageConfig.database,
-    options.storageConfig.username,
-    options.storageConfig.password,
-    config,
+  process.env.DB_DATABASE,
+  process.env.DB_USER_NAME,
+  process.env.DB_PASSWORD,
+  {
+    "host": process.env.DB_HOST,
+    "dialect": process.env.DB_DIALECT,
+    "dialectModule": mysql2,
+    "define": {
+      "underscored": true
+    }
+  }
 );
 
 const Font = require("./font")(sequelize, Sequelize);

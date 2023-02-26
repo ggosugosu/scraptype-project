@@ -1,4 +1,4 @@
-const { Font, ImageFont } = require("../models/index");
+const { Font, ImageFont } = require("../models");
 
 const imageFontORM = {
   getImageFontAll: () => {
@@ -20,15 +20,15 @@ const imageFontORM = {
   },
 
   createImageFont: async ({
-    name,
-    description,
-    corporation,
-    is_web_font,
-    title,
-    unit,
-    detail_mobile,
-    detail_pc,
-  }) => {
+                            name,
+                            description,
+                            corporation,
+                            is_web_font,
+                            title,
+                            unit,
+                            detail_mobile,
+                            detail_pc,
+                          }) => {
     await Font.create({ name, description, corporation, is_web_font });
     const font_id = await Font.findOne({
       where: { name, description, corporation },
@@ -46,16 +46,16 @@ const imageFontORM = {
   },
 
   updateImageFont: async ({
-    font_id,
-    name,
-    description,
-    corporation,
-    is_web_font,
-    title,
-    unit,
-    detail_mobile,
-    detail_pc,
-  }) => {
+                            font_id,
+                            name,
+                            description,
+                            corporation,
+                            is_web_font,
+                            title,
+                            unit,
+                            detail_mobile,
+                            detail_pc,
+                          }) => {
     if (!(await fontExists(font_id))) return false;
     await Font.update(
       { name, description, corporation, is_web_font },
@@ -64,16 +64,16 @@ const imageFontORM = {
 
     (await imageFontExists(font_id))
       ? await ImageFont.update(
-          { font_id, title, unit, detail_mobile, detail_pc },
-          { where: { font_id } }
-        )
+        { font_id, title, unit, detail_mobile, detail_pc },
+        { where: { font_id } }
+      )
       : await ImageFont.create({
-          font_id,
-          title,
-          unit,
-          detail_mobile,
-          detail_pc,
-        });
+        font_id,
+        title,
+        unit,
+        detail_mobile,
+        detail_pc,
+      });
 
     return true;
   },
@@ -89,4 +89,4 @@ const imageFontExists = async (font_id) =>
     .then((data) => data !== null)
     .then((existsData) => existsData);
 
-module.exports = imageFontORM;
+export default imageFontORM;

@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Tag } = require("../models/index");
+const { Tag } = require("../models");
 const { FontTag } = require("../models");
 const { GraphQLError } = require("graphql");
 
@@ -60,4 +60,4 @@ const checkExist = async (name) => {
     });
 };
 
-module.exports = tagORM;
+export default tagORM;

@@ -1,4 +1,4 @@
-const { Font, WebFont } = require("../models/index");
+const { Font, WebFont } = require("../models");
 
 const webFontORM = {
   getWebFontAll: () => {
@@ -20,12 +20,12 @@ const webFontORM = {
   },
 
   createWebFont: async ({
-    name,
-    description,
-    corporation,
-    is_web_font,
-    source,
-  }) => {
+                          name,
+                          description,
+                          corporation,
+                          is_web_font,
+                          source,
+                        }) => {
     await Font.create({ name, description, corporation, is_web_font });
     const font_id = await Font.findOne({
       where: { name, description, corporation },
@@ -40,13 +40,13 @@ const webFontORM = {
   },
 
   updateWebFont: async ({
-    font_id,
-    name,
-    description,
-    corporation,
-    is_web_font,
-    source,
-  }) => {
+                          font_id,
+                          name,
+                          description,
+                          corporation,
+                          is_web_font,
+                          source,
+                        }) => {
     if (!(await fontExists(font_id))) return false;
 
     await Font.update(
@@ -57,9 +57,9 @@ const webFontORM = {
     (await webFontExists(font_id))
       ? await WebFont.update({ source }, { where: { font_id } })
       : await WebFont.create({
-          font_id,
-          source,
-        });
+        font_id,
+        source,
+      });
 
     return true;
   },
@@ -75,4 +75,4 @@ const webFontExists = async (font_id) =>
     .then((data) => data !== null)
     .then((existsData) => existsData);
 
-module.exports = webFontORM;
+export default webFontORM;

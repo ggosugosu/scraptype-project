@@ -1,5 +1,5 @@
 const { GraphQLError } = require("graphql");
-const { FontTag, Font, Tag } = require("../models/index");
+const { FontTag, Font, Tag } = require("../models");
 const { Op } = require("sequelize");
 
 const fontTagORM = {
@@ -83,4 +83,4 @@ const exists = async (font_id, tag_id) =>
     .then((data) => data !== null)
     .then((existsData) => existsData);
 
-module.exports = fontTagORM;
+export default fontTagORM;

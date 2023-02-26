@@ -1,4 +1,4 @@
-const { Font, FontTag, Tag, WebFont, ImageFont } = require("../models/index");
+const { Font, FontTag, Tag, WebFont, ImageFont } = require("../models");
 const { Op } = require("sequelize");
 const sequelize = require("sequelize");
 
@@ -135,4 +135,4 @@ const fontORM = {
   },
 };
 
-module.exports = fontORM;
+export default fontORM;

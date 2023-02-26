@@ -15,19 +15,19 @@ pids
 *.pid.lock
 
 # dependencies
-server/node_modules/*
-server/.pnp
-server/.pnp.js
+node_modules/*
+.pnp
+.pnp.js
 
 # testing
 /coverage
 
 # next.js
-client/.next/
-client/out/
+.next/
+out/
 
 # production
-client/build
+build
 
 # misc
 .DS_Store
@@ -45,29 +45,29 @@ yarn-error.log*
 .env*.development
 
 # vercel
-client/.vercel
+.vercel
 
 # typescript
 *.tsbuildinfo
 
 # react
-client/.DS_*
-client/*.log
-client/logs
+.DS_*
+*.log
+logs
 **/*.backup.*
 **/*.back.*
 
-client/node_modules/*
-client/bower_components
+node_modules/*
+bower_components
 
 *.sublime*
 
-client/psd
-client/thumb
-client/sketch
+psd
+thumb
+sketch
 
 # db
-server/config/config.json
+config/config.json
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
@@ -121,6 +121,3 @@ fabric.properties
 # *.iml
 # modules.xml
 
-
-
-client/server/config/config.json
