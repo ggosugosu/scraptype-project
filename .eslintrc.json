@@ -1,12 +1,18 @@
 {
+  "root": true,
   "plugins": [
     "react"
   ],
   "extends": [
     "next/core-web-vitals",
-    "eslint:all",
     "plugin:react/all",
+    "eslint:recommended",
     "prettier"
   ],
-  "prettier/prettier": "warn"
+  "rules": {
+    "quotes": [
+      "warn",
+      "single"
+    ]
+  }
 }

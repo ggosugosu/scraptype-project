@@ -1,6 +1,5 @@
-import { ApolloServer } from "@apollo/server";
-import { createSchema, createYoga } from "graphql-yoga";
-import { NextApiRequest, NextApiResponse } from "next";
+import { createSchema, createYoga } from 'graphql-yoga';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 import fontORM from '../../server/orm/font_orm'
 import fontTagORM from '../../server/orm/font_tag_orm'
@@ -219,29 +218,11 @@ const resolvers = {
   },
 };
 
-const GraphQL = () => {
-  const apolloServer = new ApolloServer(({
-    resolvers, typeDefs,
-    introspection: process.env.NODE_ENV !== 'production'
-  }))
-
-// export default startServerAndCreateNextHandler(apolloServer, {
-//   context: async (req, res) => ({req, res}),
-// });
-//   startStandaloneServer(apolloServer, {
-//     listen: {path: '/api/graphql'},
-//   }).then(({url}) => {
-//     console.log(`🚀  Server ready at ${url}`);
-//   });
-
-}
 const schema = createSchema<{
   req: NextApiRequest
   res: NextApiResponse
 }>({resolvers, typeDefs});
-//https://the-guild.dev/graphql/yoga-server/docs/integrations/integration-with-nextjs
 
-// export default GraphQL();
 export default createYoga<{
   req: NextApiRequest
   res: NextApiResponse
@@ -251,16 +232,6 @@ export default createYoga<{
   graphqlEndpoint: '/api/graphql',
   graphiql: process.env.NODE_ENV !== 'production'
 })
-//
-// try {
-//   const {url} = await startStandaloneServer(apolloServer, {
-//     listen: {port: 3000, path: '/api/graphql'},
-//   });
-//   console.log(`🚀  Server ready at ${url}`);
-//
-// } catch (e) {
-//
-// }
 
 
 export const config = {
