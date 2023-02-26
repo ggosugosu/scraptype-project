@@ -1,19 +1,25 @@
 {
   "root": true,
+  "parser": "@typescript-eslint/parser",
   "plugins": [
-    "react"
+    "react",
+    "@typescript-eslint"
   ],
   "extends": [
     "next/core-web-vitals",
     "plugin:react/recommended",
     "eslint:recommended",
-    "prettier"
+    "prettier",
+    "plugin:@typescript-eslint/eslint-recommended"
   ],
   "rules": {
     "semi": [
       "error",
       "always"
     ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
       1,
       {
