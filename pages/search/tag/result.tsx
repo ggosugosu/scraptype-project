@@ -7,6 +7,6 @@ export default function TagResultPage() {
   const {tags} = router.query;
 
   return (
-    <SearchResult type="tag" keywords={tags?.toString()} />
+    <SearchResult keywords={tags?.toString()} type="tag" />
   )
 }

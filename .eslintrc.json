@@ -5,11 +5,32 @@
   ],
   "extends": [
     "next/core-web-vitals",
-    "plugin:react/all",
+    "plugin:react/recommended",
     "eslint:recommended",
     "prettier"
   ],
   "rules": {
+    "semi": [
+      "error",
+      "always"
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    ],
+    "react/jsx-tag-spacing": [
+      "error",
+      {
+        "beforeSelfClosing": "always"
+      }
+    ],
     "quotes": [
       "warn",
       "single"
