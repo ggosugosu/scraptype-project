@@ -1,4 +1,4 @@
-import { ImageContainer, InputFileContainer } from "components/ImageUploader/style";
+import { ImageContainer, InputFileContainer } from 'components/ImageUploader/style';
 import React, { useState } from 'react';
 
 export const enum UploadType {
@@ -10,11 +10,11 @@ export const enum UploadType {
 
 const getExtension = (uploadType: UploadType) => {
   return uploadType === UploadType.UNIT ? 'svg' : 'jpeg';
-}
+};
 
 const getAcceptExtension = (uploadType: UploadType) => {
   return uploadType === UploadType.UNIT ? 'svg+xml' : 'jpeg';
-}
+};
 
 type ImageUploaderProps = {
   fontId: string;
@@ -22,7 +22,6 @@ type ImageUploaderProps = {
 }
 
 function ImageUploader({fontId, type}: ImageUploaderProps) {
-  const [image, setImage] = useState<Blob>();
   const [createObjectURL, setCreateObjectURL] = useState<string>(`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${fontId}_${type}.${getExtension(type)}`);
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -35,7 +34,7 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
       const fileSize = file.size;
 
       if (fileSize > maxSize) {
-        alert("1MB 사이즈로만 추가 가능합니다. 늘리고 싶다면 담덕에게 문의");
+        alert('1MB 사이즈로만 추가 가능합니다. 늘리고 싶다면 담덕에게 문의');
 
         setLoading(false);
         return;
@@ -44,7 +43,6 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
       await uploadToServer(file);
       setLoading(false);
 
-      setImage(file);
       setCreateObjectURL(URL.createObjectURL(file));
     }
     setLoading(false);
@@ -56,13 +54,13 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
     }
 
     const body = new FormData();
-    body.append("id", fontId);
-    body.append("file", file);
-    body.append("type", type);
-    body.append("extension", getExtension(type))
+    body.append('id', fontId);
+    body.append('file', file);
+    body.append('type', type);
+    body.append('extension', getExtension(type));
 
-    const response = await fetch("/api/upload", {
-      method: "POST",
+    const response = await fetch('/api/upload', {
+      method: 'POST',
       body
     });
 
@@ -76,7 +74,7 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
                           accept={`image/${getAcceptExtension(type)}`}/>
       <div>
         {
-          isLoading ? <Loading/> : <ImageContainer src={createObjectURL} onError={() => setCreateObjectURL('')}/>
+          isLoading ? <Loading/> : <ImageContainer src={createObjectURL}/>
         }
       </div>
     </div>
@@ -84,7 +82,7 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
 }
 
 const Loading = () => {
-  return <span>자동 저장 중...</span>
-}
+  return <span>자동 저장 중...</span>;
+};
 
 export default ImageUploader;

@@ -1,8 +1,7 @@
 import { IncomingForm } from 'formidable';
 import { createReadStream } from 'fs';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { NextApiRequest, NextApiResponse } from 'next';
-import * as process from "process";
+import * as process from 'process';
 
 export const config = {
   api: {
@@ -11,8 +10,8 @@ export const config = {
 };
 
 export default async (req, res) => {
-  const data = await new Promise((resolve, reject) => {
-    const form = new IncomingForm()
+  await new Promise((resolve, reject) => {
+    const form = new IncomingForm();
 
     form.parse(req, async (err, fields, files) => {
       if (err) {
@@ -39,6 +38,6 @@ export default async (req, res) => {
       const response = await s3Client.send(uploadCommand);
 
       res.status(200).json(response);
-    })
-  })
-}
+    });
+  });
+};
