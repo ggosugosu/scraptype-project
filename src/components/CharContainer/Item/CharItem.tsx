@@ -110,7 +110,7 @@ export const ImageFontCharBox = ({
           layout="fill"
           className={`filter_${color.background}`}
         />
-        <img className={`char-text  filter_${color.text}`}
+        <img className={`char-text  filter_${color.barcode}`}
              src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`}/>
         {isArchive ? (
           <Barcode color={color} isVisible={_.isEmpty(tags)}/>
