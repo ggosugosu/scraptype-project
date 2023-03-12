@@ -1,17 +1,14 @@
+import { useMutation, useQuery } from '@apollo/client';
+import CloseSVG from 'assets/images/ic_close.svg';
+import ModalSVG from 'assets/images/modal_archive.svg';
+import { black, grey_400, main } from 'common/colors';
+import HighlightButton, { HighlightButtonOption, } from 'components/HighlightButton';
+import { GET_FONT_BY_FONT_ID, UPDATE_FONT_TAG } from 'features/Archive/gql';
 import useCharColor from 'hooks/useCharColor';
-import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import ModalSVG from 'assets/images/modal_archive.svg';
-import CloseSVG from 'assets/images/ic_close.svg';
-import HighlightButton, {
-  HighlightButtonOption,
-} from 'components/HighlightButton';
-import { useMutation, useQuery } from '@apollo/client';
-import { GET_FONT_BY_FONT_ID, UPDATE_FONT_TAG } from 'features/Archive/gql';
-import { black, grey_400, main } from 'common/colors';
-import { googleDriveLinkToSource } from 'features/utils';
 
 interface Props {
   font_id: number;
@@ -97,11 +94,6 @@ const ContainerTagsWrapper = styled.div`
   overflow: auto;
 `;
 
-interface Tag {
-  id: number;
-  name: string;
-}
-
 const ModalItem = ({name, selected, onClick, option}: ItemProps) => {
   const [_selected, _setSelected] = useState<boolean>(selected);
   const handleSelected = () => {
@@ -118,12 +110,12 @@ const ModalItem = ({name, selected, onClick, option}: ItemProps) => {
   );
 };
 
-const ContainerTags = ({children}) => {
+const ContainerTags = ({children}: { children: React.ReactNode }) => {
   return <ContainerTagsWrapper>{children}</ContainerTagsWrapper>;
 };
 
 export default function ArchiveItemModal({font_id, is_web_font, handleVisible}: Props) {
-  const {loading, error, data, refetch} = useQuery(GET_FONT_BY_FONT_ID, {
+  const {data, refetch} = useQuery(GET_FONT_BY_FONT_ID, {
     variables: {font_id},
   });
   const [updateFontTags] = useMutation(UPDATE_FONT_TAG);
@@ -138,7 +130,7 @@ export default function ArchiveItemModal({font_id, is_web_font, handleVisible}: 
   return (
     <ModalBackground onClick={handleVisible}>
       <ModalWrapper>
-        <Image alt="modal_background" src={ModalSVG}/>
+        <Image alt="modal_background" src={ModalSVG} />
         <ModalContentWrapper>
           <button className="btn-close-wrapper">
             <Image
@@ -157,7 +149,7 @@ export default function ArchiveItemModal({font_id, is_web_font, handleVisible}: 
               detail view
             </Link>
           </div>
-          <hr/>
+          <hr />
           <ContainerTags>
             <ModalItem
               key={-1}
@@ -175,7 +167,7 @@ export default function ArchiveItemModal({font_id, is_web_font, handleVisible}: 
                   selected={data.getFontByFontId.fontTags
                     .map((fontTag) => fontTag.tags.id)
                     .includes(item.id)}
-                  onClick={(e) => handleSelectedTag(item.id)}
+                  onClick={() => handleSelectedTag(item.id)}
                 />
               ))}
           </ContainerTags>
@@ -187,14 +179,14 @@ export default function ArchiveItemModal({font_id, is_web_font, handleVisible}: 
 
 /* 텍스트 컬러는 블랙 고정 */
 const UnitFontInModal = ({font_id, is_web_font}: { font_id: number, is_web_font: boolean }) => {
-  const {char, charColor} = useCharColor({isArchive: false});
+  const {char} = useCharColor({isArchive: false});
 
   return (
     <>
       {
         is_web_font ? (<span className="char-text" style={{color: black}}>{char}</span>) : (
-          <img className={`char-text  filter_black`}
-               src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`}/>)
+          <img className={'char-text  filter_black'}
+               src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`} />)
       }
     </>
   );

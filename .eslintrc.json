@@ -10,13 +10,9 @@
     "plugin:react/recommended",
     "eslint:recommended",
     "prettier",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "react-hooks"
+    "plugin:@typescript-eslint/eslint-recommended"
   ],
   "rules": {
-    "prettier/prettier": [
-      "wran"
-    ],
     "semi": [
       "error",
       "always"

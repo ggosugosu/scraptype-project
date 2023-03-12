@@ -1,7 +1,7 @@
 import PageTitle from 'components/PageTitle';
 import { useRouter } from 'next/router';
 import React from 'react';
-import TagOverview from "features/Admin/Tag/Overview";
+import TagOverview from 'features/Admin/Tag/Overview';
 
 
 export default function TagPage() {
@@ -9,8 +9,8 @@ export default function TagPage() {
 
   return (
     <>
-      <PageTitle title="Tag Setting" onClick={() => router.push('/')}/>
-      <TagOverview/>
+      <PageTitle title="Tag Setting" onClick={() => router.push('/')} />
+      <TagOverview />
     </>
-  )
+  );
 }
