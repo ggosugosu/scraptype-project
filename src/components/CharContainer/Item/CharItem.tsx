@@ -1,12 +1,12 @@
-import ArchiveSVG from "assets/images/ic_archive.svg";
-import ArchiveBarcodeSVG from "assets/images/ic_archive_barcode.svg";
-import InjectFontFace from "components/InjectFontFace";
-import { filterFontFamily } from "features/utils";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { charList, colorList, defaultItemColor, ItemColor } from "components/CharContainer/Item/models";
-import { CharBox } from "components/CharContainer/Item/style";
-import _ from "lodash-es";
+import ArchiveSVG from 'assets/images/ic_archive.svg';
+import ArchiveBarcodeSVG from 'assets/images/ic_archive_barcode.svg';
+import InjectFontFace from 'components/InjectFontFace';
+import { filterFontFamily } from 'features/utils';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { charList, colorList, defaultItemColor, ItemColor } from 'components/CharContainer/Item/models';
+import { CharBox } from 'components/CharContainer/Item/style';
+import _ from 'lodash-es';
 
 type Props = {
   font_id: number;
@@ -46,7 +46,7 @@ export const WebFontCharBox = ({
 
   useEffect(() => {
     setChar(charList[Math.floor(Math.random() * charList.length)]);
-    console.log(!!isArchive);
+
     if (!isArchive) {
       return;
     }
@@ -56,10 +56,10 @@ export const WebFontCharBox = ({
 
   return (
     <>
-      <InjectFontFace fontFace={webFont?.source ?? ""}/>
+      <InjectFontFace fontFace={webFont?.source ?? ''}/>
       <CharBox
         selectedColor={color}
-        fontFamily={webFont ? filterFontFamily(webFont.source) : ""}
+        fontFamily={webFont ? filterFontFamily(webFont.source) : ''}
         onClick={() => onClick(font_id)}
       >
         <Image
@@ -79,18 +79,13 @@ export const WebFontCharBox = ({
   );
 };
 
-type ImageFontCharBoxProps = Props & {
-  imageFont?: ImageFont;
-};
-
 export const ImageFontCharBox = ({
                                    font_id,
                                    name,
                                    tags,
-                                   imageFont,
                                    isArchive = false,
                                    onClick,
-                                 }: ImageFontCharBoxProps) => {
+                                 }: Props) => {
   const [char, setChar] = useState<String>(charList[0]);
   const [color, setColor] = useState<ItemColor>(
     isArchive ? colorList[0] : defaultItemColor
@@ -106,17 +101,15 @@ export const ImageFontCharBox = ({
     setColor(colorList[Math.floor(Math.random() * colorList.length)]);
   }, []);
 
-  console.log(JSON.stringify(imageFont));
   return (
     <>
       <CharBox selectedColor={color} onClick={() => onClick(font_id)}>
         <Image
           alt="button-text"
-          src={ArchiveSVG}
+          src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`}
           layout="fill"
           className={`filter_${color.background}`}
         />
-        {imageFont && <GenerateSVG svgCode={imageFont.unit}/>}
         <span className="char-text">{char}</span>
         {isArchive ? (
           <Barcode color={color} isVisible={_.isEmpty(tags)}/>
@@ -164,7 +157,7 @@ type GenerateSVGProps = {
 };
 const GenerateSVG = ({svgCode}: GenerateSVGProps) => {
   const buff = Buffer.from(svgCode);
-  const base64data = buff.toString("base64");
+  const base64data = buff.toString('base64');
 
   return <img src={`data:image/svg+xml;base64,${base64data}`} alt=""/>;
 };

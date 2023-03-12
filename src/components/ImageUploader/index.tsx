@@ -58,13 +58,14 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
     body.append('file', file);
     body.append('type', type);
     body.append('extension', getExtension(type));
+    console.log('body', body);
 
     const response = await fetch('/api/upload', {
       method: 'POST',
       body
     });
 
-    alert(response.status);
+    alert(JSON.stringify(response));
   };
 
   return (
@@ -75,6 +76,7 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
       <div>
         {
           isLoading ? <Loading/> : <ImageContainer src={createObjectURL}/>
+
         }
       </div>
     </div>
