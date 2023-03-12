@@ -1,6 +1,6 @@
-const { Font, FontTag, Tag, WebFont, ImageFont } = require("../models");
-const { Op } = require("sequelize");
-const sequelize = require("sequelize");
+const { Font, FontTag, Tag, WebFont, ImageFont } = require('../models');
+const { Op } = require('sequelize');
+const sequelize = require('sequelize');
 
 const fontORM = {
   getFontByFontId: ({ font_id }) =>
@@ -9,21 +9,21 @@ const fontORM = {
       include: [
         {
           model: FontTag,
-          as: "fontTags",
+          as: 'fontTags',
           include: [
             {
               model: Tag,
-              as: "tags",
+              as: 'tags',
             },
           ],
         },
         {
           model: WebFont,
-          as: "webFont",
+          as: 'webFont',
         },
         {
           model: ImageFont,
-          as: "imageFont",
+          as: 'imageFont',
         },
       ],
     }).then((data) => data),
@@ -33,21 +33,21 @@ const fontORM = {
       include: [
         {
           model: FontTag,
-          as: "fontTags",
+          as: 'fontTags',
           include: [
             {
               model: Tag,
-              as: "tags",
+              as: 'tags',
             },
           ],
         },
         {
           model: WebFont,
-          as: "webFont",
+          as: 'webFont',
         },
         {
           model: ImageFont,
-          as: "imageFont",
+          as: 'imageFont',
         },
       ],
     });
@@ -59,11 +59,11 @@ const fontORM = {
       include: [
         {
           model: FontTag,
-          as: "fontTags",
+          as: 'fontTags',
           include: [
             {
               model: Tag,
-              as: "tags",
+              as: 'tags',
             },
           ],
           where: {
@@ -85,15 +85,15 @@ const fontORM = {
           [Op.like]: `%${text}%`,
         },
         corporation: {
-          [Op.like]: `${corporation ? corporation : "%"}`,
+          [Op.like]: `${corporation ? corporation : '%'}`,
         },
       },
     }).then((fonts) => fonts),
 
   getCorporationAll: () =>
     Font.findAll({
-      attributes: ["corporation"],
-      group: ["corporation"],
+      attributes: ['corporation'],
+      group: ['corporation'],
     }).then((corporation) => corporation),
 
   deleteFontByFontId: async ({ font_id }) => {
@@ -122,13 +122,11 @@ const fontORM = {
   },
 
   updateFont: async (_, { id, name, description }) => {
-    console.log(id);
     const font = await Font.findOne({ where: { id } });
     return font;
   },
 
   deleteFont: async (_, { id }) => {
-    console.log(id);
     const oldFont = await Font.destroy({ where: { id } });
     const font = await Font.findOne({ where: { id } });
     return font;

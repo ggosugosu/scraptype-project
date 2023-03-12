@@ -60,22 +60,20 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
     body.append('extension', getExtension(type));
     console.log('body', body);
 
-    const response = await fetch('/api/upload', {
+    await fetch('/api/upload', {
       method: 'POST',
       body
     });
-
-    alert(JSON.stringify(response));
   };
 
   return (
     <div>
       <h4 className={'hidden'}>이미지 선택</h4>
       <InputFileContainer type="file" name="myImage" onChange={uploadToClient}
-                          accept={`image/${getAcceptExtension(type)}`}/>
+                          accept={`image/${getAcceptExtension(type)}`} />
       <div>
         {
-          isLoading ? <Loading/> : <ImageContainer src={createObjectURL}/>
+          isLoading ? <Loading /> : <ImageContainer src={createObjectURL} />
 
         }
       </div>

@@ -138,8 +138,7 @@ const FontForm = ({font_id}: Props) => {
     else if (formData.corporation === '') return alert('폰트사를 입력하세요.');
     else if (formData.isWebFont && !formData.webFont.source)
       return alert('font-face를 입력하세요.');
-
-    return alert('링크를 모두 입력하세요.');
+    
 
     const fontFormat = {
       name: formData.name,

@@ -17,14 +17,12 @@ export default function Archive() {
   const [selectedFontId, setSelectedFontId] = useState<{ font_id: number, is_web_font: boolean }>();
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
   if (loading || error) {
-    console.log(`${error?.message}`);
     return null;
   }
 
   const handleClicked = ({font_id, is_web_font}: { font_id: number, is_web_font: boolean }) => {
     setSelectedFontId({font_id, is_web_font});
     handleVisible();
-    console.log(`modalIsVisible: ${modalIsVisible}`);
   };
 
   const handleVisible = (e?) => {
