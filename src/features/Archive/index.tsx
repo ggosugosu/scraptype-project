@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import logoBistro from 'assets/images/logo_bistro.svg';
 import logo from 'assets/images/logo_no_icon.svg';
 import Image from 'next/image';
-import { useState } from 'react';
 
 import { useQuery } from '@apollo/client';
 import CharContainer from 'components/CharContainer/CharContainer';
@@ -36,8 +36,8 @@ export default function Archive() {
   return (
     <>
       <LogoWrapper>
-        <Image src={logo} alt="logo"/>
-        <Image src={logoBistro} alt="logo_bistro" width="72" height="42"/>
+        <Image src={logo} alt="logo" />
+        <Image src={logoBistro} alt="logo_bistro" width="72" height="42" />
       </LogoWrapper>
       <CharContainer>
         {data &&
@@ -55,7 +55,7 @@ export default function Archive() {
                 onClick={() => handleClicked({font_id: item.id, is_web_font: item.is_web_font})}
                 webFont={{
                   source: item.webFont ?? ''
-                }}/>
+                }} />
             );
           })}
         {data && modalIsVisible && (
