@@ -106,11 +106,12 @@ export const ImageFontCharBox = ({
       <CharBox selectedColor={color} onClick={() => onClick(font_id)}>
         <Image
           alt="button-text"
-          src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`}
+          src={ArchiveSVG}
           layout="fill"
           className={`filter_${color.background}`}
         />
-        <span className="char-text">{char}</span>
+        <img className={`char-text  filter_${color.background}`}
+             src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`}/>
         {isArchive ? (
           <Barcode color={color} isVisible={_.isEmpty(tags)}/>
         ) : (
