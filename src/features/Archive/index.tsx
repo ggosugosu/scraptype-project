@@ -15,15 +15,15 @@ import {
 
 export default function Archive() {
   const {loading, error, data} = useQuery(GET_FONT_ALL);
-  const [selectedFontId, setSelectedFontId] = useState<number>();
+  const [selectedFontId, setSelectedFontId] = useState<{ font_id: number, is_web_font: boolean }>();
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
   if (loading || error) {
     console.log(`${error?.message}`);
     return null;
   }
 
-  const handleClicked = (font_id: number) => {
-    setSelectedFontId(font_id);
+  const handleClicked = ({font_id, is_web_font}: { font_id: number, is_web_font: boolean }) => {
+    setSelectedFontId({font_id, is_web_font});
     handleVisible();
     console.log(`modalIsVisible: ${modalIsVisible}`);
   };
@@ -56,7 +56,7 @@ export default function Archive() {
                     tags={item.fontTags}
                     webFont={item.webFont}
                     isArchive={true}
-                    onClick={handleClicked}
+                    onClick={() => handleClicked({font_id: item.id, is_web_font: item.is_web_font})}
                   />
                 ) : (
                   <ImageFontCharBox
@@ -67,7 +67,7 @@ export default function Archive() {
                     corporation={item.corporation}
                     tags={item.fontTags}
                     isArchive={true}
-                    onClick={handleClicked}
+                    onClick={() => handleClicked({font_id: item.id, is_web_font: item.is_web_font})}
                   />
                 )}
               </>
@@ -75,7 +75,8 @@ export default function Archive() {
           })}
         {data && modalIsVisible && (
           <ArchiveItemModal
-            font_id={selectedFontId ?? -1}
+            font_id={selectedFontId?.font_id ?? -1}
+            is_web_font={selectedFontId?.is_web_font ?? true}
             handleVisible={handleVisible}
           />
         )}

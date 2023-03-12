@@ -15,7 +15,7 @@ type Props = {
   corporation: string;
   tags: string[];
   isArchive?: boolean;
-  onClick: (id: number) => void;
+  onClick: () => void;
 };
 
 type WebFont = {
@@ -60,7 +60,7 @@ export const WebFontCharBox = ({
       <CharBox
         selectedColor={color}
         fontFamily={webFont ? filterFontFamily(webFont.source) : ''}
-        onClick={() => onClick(font_id)}
+        onClick={() => onClick()}
       >
         <Image
           alt="button-text"
@@ -103,7 +103,7 @@ export const ImageFontCharBox = ({
 
   return (
     <>
-      <CharBox selectedColor={color} onClick={() => onClick(font_id)}>
+      <CharBox selectedColor={color} onClick={() => onClick()}>
         <Image
           alt="button-text"
           src={ArchiveSVG}
