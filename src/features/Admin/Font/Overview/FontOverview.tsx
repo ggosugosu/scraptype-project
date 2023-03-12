@@ -22,19 +22,22 @@ export default function FontOverview() {
       <CharContainer>
         <AddCharItem onClick={() => handleClicked('create')} />
         {data &&
-          data.getFontAll.map((item, index) => (
-            <CharItem
-              key={index}
-              font_id={item.id}
-              is_web_font={item.is_web_font}
-              name={item.name}
-              description={item.description}
-              corporation={item.corporation}
-              tags={item.fontTags}
-              webFont={{source: item.webFont ?? ''}}
-              isArchive={false}
-              onClick={() => handleClicked(item.id)} />
-          ))}
+          data.getFontAll.map((item, index) => {
+            console.log(item.is_web_font);
+            return (
+              <CharItem
+                key={index}
+                font_id={item.id}
+                is_web_font={item.is_web_font}
+                name={item.name}
+                description={item.description}
+                corporation={item.corporation}
+                tags={item.fontTags}
+                webFont={{source: item.webFont ?? ''}}
+                isArchive={false}
+                onClick={() => handleClicked(item.id)} />
+            );
+          })}
       </CharContainer>
     </section>
   );
