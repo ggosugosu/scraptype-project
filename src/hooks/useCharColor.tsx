@@ -14,7 +14,6 @@ const useCharColor = ({isArchive}: CharColorProps): CharColor => {
   const [color, setColor] = useState<ItemColor>(
     isArchive ? colorList[0] : defaultItemColor
   );
-  console.log('useCharColor', `${char}, ${color}`);
 
   useEffect(() => {
     setChar(charList[Math.floor(Math.random() * charList.length)]);

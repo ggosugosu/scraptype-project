@@ -9,8 +9,7 @@ import { GET_FONT_ALL } from 'features/Archive/gql';
 import ArchiveItemModal from 'features/Archive/modal';
 import { LogoWrapper } from 'features/Archive/style';
 import {
-  ImageFontCharBox,
-  WebFontCharBox,
+  CharItem,
 } from 'components/CharContainer/Item/CharItem';
 
 export default function Archive() {
@@ -43,34 +42,20 @@ export default function Archive() {
       <CharContainer>
         {data &&
           data.getFontAll.map((item, index) => {
-            console.log(JSON.stringify(item));
             return (
-              <>
-                {item.is_web_font ? (
-                  <WebFontCharBox
-                    key={index}
-                    font_id={item.id}
-                    name={item.name}
-                    description={item.description}
-                    corporation={item.corporation}
-                    tags={item.fontTags}
-                    webFont={item.webFont}
-                    isArchive={true}
-                    onClick={() => handleClicked({font_id: item.id, is_web_font: item.is_web_font})}
-                  />
-                ) : (
-                  <ImageFontCharBox
-                    key={index}
-                    font_id={item.id}
-                    name={item.name}
-                    description={item.description}
-                    corporation={item.corporation}
-                    tags={item.fontTags}
-                    isArchive={true}
-                    onClick={() => handleClicked({font_id: item.id, is_web_font: item.is_web_font})}
-                  />
-                )}
-              </>
+              <CharItem
+                key={index}
+                font_id={item.id}
+                is_web_font={item.is_web_font}
+                name={item.name}
+                description={item.description}
+                corporation={item.corporation}
+                tags={item.fontTags}
+                isArchive={true}
+                onClick={() => handleClicked({font_id: item.id, is_web_font: item.is_web_font})}
+                webFont={{
+                  source: item.webFont ?? ''
+                }}/>
             );
           })}
         {data && modalIsVisible && (

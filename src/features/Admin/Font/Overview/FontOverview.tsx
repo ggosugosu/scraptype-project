@@ -1,9 +1,9 @@
-import { useQuery } from "@apollo/client";
-import CharContainer from "components/CharContainer/CharContainer";
-import AddCharItem from "components/CharContainer/Item/AddCharItem";
-import { WebFontCharBox } from "components/CharContainer/Item/CharItem";
-import { useRouter } from "next/router";
-import { GET_FONT_ALL } from "features/Admin/Font/Overview/gql";
+import { useQuery } from '@apollo/client';
+import CharContainer from 'components/CharContainer/CharContainer';
+import AddCharItem from 'components/CharContainer/Item/AddCharItem';
+import { CharItem } from 'components/CharContainer/Item/CharItem';
+import { GET_FONT_ALL } from 'features/Admin/Font/Overview/gql';
+import { useRouter } from 'next/router';
 
 export default function FontOverview() {
   const router = useRouter();
@@ -22,17 +22,17 @@ export default function FontOverview() {
         <AddCharItem onClick={() => handleClicked(`create`)}/>
         {data &&
           data.getFontAll.map((item, index) => (
-            <WebFontCharBox
+            <CharItem
               key={index}
               font_id={item.id}
               name={item.name}
+              is_web_font={item.is_web_font}
               description={item.description}
               corporation={item.corporation}
               tags={item.fontTags.tags}
               webFont={item.webFont}
               isArchive={false}
-              onClick={() => handleClicked(item.id)}
-            />
+              onClick={() => handleClicked(item.id)}/>
           ))}
       </CharContainer>
     </section>
