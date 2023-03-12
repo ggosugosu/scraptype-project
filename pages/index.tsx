@@ -1,6 +1,7 @@
-import Archive from "features/Archive";
+import Archive from 'features/Archive';
+import React from 'react';
 
-const Main = (props) => {
+const Main = () => {
   return <Archive />;
 };
 

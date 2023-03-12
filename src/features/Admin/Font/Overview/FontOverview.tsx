@@ -4,6 +4,7 @@ import AddCharItem from 'components/CharContainer/Item/AddCharItem';
 import { CharItem } from 'components/CharContainer/Item/CharItem';
 import { GET_FONT_ALL } from 'features/Admin/Font/Overview/gql';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 export default function FontOverview() {
   const router = useRouter();
@@ -19,20 +20,20 @@ export default function FontOverview() {
   return (
     <section>
       <CharContainer>
-        <AddCharItem onClick={() => handleClicked(`create`)}/>
+        <AddCharItem onClick={() => handleClicked('create')} />
         {data &&
           data.getFontAll.map((item, index) => (
             <CharItem
               key={index}
               font_id={item.id}
-              name={item.name}
               is_web_font={item.is_web_font}
+              name={item.name}
               description={item.description}
               corporation={item.corporation}
-              tags={item.fontTags.tags}
-              webFont={item.webFont}
+              tags={item.fontTags}
+              webFont={{source: item.webFont ?? ''}}
               isArchive={false}
-              onClick={() => handleClicked(item.id)}/>
+              onClick={() => handleClicked(item.id)} />
           ))}
       </CharContainer>
     </section>

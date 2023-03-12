@@ -3,7 +3,7 @@ import ArchiveBarcodeSVG from 'assets/images/ic_archive_barcode.svg';
 import InjectFontFace from 'components/InjectFontFace';
 import { filterFontFamily } from 'features/utils';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { charList, colorList, defaultItemColor, ItemColor } from 'components/CharContainer/Item/models';
 import { CharBox } from 'components/CharContainer/Item/style';
 import _ from 'lodash-es';
@@ -68,13 +68,13 @@ export const CharItem = ({
                onError={() => {
                  setErrorChar(true);
                }}
-               src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`}/>) : (
+               src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`} />) : (
           <span className="char-text">{errorChar ? '?' : char}</span>)}
 
         {isArchive ? (
-          <Barcode color={color} isVisible={_.isEmpty(tags)}/>
+          <Barcode color={color} isVisible={_.isEmpty(tags)} />
         ) : (
-          <CharName name={name}/>
+          <CharName name={name} />
         )}
       </CharBox>
     </>
@@ -119,6 +119,6 @@ const GenerateSVG = ({svgCode}: GenerateSVGProps) => {
   const buff = Buffer.from(svgCode);
   const base64data = buff.toString('base64');
 
-  return <img src={`data:image/svg+xml;base64,${base64data}`} alt=""/>;
+  return <img src={`data:image/svg+xml;base64,${base64data}`} alt="" />;
 };
 
