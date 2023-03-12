@@ -32,6 +32,11 @@ export const GlobalStyle = createGlobalStyle`
     outline: inherit;
   }
 
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   .col-1 {
     grid-column: span 1;
   }
@@ -55,7 +60,7 @@ export const GlobalStyle = createGlobalStyle`
   .col-6 {
     grid-column: span 6;
   }
-  
+
   .hidden {
     display: none;
   }
