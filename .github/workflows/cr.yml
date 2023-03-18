@@ -17,6 +17,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.CHATGPT_SESSION_TOKEN }}
           # Optional
-          LANGUAGE: Chinese
+          LANGUAGE: Korean
           top_p: 1
           temperature: 1
