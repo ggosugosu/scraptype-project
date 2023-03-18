@@ -1,8 +1,28 @@
+permissions:
+  contents: read
+  pull-requests: write
+
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, reopened]
 
-name: ChatGPT CodeReview
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: anc95/ChatGPT-CodeReview@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.CHATGPT_SESSION_TOKEN }}
+          # Optional
+          LANGUAGE: Korean
+          top_p: 1
+          temperature: 1
+# on:
+#   pull_request:
+#     types: [opened, synchronize]
+
+# name: ChatGPT CodeReview
 
 # jobs:
 #   chatgpt_comment:
