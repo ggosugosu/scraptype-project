@@ -5,12 +5,12 @@ name: ChatGPT CodeReview
 jobs:
   chatgpt_comment:
     runs-on: ubuntu-latest
-    name: Let chatgpt comment on your PR.
     steps:
-      - name: ChatGPT comment
-        uses: cirolini/chatgpt-github-actions@v1.3
-        with:
-          openai_api_key: ${{ secrets.CHATGPT_SESSION_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          github_pr_id: ${{ github.event.number }}
-          mode: file # file or patch 
+      - uses: anc95/ChatGPT-CodeReview@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.CHATGPT_SESSION_TOKEN }}
+          # Optional
+          LANGUAGE: Korean
+          top_p: 1
+          temperature: 1
