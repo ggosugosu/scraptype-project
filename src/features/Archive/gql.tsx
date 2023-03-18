@@ -12,7 +12,6 @@ export const GET_FONT_ALL = gql`
                     name
                 }
             }
-            ㅊ
             webFont {
                 source
             }
