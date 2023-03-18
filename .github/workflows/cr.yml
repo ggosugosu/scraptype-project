@@ -6,7 +6,7 @@ permissions:
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [ opened, reopened ]
 
 jobs:
   test:
@@ -17,6 +17,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           # Optional
-          LANGUAGE: Korean
+          LANGUAGE: 한국어
           top_p: 1
           temperature: 1
