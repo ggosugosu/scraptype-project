@@ -1,3 +1,5 @@
+name: Code Review
+
 on:
   pull_request:
     types: [opened, reopened]
@@ -14,9 +16,6 @@ jobs:
           LANGUAGE: Korean
           top_p: 1
           temperature: 1
-# on:
-#   pull_request:
-#     types: [opened, synchronize]
 
 # name: ChatGPT CodeReview
 
