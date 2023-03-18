@@ -11,7 +11,7 @@ export const GET_FONT_ALL = gql`
                 tags {
                     name
                 }
-            }asdfb
+            }
             webFont {
                 source
             }
