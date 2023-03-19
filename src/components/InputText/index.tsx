@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { InputFixedTextWrapper, InputTextWrapper } from 'components/InputText/style';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   placeholder?: string;
   value: string;
   width?: string;
-  height?: string
+  height?: string;
   type?: string;
   onChange?: (e: any) => void;
 }
@@ -17,6 +17,6 @@ export default function InputText({id, fixed, placeholder, value, width, height,
     <InputFixedTextWrapper width={width} height={height}>{value}</InputFixedTextWrapper>
   ) : (
     <InputTextWrapper id={id} placeholder={placeholder} value={value} width={width} height={height} type={type}
-                      onChange={onChange}/>
+                      onChange={onChange} />
   );
 }

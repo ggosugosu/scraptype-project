@@ -45,6 +45,8 @@
     "react-hooks/rules-of-hooks": "error",
     // Checks effect dependencies
     "react-hooks/exhaustive-deps": "warn",
+    // Regardless of UseEffect Dependency
+    "react-hooks/exhaustive-deps": "off",
     // Remove import react
     "react/jsx-uses-react": "off",
     // Remove import react

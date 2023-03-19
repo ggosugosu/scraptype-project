@@ -1,11 +1,11 @@
 import { createSchema, createYoga } from 'graphql-yoga';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import fontORM from '../../server/orm/font_orm'
-import fontTagORM from '../../server/orm/font_tag_orm'
-import imageFontORM from '../../server/orm/image_font_orm'
-import tagORM from '../../server/orm/tag_orm'
-import webFontORM from '../../server/orm/web_font_orm'
+import fontORM from '../../server/orm/font_orm';
+import fontTagORM from '../../server/orm/font_tag_orm';
+import imageFontORM from '../../server/orm/image_font_orm';
+import tagORM from '../../server/orm/tag_orm';
+import webFontORM from '../../server/orm/web_font_orm';
 
 const typeDefs = `
     type Font {
@@ -231,7 +231,7 @@ export default createYoga<{
   // Needed to be defined explicitly because our endpoint lives at a different path other than `/graphql`
   graphqlEndpoint: '/api/graphql',
   graphiql: process.env.NODE_ENV !== 'production'
-})
+});
 
 
 export const config = {
