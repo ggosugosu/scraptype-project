@@ -6,7 +6,7 @@ permissions:
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [ opened, reopened, synchronize ]
 
 jobs:
   test:
@@ -15,8 +15,6 @@ jobs:
       - uses: anc95/ChatGPT-CodeReview@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.CHATGPT_SESSION_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           # Optional
-          LANGUAGE: Chinese
-          top_p: 1
-          temperature: 1
+          LANGUAGE: Korean
