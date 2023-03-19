@@ -32,6 +32,7 @@ const UploadAPI = async (req, res) => {
         Bucket: process.env.S3_BUCKET_NAME,
         Key: `${fields['id']}_${fields['type']}.${fields['extension']}`,
         Body: createReadStream(filePath),
+        ContentType: fields['contentType'],
       });
 
 

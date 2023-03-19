@@ -67,6 +67,8 @@ export const CharItem = ({
                  onError={() => {
                    setErrorChar(true);
                  }}
+                 width={128}
+                 height={128}
                  src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`} />) : (
           <span className="char-text">{errorChar ? '?' : char}</span>)}
 

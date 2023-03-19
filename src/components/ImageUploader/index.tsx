@@ -58,6 +58,7 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
     body.append('file', file);
     body.append('type', type);
     body.append('extension', getExtension(type));
+    body.append('contentType', `image/${getAcceptExtension(type)}`);
     console.log('body', body);
 
     await fetch('/api/upload', {
