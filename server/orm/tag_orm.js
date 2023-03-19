@@ -1,7 +1,7 @@
-const { Op } = require("sequelize");
-const { Tag } = require("../models");
-const { FontTag } = require("../models");
-const { GraphQLError } = require("graphql");
+const { Op } = require('sequelize');
+const { Tag } = require('../models');
+const { FontTag } = require('../models');
+const { GraphQLError } = require('graphql');
 
 const tagORM = {
   getTagAll: () => {
@@ -9,7 +9,7 @@ const tagORM = {
       include: [
         {
           model: FontTag,
-          as: "fontTags",
+          as: 'fontTags',
         },
       ],
     });
@@ -54,7 +54,7 @@ const existsTagName = async (name) =>
 
 const checkExist = async (name) => {
   if (await existsTagName(name))
-    throw new GraphQLError("Data already exists.", "BAD_INPUT", {
+    throw new GraphQLError('Data already exists.', 'BAD_INPUT', {
       status: 400,
       error: true,
     });

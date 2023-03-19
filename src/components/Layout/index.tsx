@@ -1,11 +1,14 @@
-import Navigation from "components/Navigation";
-import { BodyWrapperStyle, MainStyle } from "components/Layout/style";
+import Navigation from 'components/Navigation';
+import { BodyWrapperStyle, MainStyle } from 'components/Layout/style';
 
-export default function Layout({children}) {
+type LayoutProps = {
+  children: React.ReactNode
+}
+export default function Layout({children}: LayoutProps) {
   return (
     <BodyWrapperStyle>
-      <Navigation/>
-      <div/>
+      <Navigation />
+      <div />
       <MainStyle>{children}</MainStyle>
     </BodyWrapperStyle>
   );

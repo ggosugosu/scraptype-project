@@ -1,6 +1,6 @@
 'use strict';
-import { Sequelize } from "sequelize";
-import mysql2 from "mysql2"
+import { Sequelize } from 'sequelize';
+import mysql2 from 'mysql2';
 
 
 const sequelize = new Sequelize(
@@ -8,20 +8,20 @@ const sequelize = new Sequelize(
   process.env.DB_USER_NAME,
   process.env.DB_PASSWORD,
   {
-    "host": process.env.DB_HOST,
-    "dialect": process.env.DB_DIALECT,
-    "dialectModule": mysql2,
-    "define": {
-      "underscored": true
+    'host': process.env.DB_HOST,
+    'dialect': process.env.DB_DIALECT,
+    'dialectModule': mysql2,
+    'define': {
+      'underscored': true
     }
   }
 );
 
-const Font = require("./font")(sequelize, Sequelize);
-const Tag = require("./tag")(sequelize, Sequelize);
-const FontTag = require("./font_tag")(sequelize, Sequelize);
-const WebFont = require("./web_font")(sequelize, Sequelize);
-const ImageFont = require("./image_font")(sequelize, Sequelize);
+const Font = require('./font')(sequelize, Sequelize);
+const Tag = require('./tag')(sequelize, Sequelize);
+const FontTag = require('./font_tag')(sequelize, Sequelize);
+const WebFont = require('./web_font')(sequelize, Sequelize);
+const ImageFont = require('./image_font')(sequelize, Sequelize);
 
 
 // Association

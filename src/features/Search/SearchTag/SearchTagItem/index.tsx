@@ -1,5 +1,5 @@
-import React from "react";
-import HighlightButton from "components/HighlightButton";
+import React from 'react';
+import HighlightButton from 'components/HighlightButton';
 interface Props {
   name: String;
   selected: Boolean;

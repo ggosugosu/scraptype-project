@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { black, grey_300 } from "common/colors";
+import styled from 'styled-components';
+import { black, grey_300 } from 'common/colors';
 
 export const SearchTagWrapper = styled.div`
   display: flex;

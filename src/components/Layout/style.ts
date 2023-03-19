@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const BodyWrapperStyle = styled.div`
   position: relative;

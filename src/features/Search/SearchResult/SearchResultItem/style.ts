@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { black } from "common/colors";
+import styled from 'styled-components';
+import { black } from 'common/colors';
 
 export const Item = styled.button`
   position: relative;

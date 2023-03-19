@@ -6,11 +6,12 @@ export const CharBox = styled.button<{ selectedColor?: ItemColor; fontFamily?: s
   position: relative;
   width: 168px;
   height: 168px;
+
   .char-text {
     position: relative;
     top: 5px;
     left: 0;
-    font-family: ${({fontFamily}) => (fontFamily ? fontFamily : `inherit`)}, sans-serif;
+    font-family: ${({fontFamily}) => (fontFamily ? fontFamily : 'inherit')}, sans-serif;
     font-size: 96px;
     line-height: 90px;
     color: ${({selectedColor}) => (selectedColor ? selectedColor.text : `${grey_300}`)};

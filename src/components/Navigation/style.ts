@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { grey_300, black } from "common/colors";
+import { grey_300, black } from 'common/colors';
 
 export const NavBarStyle = styled.header`
   position: relative;
@@ -120,7 +120,7 @@ export const NavButtons = styled.ul`
   position: absolute;
   bottom: 100px;
   width: 100%;
-  
+
   padding: 0;
 
   .nav-button {
@@ -193,7 +193,7 @@ export const DropSettingItemWrapperStyle = styled.li`
   &:last-child {
     border-bottom: none;
   }
-`
+`;
 
 export const DropSettingItemStyle = styled.button`
   display: grid;
@@ -203,18 +203,18 @@ export const DropSettingItemStyle = styled.button`
 
   width: 100%;
   height: 56px;
-  
+
   color: white;
-  
+
   .icon-wrapper {
     width: 32px;
     padding: 6px 4px 4px 4px;
   }
-  
+
   span {
     font-size: 20px;
     font-weight: 500;
     text-align: start;
     color: white;
   }
-`
+`;

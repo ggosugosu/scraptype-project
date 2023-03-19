@@ -1,15 +1,15 @@
-import React from "react";
-import CreateFontTag from "features/AdminFontTag/CreateFontTag";
-import FontTable from "features/FontTable";
-import FontTagTable from "features/FontTagTable";
+import React from 'react';
+import CreateFontTag from 'features/AdminFontTag/CreateFontTag';
+import FontTable from 'features/FontTable';
+import FontTagTable from 'features/FontTagTable';
 
 function FontTagAdmin() {
   return (
     <div>
-      <CreateFontTag/>
+      <CreateFontTag />
       <div>
-        <FontTagTable/>
-        <FontTable/>
+        <FontTagTable />
+        <FontTable />
       </div>
     </div>
 

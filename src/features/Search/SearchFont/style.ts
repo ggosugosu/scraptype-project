@@ -1,5 +1,5 @@
-import { black, main } from "common/colors";
-import styled from "styled-components";
+import { black, main } from 'common/colors';
+import styled from 'styled-components';
 
 export const FlexWrapperStyle = styled.form`
   position: absolute;
@@ -67,4 +67,4 @@ export const InputWrapperStyle = styled.div`
   align-items: center;
 
   width: 100%;
-`
+`;

@@ -14,8 +14,8 @@ export interface WebFont {
 export default function AddCharItem({onClick}: Props) {
   return (
     <CharBox onClick={onClick}>
-      <Image alt="button-text" src={EmptyArchiveSVG} layout="fill" className={`filter_main}`}/>
-      <Image alt="button-add" src={AddSVG} width="36" height="36" className={`filter_main`}/>
+      <Image alt="button-text" src={EmptyArchiveSVG} layout="fill" className={'filter_main}'} />
+      <Image alt="button-add" src={AddSVG} width="36" height="36" className={'filter_main'} />
     </CharBox>
   );
 }

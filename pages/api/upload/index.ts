@@ -9,7 +9,7 @@ export const config = {
   }
 };
 
-export default async (req, res) => {
+const UploadAPI = async (req, res) => {
   await new Promise((resolve, reject) => {
     const form = new IncomingForm();
 
@@ -41,3 +41,5 @@ export default async (req, res) => {
     });
   });
 };
+
+export default UploadAPI;

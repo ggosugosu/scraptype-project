@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {black, grey_100, grey_300, main} from "common/colors";
+import styled from 'styled-components';
+import {black, grey_100, grey_300, main} from 'common/colors';
 
 export const TagWrapperStyle = styled.ul`
   display: grid;

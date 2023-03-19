@@ -1,6 +1,6 @@
-import React from "react";
-import TagResult from "features/Search/SearchResult/tag";
-import FontResult from "features/Search/SearchResult/font";
+import React from 'react';
+import TagResult from 'features/Search/SearchResult/tag';
+import FontResult from 'features/Search/SearchResult/font';
 
 interface Props {
   type: string;
@@ -14,6 +14,6 @@ interface Font {
 
 export default function SearchResult({type, keywords}: Props) {
 
-  return <>{type === "tag" ? <TagResult keywords={keywords?.toString()}/> :
-    <FontResult corporation={(keywords as Font).corporation} text={(keywords as Font).text}/>}</>;
+  return <>{type === 'tag' ? <TagResult keywords={keywords?.toString()} /> :
+    <FontResult corporation={(keywords as Font).corporation} text={(keywords as Font).text} />}</>;
 }

@@ -1,6 +1,6 @@
-const { GraphQLError } = require("graphql");
-const { FontTag, Font, Tag } = require("../models");
-const { Op } = require("sequelize");
+const { GraphQLError } = require('graphql');
+const { FontTag, Font, Tag } = require('../models');
+const { Op } = require('sequelize');
 
 const fontTagORM = {
   getFontTagAll: () =>
@@ -8,11 +8,11 @@ const fontTagORM = {
       include: [
         {
           model: Font,
-          as: "fonts",
+          as: 'fonts',
         },
         {
           model: Tag,
-          as: "tags",
+          as: 'tags',
         },
       ],
     }).then((data) => data),
@@ -27,11 +27,11 @@ const fontTagORM = {
       include: [
         {
           model: Font,
-          as: "fonts",
+          as: 'fonts',
         },
         {
           model: Tag,
-          as: "tags",
+          as: 'tags',
         },
       ],
     });
@@ -46,7 +46,7 @@ const fontTagORM = {
     });
 
     if (await exists(font_id, tag_id))
-      throw new GraphQLError("Data already exists.", "BAD_INPUT", {
+      throw new GraphQLError('Data already exists.', 'BAD_INPUT', {
         status: 400,
         error: true,
       });
@@ -62,7 +62,7 @@ const fontTagORM = {
         : FontTag.create({ font_id, tag_id });
     } catch (e) {
       console.log(e.message);
-      throw new GraphQLError("DB Error", "BAD_INPUT", {
+      throw new GraphQLError('DB Error', 'BAD_INPUT', {
         status: 500,
         error: true,
       });

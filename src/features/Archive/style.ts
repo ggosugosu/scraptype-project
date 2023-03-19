@@ -1,5 +1,5 @@
 import { grey_200 } from 'common/colors';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const LogoWrapper = styled.div`
 display: none;
