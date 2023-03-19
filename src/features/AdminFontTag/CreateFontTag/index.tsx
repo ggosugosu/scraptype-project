@@ -1,9 +1,9 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
-import { CREATE_FONT_TAG, GET_FONT, GET_TAG } from "features/AdminFontTag/CreateFontTag/gql";
-import { useRecoilState } from "recoil";
-import { fontIdState, tagIdState } from "features/AdminFontTag/CreateFontTag/atom";
-import { useMutation } from "@apollo/react-hooks";
+import React from 'react';
+import { useQuery } from '@apollo/client';
+import { CREATE_FONT_TAG, GET_FONT, GET_TAG } from 'features/AdminFontTag/CreateFontTag/gql';
+import { useRecoilState } from 'recoil';
+import { fontIdState, tagIdState } from 'features/AdminFontTag/CreateFontTag/atom';
+import { useMutation } from '@apollo/react-hooks';
 
 const QueryMultiple = () => {
   const fonts = useQuery(GET_FONT);
@@ -16,7 +16,7 @@ function CreateFontTag() {
   const query = QueryMultiple();
   const [fontId, setFontId] = useRecoilState(fontIdState);
   const [tagId, setTagId] = useRecoilState(tagIdState);
-  const [createFontTag, {data, error, loading, reset}] = useMutation(CREATE_FONT_TAG);
+  const [createFontTag, {data, error, reset}] = useMutation(CREATE_FONT_TAG);
 
   if (query.fonts.loading || query.tags.loading) return <p>`Loading...`</p>;
   if (query.fonts.error || query.tags.error) return null;
@@ -36,12 +36,12 @@ function CreateFontTag() {
   };
 
   if (data) {
-    alert("추가했습니다.");
+    alert('추가했습니다.');
     reset();
   }
 
   if (error?.graphQLErrors[0].extensions.status == 400) {
-    alert("이미 존재하는 관계입니다.");
+    alert('이미 존재하는 관계입니다.');
     reset();
   }
 

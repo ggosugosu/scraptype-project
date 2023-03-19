@@ -1,4 +1,4 @@
-const { Font, WebFont } = require("../models");
+const { Font, WebFont } = require('../models');
 
 const webFontORM = {
   getWebFontAll: () => {
@@ -6,7 +6,7 @@ const webFontORM = {
       include: [
         {
           model: Font,
-          as: "font",
+          as: 'font',
         },
       ],
     });

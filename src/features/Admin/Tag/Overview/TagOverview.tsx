@@ -5,14 +5,14 @@ import {
   TagItemStyle,
   TagItemWrapperStyle,
   TagWrapperStyle
-} from "features/Admin/Tag/Overview/style";
-import AddSVG from "assets/images/ic_add.svg";
-import Image from "next/image";
-import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_TAG, GET_TAG_ALL, UPDATE_TAG } from "features/Admin/Tag/Overview/gql";
-import { ChangeEvent, useCallback, useRef, useState } from "react";
-import { useRouter } from "next/router";
-import InputText from "components/InputText";
+} from 'features/Admin/Tag/Overview/style';
+import AddSVG from 'assets/images/ic_add.svg';
+import Image from 'next/image';
+import { useMutation, useQuery } from '@apollo/client';
+import { DELETE_TAG, GET_TAG_ALL, UPDATE_TAG } from 'features/Admin/Tag/Overview/gql';
+import { ChangeEvent, useCallback, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import InputText from 'components/InputText';
 
 const refreshCurrentPage = () => location.reload();
 
@@ -24,11 +24,11 @@ const TagNewItem = ({onClick}: TagNewItemProps) => {
     <TagItemWrapperStyle>
       <NewTagItemStyle onClick={onClick}>
         {/* TODO: button element width 100% 안되는 이유 찾아보기 */}
-        <Image alt="button-add" src={AddSVG} width="36" height="36" className={`filter_main`}/>
+        <Image alt="button-add" src={AddSVG} width="36" height="36" className={'filter_main'} />
       </NewTagItemStyle>
     </TagItemWrapperStyle>
-  )
-}
+  );
+};
 
 type TagItemProps = {
   id: string
@@ -66,17 +66,16 @@ const TagItem = (item: TagItemProps) => {
         variables: {id: item.id, name: modifiedTagName},
         onCompleted: (data) => {
           if (data) {
-            alert("수정을 완료하였습니다!");
+            alert('수정을 완료하였습니다!');
             setOpen(false);
           } else {
-            alert("잠시 후 다시 시도해주세요.")
+            alert('잠시 후 다시 시도해주세요.');
           }
         },
         onError: (error) => {
-          const status = error.graphQLErrors[0].extensions.status
+          const status = error.graphQLErrors[0].extensions.status;
           if (status === 400) {
-            alert("이미 존재하는 태그 이름입니다.");
-          } else {
+            alert('이미 존재하는 태그 이름입니다.');
           }
         }
       }
@@ -90,7 +89,7 @@ const TagItem = (item: TagItemProps) => {
 
 
   const handleDelete = useCallback(async () => {
-    const confirmed = confirm("정말 삭제하시겠습니까? 기존에 연결되어있던 태그들은 모두 해제됩니다.")
+    const confirmed = confirm('정말 삭제하시겠습니까? 기존에 연결되어있던 태그들은 모두 해제됩니다.');
     if (!confirmed) return;
 
     await deleteTag(
@@ -98,17 +97,17 @@ const TagItem = (item: TagItemProps) => {
         variables: {tag_id: item.id},
         onCompleted: (data) => {
           if (data) {
-            alert("삭제를 완료하였습니다!");
+            alert('삭제를 완료하였습니다!');
             refreshCurrentPage();
           } else {
-            alert("잠시 후 다시 시도해주세요.")
+            alert('잠시 후 다시 시도해주세요.');
           }
         },
         onError: (error) => {
           console.log(error.message);
         }
       }
-    )
+    );
   }, [deleteTag, item.id]);
 
   return (
@@ -116,12 +115,12 @@ const TagItem = (item: TagItemProps) => {
       {
         isOpen
           ?
-          <TagItemStyle as={"form"} key={item.id} onSubmit={handleModifyCompleted}>
-            <label htmlFor={"input-tag-name"} className={"hidden"}>{modifiedTagName}의 태그 이름을 수정하세요.</label>
-            <InputText id={"input-tag-name"} value={modifiedTagName} onChange={handleChange}
-                       height={"36px"}/>
-            <ButtonPositiveStyle onClick={handleModifyCompleted} type={"submit"}>완료</ButtonPositiveStyle>
-            <ButtonNegativeStyle onClick={handleCancel} type={"button"}>취소</ButtonNegativeStyle>
+          <TagItemStyle as={'form'} key={item.id} onSubmit={handleModifyCompleted}>
+            <label htmlFor={'input-tag-name'} className={'hidden'}>{modifiedTagName}의 태그 이름을 수정하세요.</label>
+            <InputText id={'input-tag-name'} value={modifiedTagName} onChange={handleChange}
+                       height={'36px'} />
+            <ButtonPositiveStyle onClick={handleModifyCompleted} type={'submit'}>완료</ButtonPositiveStyle>
+            <ButtonNegativeStyle onClick={handleCancel} type={'button'}>취소</ButtonNegativeStyle>
           </TagItemStyle>
           :
           <TagItemStyle key={item.id}>
@@ -151,16 +150,16 @@ const TagOverview = () => {
   return (
     <section>
       <TagWrapperStyle>
-        <TagNewItem onClick={handleAdd}/>
+        <TagNewItem onClick={handleAdd} />
         {
           data &&
           data.getTagAll.map((item) => (
-            <TagItem key={item.id} id={item.id} name={item.name} fontTags={item.fontTags}/>
+            <TagItem key={item.id} id={item.id} name={item.name} fontTags={item.fontTags} />
           ))
         }
       </TagWrapperStyle>
     </section>
   );
-}
+};
 
 export default TagOverview;

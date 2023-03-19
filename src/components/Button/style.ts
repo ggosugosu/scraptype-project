@@ -1,5 +1,5 @@
-import { grey_100, grey_200 } from "common/colors";
-import styled from "styled-components";
+import { grey_100, grey_200 } from 'common/colors';
+import styled from 'styled-components';
 
 export const ButtonPositiveStyle = styled.button`
   position: relative;

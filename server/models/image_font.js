@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
-    "ImageFont",
+    'ImageFont',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -32,6 +32,6 @@ module.exports = (sequelize, DataTypes) =>
     {
       timestamps: false,
       freezeTableName: true,
-      charset: "utf8",
+      charset: 'utf8',
     }
   );

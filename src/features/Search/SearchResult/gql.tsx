@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const GET_TAGS_BY_TAG_ID = gql`
   query GetTagsByTagId($tag_ids: [Int]) {

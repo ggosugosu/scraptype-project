@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 export const FormStyle = styled.form<{ isGrey?: boolean }>`
   width: 100%;
-  background-color: ${({ isGrey }) => (isGrey ? grey_100 : `white`)};
+  background-color: ${({isGrey}) => (isGrey ? grey_100 : 'white')};
+
   label {
     display: inline-block;
 

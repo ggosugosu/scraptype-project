@@ -1,6 +1,6 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
-import { GET_FONT_ALL } from "features/FontTable/gql";
+import React from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_FONT_ALL } from 'features/FontTable/gql';
 
 interface Font {
   font_name: string;
@@ -11,7 +11,7 @@ const FontItem = (props: Font) => {
   return (
     <tr>
       <td>{props.font_name}</td>
-      <td>{props.tag_names.join(", ")}</td>
+      <td>{props.tag_names.join(', ')}</td>
     </tr>
   );
 };
@@ -31,7 +31,7 @@ export default function FontTable() {
       <tbody>
       {data.getFontAll.map((item, index) => {
         const tagNames = item.fontTags.map(item => item.tags.name);
-        return <FontItem key={index} font_name={item.name} tag_names={tagNames}/>;
+        return <FontItem key={index} font_name={item.name} tag_names={tagNames} />;
       })}
       </tbody>
     </table>

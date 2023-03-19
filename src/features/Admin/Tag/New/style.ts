@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { grey_100 } from "common/colors";
+import styled from 'styled-components';
+import { grey_100 } from 'common/colors';
 
 export const CreateForm = styled.form`
   position: relative;

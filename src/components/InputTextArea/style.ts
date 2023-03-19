@@ -5,7 +5,7 @@ export const InputTextAreaStyle = styled.textarea<{ height?: string }>`
   flex: 1 1 auto;
 
   width: 100%;
-  height: ${({ height }) => (height ? height : `calc(100% - 32px)`)};
+  height: ${({height}) => (height ? height : 'calc(100% - 32px)')};
   padding: 14px 16px;
   resize: none;
   appearance: none;

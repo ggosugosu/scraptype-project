@@ -1,4 +1,4 @@
-const { Font, ImageFont } = require("../models");
+const { Font, ImageFont } = require('../models');
 
 const imageFontORM = {
   getImageFontAll: () => {
@@ -6,7 +6,7 @@ const imageFontORM = {
       include: [
         {
           model: Font,
-          as: "font",
+          as: 'font',
         },
       ],
     });

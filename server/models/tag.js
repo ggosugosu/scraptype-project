@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
-    "Tag",
+    'Tag',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -16,6 +16,6 @@ module.exports = (sequelize, DataTypes) =>
     {
       timestamps: false,
       freezeTableName: true,
-      charset: "utf8",
+      charset: 'utf8',
     }
   );
