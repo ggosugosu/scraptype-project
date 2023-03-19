@@ -1,5 +1,11 @@
-import { ImageContainer, InputFileContainer } from 'components/ImageUploader/style';
-import React, { useState } from 'react';
+import AddSVG from 'assets/images/ic_add.svg';
+import ArchiveBarcodeSVG from 'assets/images/ic_archive_barcode.svg';
+import { black, white } from 'common/colors';
+import { ImageContainer, ImageEmptyUploader, InputFileContainer } from 'components/ImageUploader/style';
+import { fill } from 'lodash-es';
+import Image from 'next/image';
+import React, { useRef, useState } from 'react';
+import styled from 'styled-components';
 
 export const enum UploadType {
   UNIT = 'unit',
@@ -23,6 +29,8 @@ type ImageUploaderProps = {
 
 function ImageUploader({fontId, type}: ImageUploaderProps) {
   const [createObjectURL, setCreateObjectURL] = useState<string>(`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${fontId}_${type}.${getExtension(type)}`);
+  const uploaderRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const uploadToClient = async (event) => {
@@ -70,12 +78,24 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
   return (
     <div>
       <h4 className={'hidden'}>이미지 선택</h4>
-      <InputFileContainer type="file" name="myImage" onChange={uploadToClient}
+      <InputFileContainer ref={uploaderRef} type="file" name="myImage" onChange={uploadToClient}
+                          onError={() => {
+                            setError(true);
+                          }}
                           accept={`image/${getAcceptExtension(type)}`} />
       <div>
         {
-          isLoading ? <Loading /> : <ImageContainer src={createObjectURL} />
-
+          error ? <ImageEmptyUploader onClick={() => {
+              uploaderRef?.current?.click();
+            }}>
+              {
+                isLoading ? <Loading /> :
+                  <Image alt="button-add" src={AddSVG} width="36" height="36" className={'filter_main'} />
+              }
+            </ImageEmptyUploader> :
+            <ImageContainer>
+              <Image alt={'image'} src={createObjectURL} fill />
+            </ImageContainer>
         }
       </div>
     </div>
@@ -85,5 +105,6 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
 const Loading = () => {
   return <span>자동 저장 중...</span>;
 };
+
 
 export default ImageUploader;
