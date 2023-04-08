@@ -33,6 +33,7 @@ export const ModalBackground = styled.div`
   width: calc(100vw - 446px);
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(3px);
 `;
 
 export const ModalWrapper = styled.div`
@@ -56,6 +57,10 @@ export const ModalContentWrapper = styled.div`
 
   .img-archive-wrapper {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 116px;
     height: 116px;
     margin: 68px auto 0 auto;
@@ -180,13 +185,18 @@ export default function ArchiveItemModal({font_id, is_web_font, handleVisible}: 
 /* 텍스트 컬러는 블랙 고정 */
 const UnitFontInModal = ({font_id, is_web_font}: { font_id: number, is_web_font: boolean }) => {
   const {char} = useCharColor({isArchive: false});
+  const [error, setError] = useState<boolean>(false);
 
   return (
     <>
       {
-        is_web_font ? (<span className="char-text" style={{color: black}}>{char}</span>) : (
-          <img className={'char-text  filter_black'}
-               src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`} />)
+        !error && !is_web_font ? (
+            <Image className={'char-text  filter_black'}
+                   fill
+                   alt={`${font_id}의 예시 폰트`}
+                   onError={() => setError(true)}
+                   src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`} />) :
+          <span className="char-text" style={{color: black, fontSize: '100px'}}>{error ? '?' : char}</span>
       }
     </>
   );
