@@ -1,4 +1,4 @@
-import { black, white } from 'common/colors';
+import { black, grey_150, white } from 'common/colors';
 import styled from 'styled-components';
 
 const IMAGE_CONTAINER_HEIGHT = 188;
@@ -9,6 +9,9 @@ export const InputFileContainer = styled.input`
 `;
 export const ImageContainer = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   width: 100%;
   height: ${IMAGE_CONTAINER_HEIGHT}px;
@@ -20,7 +23,7 @@ export const ImageContainer = styled.div`
 `;
 
 
-export const ImageEmptyUploader = styled.div`
+export const ImageUploaderWrapper = styled.div<{ isAdd: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,6 +31,6 @@ export const ImageEmptyUploader = styled.div`
   width: 100%;
   height: ${IMAGE_CONTAINER_HEIGHT}px;
   border-bottom: 2px solid ${black};
-  background-color: ${white};
+  background-color: ${({isAdd}) => (isAdd ? white : grey_150)};
   cursor: pointer;
 `;

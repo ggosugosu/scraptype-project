@@ -1,11 +1,7 @@
 import AddSVG from 'assets/images/ic_add.svg';
-import ArchiveBarcodeSVG from 'assets/images/ic_archive_barcode.svg';
-import { black, white } from 'common/colors';
-import { ImageContainer, ImageEmptyUploader, InputFileContainer } from 'components/ImageUploader/style';
-import { fill } from 'lodash-es';
+import { ImageContainer, ImageUploaderWrapper, InputFileContainer } from 'components/ImageUploader/style';
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
 
 export const enum UploadType {
   UNIT = 'unit',
@@ -52,6 +48,7 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
       setLoading(false);
 
       setCreateObjectURL(URL.createObjectURL(file));
+      setError(false);
     }
     setLoading(false);
   };
@@ -76,29 +73,32 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
   };
 
   return (
-    <div>
+    <section>
       <h4 className={'hidden'}>이미지 선택</h4>
       <InputFileContainer ref={uploaderRef} type="file" name="myImage" onChange={uploadToClient}
                           onError={() => {
+                            console.log('error1');
                             setError(true);
                           }}
                           accept={`image/${getAcceptExtension(type)}`} />
-      <div>
+
+      <ImageUploaderWrapper isAdd={error} onClick={() => {
+        uploaderRef?.current?.click();
+      }}>
         {
-          error ? <ImageEmptyUploader onClick={() => {
-              uploaderRef?.current?.click();
-            }}>
-              {
-                isLoading ? <Loading /> :
-                  <Image alt="button-add" src={AddSVG} width="36" height="36" className={'filter_main'} />
-              }
-            </ImageEmptyUploader> :
+          isLoading ? <Loading /> :
             <ImageContainer>
-              <Image alt={'image'} src={createObjectURL} fill />
+              {
+                error ?
+                  <Image alt="button-add" src={AddSVG} width="36" height="36" className={'filter_main'} />
+                  :
+                  <Image alt={'image'} src={createObjectURL} fill onError={() => setError(true)} />
+              }
+
             </ImageContainer>
         }
-      </div>
-    </div>
+      </ImageUploaderWrapper>
+    </section>
   );
 }
 
