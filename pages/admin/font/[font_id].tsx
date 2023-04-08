@@ -9,7 +9,7 @@ export default function AdminFontPage() {
   const font_id = router.query['font_id'] ?? 'create';
 
   return (
-    <>
+    <section>
       <PageTitle
         title={font_id?.toString() !== 'create' ? 'Font Setting / Edit' : 'Font Setting / Add'}
         endItem={
@@ -20,6 +20,6 @@ export default function AdminFontPage() {
         onClick={() => router.back()}
       />
       <FontForm font_id={font_id?.toString() ?? 'create'} />
-    </>
+    </section>
   );
 }

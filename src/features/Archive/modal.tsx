@@ -150,7 +150,7 @@ export default function ArchiveItemModal({font_id, is_web_font, handleVisible}: 
           </div>
           <div className="detail-view-wrapper">
             <span>{data?.getFontByFontId.name}</span>
-            <Link href="/" passHref>
+            <Link href={`/detail/${font_id}`} passHref>
               detail view
             </Link>
           </div>
