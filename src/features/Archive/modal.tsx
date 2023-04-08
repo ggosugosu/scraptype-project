@@ -3,7 +3,7 @@ import CloseSVG from 'assets/images/ic_close.svg';
 import ModalSVG from 'assets/images/modal_archive.svg';
 import { black, grey_400, main } from 'common/colors';
 import HighlightButton, { HighlightButtonOption, } from 'components/HighlightButton';
-import { GET_FONT_BY_FONT_ID, UPDATE_FONT_TAG } from 'features/Archive/gql';
+import { Archive_FontByFontId, Archive_UpdateFontTag } from 'features/Archive/gql';
 import useCharColor from 'hooks/useCharColor';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -115,10 +115,10 @@ const ContainerTags = ({children}: { children: React.ReactNode }) => {
 };
 
 export default function ArchiveItemModal({font_id, is_web_font, handleVisible}: Props) {
-  const {data, refetch} = useQuery(GET_FONT_BY_FONT_ID, {
+  const {data, refetch} = useQuery(Archive_FontByFontId, {
     variables: {font_id},
   });
-  const [updateFontTags] = useMutation(UPDATE_FONT_TAG);
+  const [updateFontTags] = useMutation(Archive_UpdateFontTag);
 
   const handleSelectedTag = (tag_id: number) => {
     updateFontTags({

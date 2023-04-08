@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import { useQuery } from '@apollo/client';
 import CharContainer from 'components/CharContainer/CharContainer';
-import { GET_FONT_ALL } from 'features/Archive/gql';
+import { Archive_FontAll } from 'features/Archive/gql';
 import ArchiveItemModal from 'features/Archive/modal';
 import { LogoWrapper } from 'features/Archive/style';
 import {
@@ -13,7 +13,7 @@ import {
 } from 'components/CharContainer/Item/CharItem';
 
 export default function Archive() {
-  const {loading, error, data} = useQuery(GET_FONT_ALL);
+  const {loading, error, data} = useQuery(Archive_FontAll);
   const [selectedFontId, setSelectedFontId] = useState<{ font_id: number, is_web_font: boolean }>();
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
   if (loading || error) {
@@ -40,6 +40,8 @@ export default function Archive() {
       <CharContainer>
         {data &&
           data.getFontAll.map((item, index) => {
+            console.log('overview', JSON.stringify(item));
+            console.log('overview', item.is_web_font);
             return (
               <CharItem
                 key={index}

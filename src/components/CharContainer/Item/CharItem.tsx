@@ -50,35 +50,34 @@ export const CharItem = ({
   }, []);
 
   return (
-    <>
-      <CharBox
-        selectedColor={color}
-        fontFamily={webFont ? filterFontFamily(webFont.source) : ''}
-        onClick={() => onClick()}
-      >
-        <Image
-          alt="button-text"
-          src={ArchiveSVG}
-          layout="fill"
-          className={`filter_${color.background}`}
-        />
-        {!errorChar && !is_web_font ? (
-          <Image alt={'바코드'} className={`char-text filter_${color.barcode}`}
-                 onError={() => {
-                   setErrorChar(true);
-                 }}
-                 width={128}
-                 height={128}
-                 src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`} />) : (
-          <span className="char-text">{errorChar ? '?' : char}</span>)}
+    <CharBox
+      selectedColor={color}
+      fontFamily={webFont ? filterFontFamily(webFont.source) : ''}
+      onClick={() => onClick()}
+    >
+      <Image
+        alt="button-text"
+        src={ArchiveSVG}
+        layout="fill"
+        className={`filter_${color.background}`}
+      />
+      {!errorChar && !is_web_font ? (
+        <Image alt={`${name}의 예시 폰트`} className={`char-text filter_${color.barcode}`}
+               onError={() => {
+                 setErrorChar(true);
+               }}
+               width={128}
+               height={128}
+               src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`} />) : (
+        <span className="char-text">{errorChar ? '?' : char}</span>)}
 
-        {isArchive ? (
-          <Barcode color={color} isVisible={!_.isEmpty(tags)} />
-        ) : (
-          <CharName name={name} />
-        )}
-      </CharBox>
-    </>
+      {isArchive ? (
+        <Barcode color={color} isVisible={!_.isEmpty(tags)} />
+      ) : (
+        <CharName name={name} />
+      )}
+    </CharBox>
+
   );
 };
 

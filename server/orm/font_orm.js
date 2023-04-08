@@ -1,6 +1,5 @@
 const { Font, FontTag, Tag, WebFont, ImageFont } = require('../models');
 const { Op } = require('sequelize');
-const sequelize = require('sequelize');
 
 const fontORM = {
   getFontByFontId: ({ font_id }) =>
