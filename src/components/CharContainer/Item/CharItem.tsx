@@ -73,7 +73,7 @@ export const CharItem = ({
           <span className="char-text">{errorChar ? '?' : char}</span>)}
 
         {isArchive ? (
-          <Barcode color={color} isVisible={_.isEmpty(tags)} />
+          <Barcode color={color} isVisible={!_.isEmpty(tags)} />
         ) : (
           <CharName name={name} />
         )}
