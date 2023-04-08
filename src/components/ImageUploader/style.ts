@@ -8,10 +8,15 @@ export const InputFileContainer = styled.input`
   margin-bottom: 8px;
 `;
 export const ImageContainer = styled.div`
+  position: relative;
+
   width: 100%;
   height: ${IMAGE_CONTAINER_HEIGHT}px;
   border-radius: 10px;
-  object-fit: contain;
+
+  img {
+    object-fit: contain;
+  }
 `;
 
 
@@ -19,6 +24,7 @@ export const ImageEmptyUploader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 100%;
   height: ${IMAGE_CONTAINER_HEIGHT}px;
   border-bottom: 2px solid ${black};
