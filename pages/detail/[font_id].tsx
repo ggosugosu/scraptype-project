@@ -11,7 +11,7 @@ export default function FontDetailPage() {
 
     <section>
       <PageTitle title={'Detail View'} onClick={() => router.back()} />
-      <FontDetail font_id={font_id} />
+      <FontDetail font_id={font_id.toString()} />
     </section>
   );
 }
