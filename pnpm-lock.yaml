@@ -8,6 +8,7 @@ importers:
       '@apollo/react-hooks': ^4.0.0
       '@apollo/server': ^4.3.2
       '@aws-sdk/client-s3': ^3.278.0
+      '@stitches/react': ^1.2.8
       '@svgr/webpack': ^6.2.1
       '@types/lodash-es': ^4.17.6
       '@types/mysql': ^2.15.21
@@ -46,6 +47,7 @@ importers:
       '@apollo/react-hooks': 4.0.0_gdcq4dv6opitr3wbfwyjmanyra
       '@apollo/server': 4.3.2_graphql@16.6.0
       '@aws-sdk/client-s3': 3.278.0
+      '@stitches/react': 1.2.8_react@18.2.0
       '@types/lodash-es': 4.17.6
       '@typescript-eslint/eslint-plugin': 5.53.0_wwjgbotzn4fgu7wfasbgt4xrma
       '@typescript-eslint/parser': 5.53.0_77fvizpdb3y4icyeo2mf4eo7em
@@ -99,8 +101,8 @@ packages:
       graphql: 16.6.0
     dev: false
 
-  /@apollo/client/3.7.10_gdcq4dv6opitr3wbfwyjmanyra:
-    resolution: {integrity: sha512-/k1MfrqPKYiPNdHcOzdxg9cEx96vhAGxAcSorzfBvV29XtFQcYW2cPNQOTjK/fpSMtqVo8UNmu5vwQAWD1gfCg==}
+  /@apollo/client/3.7.11_gdcq4dv6opitr3wbfwyjmanyra:
+    resolution: {integrity: sha512-uLg2KtxoAyj9ta7abLxXx8cGRM7HypCkXVmxtL7Ko//N5g37aoJ3ca7VYoFCMUFO1BXBulj+yKVl0U3+ILj5AQ==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5
@@ -193,7 +195,7 @@ packages:
   /@apollo/react-hooks/4.0.0_gdcq4dv6opitr3wbfwyjmanyra:
     resolution: {integrity: sha512-fCu0cbne3gbUl0QbA8X4L33iuuFVQbC5Jo2MIKRK8CyawR6PoxDpFdFA1kc6033ODZuZZ9Eo4RdeJFlFIIYcLA==}
     dependencies:
-      '@apollo/client': 3.7.10_gdcq4dv6opitr3wbfwyjmanyra
+      '@apollo/client': 3.7.11_gdcq4dv6opitr3wbfwyjmanyra
     transitivePeerDependencies:
       - graphql
       - graphql-ws
@@ -2992,6 +2994,14 @@ packages:
   /@rushstack/eslint-patch/1.0.8:
     resolution: {integrity: sha512-ZK5v4bJwgXldAUA8r3q9YKfCwOqoHTK/ZqRjSeRXQrBXWouoPnS4MQtgC4AXGiiBuUu5wxrRgTlv0ktmM4P1Aw==}
     dev: true
+
+  /@stitches/react/1.2.8_react@18.2.0:
+    resolution: {integrity: sha512-9g9dWI4gsSVe8bNLlb+lMkBYsnIKCZTmvqvDG+Avnn69XfmHZKiaMrx7cgTaddq7aTPPmXiTsbFcUy0xgI4+wA==}
+    peerDependencies:
+      react: '>= 16.3.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@svgr/babel-plugin-add-jsx-attribute/6.5.1_@babel+core@7.20.2:
     resolution: {integrity: sha512-9PYGcXrAxitycIjRmZB+Q0JaN07GZIWaTBIGQzfaZv+qr1n8X1XUEJ5rZ/vx6OVD9RRYlrNnXWExQXcmZeD/BQ==}
