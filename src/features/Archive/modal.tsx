@@ -3,7 +3,7 @@ import CloseSVG from 'assets/images/ic_close.svg';
 import ModalSVG from 'assets/images/modal_archive.svg';
 import { black, grey_400, main } from 'common/colors';
 import HighlightButton, { HighlightButtonOption, } from 'components/HighlightButton';
-import { GET_FONT_BY_FONT_ID, UPDATE_FONT_TAG } from 'features/Archive/gql';
+import { Archive_FontByFontId, Archive_UpdateFontTag } from 'features/Archive/gql';
 import useCharColor from 'hooks/useCharColor';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,6 +33,7 @@ export const ModalBackground = styled.div`
   width: calc(100vw - 446px);
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(3px);
 `;
 
 export const ModalWrapper = styled.div`
@@ -56,6 +57,10 @@ export const ModalContentWrapper = styled.div`
 
   .img-archive-wrapper {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 116px;
     height: 116px;
     margin: 68px auto 0 auto;
@@ -115,10 +120,10 @@ const ContainerTags = ({children}: { children: React.ReactNode }) => {
 };
 
 export default function ArchiveItemModal({font_id, is_web_font, handleVisible}: Props) {
-  const {data, refetch} = useQuery(GET_FONT_BY_FONT_ID, {
+  const {data, refetch} = useQuery(Archive_FontByFontId, {
     variables: {font_id},
   });
-  const [updateFontTags] = useMutation(UPDATE_FONT_TAG);
+  const [updateFontTags] = useMutation(Archive_UpdateFontTag);
 
   const handleSelectedTag = (tag_id: number) => {
     updateFontTags({
@@ -180,13 +185,18 @@ export default function ArchiveItemModal({font_id, is_web_font, handleVisible}: 
 /* 텍스트 컬러는 블랙 고정 */
 const UnitFontInModal = ({font_id, is_web_font}: { font_id: number, is_web_font: boolean }) => {
   const {char} = useCharColor({isArchive: false});
+  const [error, setError] = useState<boolean>(false);
 
   return (
     <>
       {
-        is_web_font ? (<span className="char-text" style={{color: black}}>{char}</span>) : (
-          <img className={'char-text  filter_black'}
-               src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`} />)
+        !error && !is_web_font ? (
+            <Image className={'char-text  filter_black'}
+                   fill
+                   alt={`${font_id}의 예시 폰트`}
+                   onError={() => setError(true)}
+                   src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_unit.svg`} />) :
+          <span className="char-text" style={{color: black, fontSize: '100px'}}>{error ? '?' : char}</span>
       }
     </>
   );

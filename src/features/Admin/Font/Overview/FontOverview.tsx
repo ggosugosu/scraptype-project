@@ -2,13 +2,13 @@ import { useQuery } from '@apollo/client';
 import CharContainer from 'components/CharContainer/CharContainer';
 import AddCharItem from 'components/CharContainer/Item/AddCharItem';
 import { CharItem } from 'components/CharContainer/Item/CharItem';
-import { GET_FONT_ALL } from 'features/Admin/Font/Overview/gql';
+import { FontOverview_FontAll } from 'features/Admin/Font/Overview/gql';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 export default function FontOverview() {
   const router = useRouter();
-  const {loading, error, data} = useQuery(GET_FONT_ALL);
+  const {loading, error, data} = useQuery(FontOverview_FontAll);
   if (loading || error) {
     return null;
   }
@@ -23,7 +23,7 @@ export default function FontOverview() {
         <AddCharItem onClick={() => handleClicked('create')} />
         {data &&
           data.getFontAll.map((item, index) => {
-            console.log(item.is_web_font);
+            console.log('admin', item.is_web_font);
             return (
               <CharItem
                 key={index}

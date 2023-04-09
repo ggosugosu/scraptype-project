@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 // TODO: fragment 로 변경
-export const GET_FONT_ALL = gql`
+export const FontOverview_FontAll = gql`
     query {
         getFontAll {
             id

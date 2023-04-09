@@ -4,7 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     dangerouslyAllowSVG: true,
-    domains: ['drive.google.com'],
+    domains: ['drive.google.com', 'tagtype-project-cdn.s3.ap-northeast-2.amazonaws.com'],
   },
   async headers() {
     return [
