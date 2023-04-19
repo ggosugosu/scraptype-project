@@ -1,3 +1,4 @@
+import { styled } from '@stitches/react';
 import PageTitle from 'components/PageTitle';
 import FontDetail from 'features/FontDetail';
 import { useRouter } from 'next/router';
@@ -8,10 +9,13 @@ export default function FontDetailPage() {
   const font_id = router.query['font_id'] ?? '';
 
   return (
-
-    <section>
+    <Section_FontDetailPage>
       <PageTitle title={'Detail View'} onClick={() => router.back()} />
       <FontDetail font_id={font_id.toString()} />
-    </section>
+    </Section_FontDetailPage>
   );
 }
+
+const Section_FontDetailPage = styled('section', {
+  height: '100%'
+});

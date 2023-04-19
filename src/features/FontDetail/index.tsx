@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { styled } from '@stitches/react';
 import { grey_400 } from 'common/colors';
+import { stitchStyled } from 'common/globalStyle';
 import { FontDetail_FontByFontId } from 'features/FontDetail/gql';
 import Image from 'next/image';
 
@@ -12,8 +13,10 @@ const FontDetail = ({font_id}: FontDetailProps) => {
     variables: {font_id: Number(font_id)}
   });
 
+  const Section_ContentWrapper = styleContentWrapper({font_id});
+
   return (
-    <section>
+    <Section_FontDetailWrapper>
       <Section_TitleWrapper>
         <Image src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_title.jpeg`}
                width={554}
@@ -25,16 +28,16 @@ const FontDetail = ({font_id}: FontDetailProps) => {
           <dd>{data?.getFontByFontId.name}</dd>
         </Dl_TitleDescription>
       </Section_TitleWrapper>
-      <Section_ContentWrapper>
-        <Image src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_desktop.jpeg`}
-               width={700}
-               height={1200}
-               style={{objectFit: 'contain'}}
-               alt={`${data?.getFontByFontId.name} 폰트의 콘텐츠`} />
+      <Section_ContentWrapper
+        aria-label={`${data?.getFontByFontId.name} 폰트의 콘텐츠`}>
       </Section_ContentWrapper>
 
-    </section>);
+    </Section_FontDetailWrapper>);
 };
+
+const Section_FontDetailWrapper = styled('section', {
+  height: '100%'
+});
 
 const Section_TitleWrapper = styled('section', {
   position: 'relative',
@@ -58,12 +61,12 @@ const Dl_TitleDescription = styled('dl', {
   },
 
   '& > dd': {
-    marginTop: '20px',
+    margin: '20px 0 0 0 ',
     color: grey_400
   }
 });
 
-const Section_ContentWrapper = styled('section', {
+const styleContentWrapper = ({font_id,}: { font_id: string }) => stitchStyled('section', {
   position: 'relative',
   display: 'flex',
   flexFlow: 'column wrap',
@@ -71,6 +74,13 @@ const Section_ContentWrapper = styled('section', {
   alignItems: 'center',
 
   width: '100%',
+  height: 'inherit',
+  backgroundSize: 'cover',
+  backgroundImage: `url(${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_desktop.jpeg)`,
+
+  '@mobile': {
+    backgroundImage: `url(${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_mobile.jpeg)`
+  }
 });
 
 export default FontDetail;

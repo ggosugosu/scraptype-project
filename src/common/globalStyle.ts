@@ -1,6 +1,13 @@
+import { createStitches } from '@stitches/react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { black, grey_400 } from 'common/colors';
 
+export const {styled: stitchStyled} = createStitches({
+  media: {
+    mobile: '(max-width: 480px)',
+    desktop: '(max-width: 1200px)',
+  },
+});
 export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
@@ -15,7 +22,6 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding-top: 72px;
     padding-left: 60px;
-    padding-right: 60px;
     overflow: hidden;
     @media (max-width: 480px) {
       padding: 0;
