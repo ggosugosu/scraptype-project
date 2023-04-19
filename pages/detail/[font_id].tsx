@@ -16,6 +16,4 @@ export default function FontDetailPage() {
   );
 }
 
-const Section_FontDetailPage = styled('section', {
-  height: '100%'
-});
+const Section_FontDetailPage = styled('section', {});

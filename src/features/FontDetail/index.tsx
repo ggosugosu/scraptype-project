@@ -35,9 +35,7 @@ const FontDetail = ({font_id}: FontDetailProps) => {
     </Section_FontDetailWrapper>);
 };
 
-const Section_FontDetailWrapper = styled('section', {
-  height: '100%'
-});
+const Section_FontDetailWrapper = styled('section', {});
 
 const Section_TitleWrapper = styled('section', {
   position: 'relative',
@@ -74,7 +72,8 @@ const styleContentWrapper = ({font_id,}: { font_id: string }) => stitchStyled('s
   alignItems: 'center',
 
   width: '100%',
-  height: 'inherit',
+  aspectRatio: 844 / 1384,
+  marginBottom: '72px',
   backgroundSize: 'cover',
   backgroundImage: `url(${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_desktop.jpeg)`,
 
