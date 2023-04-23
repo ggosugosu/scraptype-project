@@ -10,13 +10,10 @@ export const enum UploadType {
   DETAIL_MOBILE = 'detail_mobile'
 };
 
-const getExtension = (uploadType: UploadType) => {
-  return uploadType === UploadType.UNIT ? 'svg' : 'jpeg';
-};
 
-const getAcceptExtension = (uploadType: UploadType) => {
-  return uploadType === UploadType.UNIT ? 'svg+xml' : 'jpeg';
-};
+const SVG_EXTENSION = 'svg';
+
+const ACCEPT_EXTENSION = 'svg+xml';
 
 type ImageUploaderProps = {
   fontId: string;
@@ -24,7 +21,7 @@ type ImageUploaderProps = {
 }
 
 function ImageUploader({fontId, type}: ImageUploaderProps) {
-  const [createObjectURL, setCreateObjectURL] = useState<string>(`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${fontId}_${type}.${getExtension(type)}`);
+  const [createObjectURL, setCreateObjectURL] = useState<string>(`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${fontId}_${type}.${SVG_EXTENSION}`);
   const uploaderRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -62,8 +59,8 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
     body.append('id', fontId);
     body.append('file', file);
     body.append('type', type);
-    body.append('extension', getExtension(type));
-    body.append('contentType', `image/${getAcceptExtension(type)}`);
+    body.append('extension', SVG_EXTENSION);
+    body.append('contentType', `image/${ACCEPT_EXTENSION}`);
     console.log('body', body);
 
     await fetch('/api/upload', {
@@ -80,7 +77,7 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
                             console.log('error1');
                             setError(true);
                           }}
-                          accept={`image/${getAcceptExtension(type)}`} />
+                          accept={`image/${ACCEPT_EXTENSION}`} />
 
       <ImageUploaderWrapper isAdd={error} onClick={() => {
         uploaderRef?.current?.click();

@@ -18,7 +18,7 @@ const FontDetail = ({font_id}: FontDetailProps) => {
   return (
     <Section_FontDetailWrapper>
       <Section_TitleWrapper>
-        <Image src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_title.jpeg`}
+        <Image src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_title.svg`}
                width={554}
                height={108}
                style={{objectFit: 'contain'}}
@@ -75,10 +75,10 @@ const styleContentWrapper = ({font_id,}: { font_id: string }) => stitchStyled('s
   aspectRatio: 844 / 1384,
   marginBottom: '72px',
   backgroundSize: 'cover',
-  backgroundImage: `url(${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_desktop.jpeg)`,
+  backgroundImage: `url(${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_desktop.svg)`,
 
   '@mobile': {
-    backgroundImage: `url(${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_mobile.jpeg)`
+    backgroundImage: `url(${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_mobile.svg)`
   }
 });
 

@@ -27,17 +27,17 @@ const ImageFont = ({fontId}: Props) => {
       {
         type: UploadType.TITLE,
         name: 'Title',
-        description: '(Hug x 108 / 1MB / JPEG)',
+        description: '(Hug x 108 / 1MB / SVG)',
       },
       {
         type: UploadType.DETAIL_DESKTOP,
-        name: 'Detail View Contents - PC',
-        description: '( PC / 1MB / JPEG )',
+        name: 'Detail - PC',
+        description: '( 1MB / SVG )',
       },
       {
         type: UploadType.DETAIL_MOBILE,
-        name: 'Detail View Contents - Mobile',
-        description: '( MOBILE / 1MB / JPEG )',
+        name: 'Detail - Mobile',
+        description: '( 1MB / SVG )',
       },
     ];
 
