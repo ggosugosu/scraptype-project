@@ -16,4 +16,6 @@ export default function FontDetailPage() {
   );
 }
 
-const Section_FontDetailPage = styled('section', {});
+const Section_FontDetailPage = styled('section', {
+  width: '100%'
+});

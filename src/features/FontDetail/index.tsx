@@ -3,7 +3,6 @@ import { styled } from '@stitches/react';
 import { grey_400 } from 'common/colors';
 import { stitchStyled } from 'common/globalStyle';
 import { FontDetail_FontByFontId } from 'features/FontDetail/gql';
-import Image from 'next/image';
 
 type FontDetailProps = {
   font_id: string;
@@ -13,29 +12,33 @@ const FontDetail = ({font_id}: FontDetailProps) => {
     variables: {font_id: Number(font_id)}
   });
 
-  const Section_ContentWrapper = styleContentWrapper({font_id});
 
   return (
     <Section_FontDetailWrapper>
       <Section_TitleWrapper>
-        <Image src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_title.svg`}
-               width={554}
-               height={108}
-               style={{objectFit: 'contain'}}
-               alt={`${data?.getFontByFontId.name} 폰트의 타이틀`} />
+        <img src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_title.svg`}
+             style={{objectFit: 'contain'}}
+             alt={`${data?.getFontByFontId.name} 폰트의 타이틀`} />
         <Dl_TitleDescription>
           <dt>타이틀</dt>
           <dd>{data?.getFontByFontId.name}</dd>
         </Dl_TitleDescription>
       </Section_TitleWrapper>
-      <Section_ContentWrapper
-        aria-label={`${data?.getFontByFontId.name} 폰트의 콘텐츠`}>
-      </Section_ContentWrapper>
 
+      <Section_ContentWrapper>
+        <Img_DesktopTablet src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_desktop.svg`}
+                           alt={`${data?.getFontByFontId.name} 폰트의 콘텐츠`} />
+        <Img_Mobile src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_mobile.svg`}
+                    alt={`${data?.getFontByFontId.name} 폰트의 콘텐츠`} />
+      </Section_ContentWrapper>
     </Section_FontDetailWrapper>);
 };
 
-const Section_FontDetailWrapper = styled('section', {});
+const Section_FontDetailWrapper = styled('section', {
+  width: '100%',
+  maxWidth: '844px',
+  margin: '0 auto'
+});
 
 const Section_TitleWrapper = styled('section', {
   position: 'relative',
@@ -64,7 +67,7 @@ const Dl_TitleDescription = styled('dl', {
   }
 });
 
-const styleContentWrapper = ({font_id,}: { font_id: string }) => stitchStyled('section', {
+const Section_ContentWrapper = stitchStyled('section', {
   position: 'relative',
   display: 'flex',
   flexFlow: 'column wrap',
@@ -72,13 +75,24 @@ const styleContentWrapper = ({font_id,}: { font_id: string }) => stitchStyled('s
   alignItems: 'center',
 
   width: '100%',
-  aspectRatio: 844 / 1384,
   marginBottom: '72px',
-  backgroundSize: 'cover',
-  backgroundImage: `url(${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_desktop.svg)`,
+  padding: '24px 16px',
+});
 
+const Img_DesktopTablet = stitchStyled('img', {
+  maxWidth: '100%',
+  height: 'auto',
   '@mobile': {
-    backgroundImage: `url(${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_mobile.svg)`
+    display: 'none'
+  }
+});
+
+const Img_Mobile = stitchStyled('img', {
+  display: 'none',
+  maxWidth: '100%',
+  height: 'auto',
+  '@mobile': {
+    display: 'block'
   }
 });
 

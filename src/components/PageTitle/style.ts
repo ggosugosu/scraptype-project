@@ -1,20 +1,24 @@
-import styled from 'styled-components';
+import { stitchStyled } from 'common/globalStyle';
 
-export const PageTitleStyle = styled.header`
-  display: grid;
-  grid-template-columns: 48px 1fr auto;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
-  height: 48px;
+export const PageTitleStyle = stitchStyled('header', {
+  position: 'sticky',
+  top: 0,
+  display: 'grid',
+  gridTemplateColumns: '48px 1fr auto',
+  flexFlow: 'row wrap',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  gap: '8px',
+  height: '48px',
+  zIndex: '3',
+  backgroundColor: 'rgba(255, 255, 255, 0.8)',
 
-  span {
-    font-weight: 500;
-    font-size: 32px;
+  span: {
+    fontWeight: 500,
+    fontSize: '32px',
+  },
+
+  img: {
+    cursor: 'pointer'
   }
-
-  img {
-    cursor: pointer;
-  }
-`;
+});
