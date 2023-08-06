@@ -7,6 +7,25 @@ export const {styled: stitchStyled} = createStitches({
     mobile: '(max-width: 480px)',
     desktop: '(max-width: 1200px)',
   },
+  theme: {
+    colors: {
+      black: '#313338',
+      grey_400: '#6A6B6E',
+      grey_300: '#C5C6C8',
+      grey_200: '#D5D6D8',
+      grey_150: '#E9E9E9',
+      grey_100: '#F1F1F1',
+      white: '#FFFFFF',
+      main_light: '#6FFFCB',
+      main: '#19D29A',
+      texas_rose: '#FFB15B',
+      hot_pink: '#FF5CC4',
+      torea_bay: '#0836A6',
+      cerulean: '#009CCF',
+      java: '#1AE4A7',
+      turbo: '#FFEA00',
+    },
+  }
 });
 export const GlobalStyle = createGlobalStyle`
   * {

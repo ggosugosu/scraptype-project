@@ -24,6 +24,24 @@ const FontDetail = ({font_id}: FontDetailProps) => {
           <dd>{data?.getFontByFontId.name}</dd>
         </Dl_TitleDescription>
       </Section_TitleWrapper>
+      <Section_TagsWrapper>
+        <Div_TagWrapper>
+          <span>
+            Tag
+          </span>
+          <span>
+            태그 텍스트 1, 태그 텍스트 2
+          </span>
+        </Div_TagWrapper>
+        <Div_TagWrapper>
+          <span>
+            Memo
+          </span>
+          <span>
+            메모를 작성합니다.
+          </span>
+        </Div_TagWrapper>
+      </Section_TagsWrapper>
 
       <Section_ContentWrapper>
         <Img_DesktopTablet src={`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${font_id}_detail_desktop.svg`}
@@ -64,6 +82,33 @@ const Dl_TitleDescription = styled('dl', {
   '& > dd': {
     margin: '20px 0 0 0 ',
     color: grey_400
+  }
+});
+
+const Section_TagsWrapper = stitchStyled('section', {
+  position: 'relative',
+  width: '100%',
+});
+
+const Div_TagWrapper = stitchStyled('div', {
+  display: 'grid',
+  gridTemplateColumns: '62px 1fr',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-start',
+  padding: '16px 12px',
+  width: '100%',
+  color: '$black',
+
+  ':first-of-type': {
+    display: 'flex',
+    alignItems: 'center',
+    height: '26px',
+    lineHeight: 1.2,
+    fontWeight: 600,
+  },
+
+  '& + &': {
+    borderTop: '1px solid #E5E5E5'
   }
 });
 
