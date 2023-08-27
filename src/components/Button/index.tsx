@@ -4,7 +4,7 @@ import ButtonSVG from 'assets/images/ic_button.svg';
 import { ButtonNegativeStyle, ButtonPositiveStyle } from 'components/Button/style';
 
 interface buttonProps {
-  enabled: boolean | string;
+  enabled: boolean;
   text: string;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
