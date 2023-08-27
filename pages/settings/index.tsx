@@ -5,12 +5,13 @@ import { useRouter } from 'next/router';
 import useDbStateQuery from 'queries/useDbStateQuery';
 import React from 'react';
 
-type DbStateType = 'starting' | 'available' | 'stopping' | 'stopped';
+type DbStateType = 'starting' | 'available' | 'stopping' | 'stopped' | 'rebooting';
 const DB_STATES_DESCRIPTION: Record<DbStateType, string> = {
   'starting': '시작 중',
   'available': '사용 가능',
   'stopping': '정지 중',
   'stopped': '정지',
+  'rebooting': '재부팅 중'
 };
 const SettingsPage = () => {
   const router = useRouter();
