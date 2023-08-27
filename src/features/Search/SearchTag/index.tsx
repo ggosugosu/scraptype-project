@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-
-import { GET_TAGS } from 'features/Search/SearchTag/gql';
 import { useQuery } from '@apollo/client';
-import SearchTagItem from 'features/Search/SearchTag/SearchTagItem';
-
-import { SearchTagWrapper, Container, ButtonContainer } from 'features/Search/SearchTag/style';
 import { ButtonNegative, ButtonPositive } from 'components/Button';
 import PageTitle from 'components/PageTitle';
+
+import { GET_TAGS } from 'features/Search/SearchTag/gql';
+import SearchTagItem from 'features/Search/SearchTag/SearchTagItem';
+
+import { ButtonContainer, Container, SearchTagWrapper } from 'features/Search/SearchTag/style';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 
 interface TagType {
   id: Number;
@@ -19,18 +19,15 @@ export default function SearchTag() {
   const {loading, error, data} = useQuery(GET_TAGS);
   const [selectedList, setSelectedList] = useState<TagType[]>([]);
 
-  useEffect(() => {
-    if (data == null) return;
-    const list: TagType[] = data.getTagAll.map((item) => {
-      item.id, item.name;
-    });
-    setSelectedList(list);
-  }, [selectedList]);
-  
   const selectedTag = (item: TagType) => {
-    // eslint-disable-next-line react/prop-types
-    if (selectedList.some((e) => e.id === item.id)) setSelectedList((props) => props.filter((p) => p.id !== item.id));
-    else setSelectedList((props) => [...props, item]);
+    if (selectedList.some((e) => e.id === item.id)) {
+      setSelectedList((prev) => {
+        return prev.filter((p: TagType) => p.id !== item.id);
+      });
+      return;
+    }
+
+    setSelectedList((prev) => [...prev, item]);
   };
 
   if (!router.isReady || loading || error) return null;
