@@ -58,7 +58,7 @@ export default function SearchFont() {
           <InputText id={'input-font-name'} placeholder={'폰트 이름을 적어주세요.'} value={text} fixed={false}
                      onChange={handleTextChange} />
           <ButtonPositive
-            enabled={(corporation || text)}
+            enabled={corporation.length !== 0 || text.length !== 0}
             text="검색하기"
             type="submit"
           />
