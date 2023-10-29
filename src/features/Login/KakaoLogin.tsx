@@ -5,7 +5,9 @@ const KakaoLogin = () => {
     if (window?.Kakao !== undefined) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_APP_KEY);
 
-      window.Kakao.Auth.authorize();
+      window.Kakao.Auth.authorize({
+        redirectUri: 'http://localhost:3000/login/kakao',
+      });
     }
   };
 
