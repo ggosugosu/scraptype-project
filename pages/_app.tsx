@@ -7,6 +7,7 @@ import { GlobalStyle } from 'common/globalStyle';
 
 import 'assets/fonts/fonts.css';
 import 'common/filterColor.css';
+import Script from 'next/script';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
           <GlobalStyle />
+          <Scripts />
           <Layout>
             <Component {...pageProps} />
           </Layout>
@@ -28,4 +30,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
+const Scripts = () => {
+  return (
+    <Script
+      src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js"
+      integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH"
+      crossOrigin="anonymous"
+    ></Script>
+  );
+};
 export default MyApp;
