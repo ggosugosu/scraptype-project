@@ -8,6 +8,7 @@ import { GlobalStyle } from 'common/globalStyle';
 import 'assets/fonts/fonts.css';
 import 'common/filterColor.css';
 import Script from 'next/script';
+import { CookiesProvider } from 'react-cookie';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -18,13 +19,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
-          <GlobalStyle />
-          <Scripts />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </RecoilRoot>
+        <CookiesProvider>
+          <RecoilRoot>
+            <GlobalStyle />
+            <Scripts />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </RecoilRoot>
+        </CookiesProvider>
       </QueryClientProvider>
     </ApolloProvider>
   );
