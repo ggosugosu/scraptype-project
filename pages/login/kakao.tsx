@@ -1,6 +1,6 @@
+import { setCookie } from 'features/utils';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import Cookies from 'js-cookie';
 
 import useKakaoLoginMutation from '../../src/mutations/useKakaoLoginMutation';
 
@@ -17,7 +17,7 @@ const KakaoRedirectPage = () => {
     mutate(query.code.toString(), {
       onSuccess: (data) => {
         console.log('at', data['access_token']);
-        document.cookie = `tagtype_user=${data['access_token']}`;
+        setCookie('tagtype_user', data['access_token']);
       },
       onError: (error) => {
         console.error(error);
