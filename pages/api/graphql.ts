@@ -1,6 +1,8 @@
 import { createSchema, createYoga } from 'graphql-yoga';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { Session } from 'next-auth';
+import { getSession } from 'next-auth/react';
 import fontORM from '../../server/orm/font_orm';
 import fontTagORM from '../../server/orm/font_tag_orm';
 import imageFontORM from '../../server/orm/image_font_orm';
@@ -8,6 +10,22 @@ import tagORM from '../../server/orm/tag_orm';
 import webFontORM from '../../server/orm/web_font_orm';
 
 const typeDefs = `
+    type User {
+      id: String!
+      name: String!
+      email: String!
+      image: String!
+    }
+
+    type Session {
+      user: User!
+      expires: String!
+    }
+
+    type Query {
+      session: Session
+    }
+
     type Font {
         id: Int
         name: String
@@ -115,6 +133,9 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
+    session(_source, _args, context) {
+      return context.session ?? null
+    },
     getFontByFontId: (_, {font_id}) => fontORM.getFontByFontId({font_id}),
     getFontAll: () => fontORM.getFontAll(),
     getFontsByTagId: (_, {tag_ids}) => fontORM.getFontsByTagId({tag_ids}),
@@ -216,17 +237,27 @@ const resolvers = {
     updateTag: (_, {id, name}) => tagORM.updateTag({id, name}),
     deleteTagByTagId: (_, {tag_id}) => tagORM.deleteTagByTagId({tag_id}),
   },
+  User: {
+    id(source) {
+      return source['email']
+    },
+  },
 };
 
 const schema = createSchema<{
   req: NextApiRequest
   res: NextApiResponse
-}>({resolvers, typeDefs});
+} & { session: Session }>({resolvers, typeDefs});
 
 export default createYoga<{
   req: NextApiRequest
   res: NextApiResponse
-}>({
+},{ session: Session }>({
+  context: async ({req}) => {``
+    return {
+      session: await getSession({req}) ?? new Session()
+    }
+  },
   schema,
   // Needed to be defined explicitly because our endpoint lives at a different path other than `/graphql`
   graphqlEndpoint: '/api/graphql',

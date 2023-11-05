@@ -1,12 +1,13 @@
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { GlobalStyle } from 'common/globalStyle';
+import Layout from 'components/Layout';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import Layout from 'components/Layout';
-import { GlobalStyle } from 'common/globalStyle';
 
 import 'assets/fonts/fonts.css';
 import 'common/filterColor.css';
+import { SessionProvider } from 'next-auth/react';
 import Script from 'next/script';
 import { CookiesProvider } from 'react-cookie';
 
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
   const queryClient = new QueryClient();
   return (
+    <SessionProvider session={pageProps.session}>
     <ApolloProvider client={client}>
       <QueryClientProvider client={queryClient}>
         <CookiesProvider>
@@ -30,6 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </CookiesProvider>
       </QueryClientProvider>
     </ApolloProvider>
+    </SessionProvider>
   );
 }
 
