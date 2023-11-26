@@ -1,4 +1,3 @@
-import axios from 'axios';
 import NextAuth from 'next-auth';
 import KakaoProvider from 'next-auth/providers/kakao';
 
@@ -18,61 +17,23 @@ export default NextAuth({
   ],
   callbacks: {
     async signIn(data) {
-      // console.log('기존 데이터', JSON.stringify(data));
-      // console.log('endpoint', process.env.NEXT_PUBLIC_HOST);
-      // console.log('kakao_id', data.user.id);
-      // console.log(
-      //   'body',
-      //   JSON.stringify({
-      //     query: CREATE_USER({
-      //       kakao_id: data.user.id,
-      //       name: data.user.name,
-      //       email: data.user.email,
-      //     }),
-      //   })
-      // );
-
-      // fetch(process.env.NEXT_PUBLIC_HOST ?? '', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     query: CREATE_USER({
-      //       kakao_id: data.user.id,
-      //       name: data.user.name,
-      //       email: data.user.email,
-      //     }),
-      //   }),
-      // })
-      //   .then((res) => {
-      //     return res.json();
-      //   })
-      //   .then((json) => console.log(JSON.stringify(json.data, null, 2)))
-      //   .catch((err) => console.log(err));
-
-      axios
-        .post(
-          process.env.NEXT_PUBLIC_HOST ?? '',
-          {
-            query: CREATE_USER({
-              kakao_id: data.user.id,
-              name: data.user.name,
-              email: data.user.email,
-            }),
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        )
-        .then((response) => {
-          console.log('success!!', response.data);
+      fetch(process.env.NEXT_PUBLIC_HOST ?? '', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: CREATE_USER({
+            kakao_id: data.user.id,
+            name: data.user.name,
+            email: data.user.email,
+          }),
+        }),
+      })
+        .then((res) => {
+          return res.json();
         })
-        .catch((error) => {
-          console.error('Error!!', error);
-        });
+        .catch((err) => console.error(err));
 
       const isAllowedToSignIn = true;
       if (isAllowedToSignIn) {
