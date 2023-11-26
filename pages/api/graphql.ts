@@ -2,19 +2,19 @@ import { createSchema, createYoga } from 'graphql-yoga';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { Session } from 'next-auth';
-import { getSession } from 'next-auth/react';
 import fontORM from '../../server/orm/font_orm';
 import fontTagORM from '../../server/orm/font_tag_orm';
 import imageFontORM from '../../server/orm/image_font_orm';
 import tagORM from '../../server/orm/tag_orm';
+import userORM from '../../server/orm/user_orm';
 import webFontORM from '../../server/orm/web_font_orm';
 
 const typeDefs = `
     type User {
-      id: String!
-      name: String!
-      email: String!
-      image: String!
+      id: Int!
+      name: String
+      email: String
+      kakao_id: String!
     }
 
     type Session {
@@ -85,6 +85,7 @@ const typeDefs = `
     }
 
     type Mutation {
+        createUser(name: String!, email: String!, kakao_id: String!): User
         createFontTag(font_id: Int!, tag_id: Int!): FontTag
         deleteFontTag(id: Int!): FontTag
         updateFontTag(font_id: Int, tag_id: Int): Boolean
@@ -134,34 +135,37 @@ const typeDefs = `
 const resolvers = {
   Query: {
     session(_source, _args, context) {
-      return context.session ?? null
+      return context.session ?? null;
     },
-    getFontByFontId: (_, {font_id}) => fontORM.getFontByFontId({font_id}),
+    getFontByFontId: (_, { font_id }) => fontORM.getFontByFontId({ font_id }),
     getFontAll: () => fontORM.getFontAll(),
-    getFontsByTagId: (_, {tag_ids}) => fontORM.getFontsByTagId({tag_ids}),
-    getFontsByCorpAndText: (_, {corporation, text}) =>
-      fontORM.getFontsByCorpAndText({corporation, text}),
+    getFontsByTagId: (_, { tag_ids }) => fontORM.getFontsByTagId({ tag_ids }),
+    getFontsByCorpAndText: (_, { corporation, text }) =>
+      fontORM.getFontsByCorpAndText({ corporation, text }),
     getCorporationAll: () => fontORM.getCorporationAll(),
 
     getTagAll: () => tagORM.getTagAll(),
-    getTagsByTagId: (_, {tag_ids}) => tagORM.getTagsByTagId({tag_ids}),
+    getTagsByTagId: (_, { tag_ids }) => tagORM.getTagsByTagId({ tag_ids }),
 
     getFontTagAll: () => fontTagORM.getFontTagAll(),
-    getFontTags: (_, {tag_ids}) => fontTagORM.getFontTags({tag_ids}),
+    getFontTags: (_, { tag_ids }) => fontTagORM.getFontTags({ tag_ids }),
 
     getWebFontAll: () => webFontORM.getWebFontAll(),
     getImageFontAll: () => imageFontORM.getImageFontAll(),
   },
   Mutation: {
-    createFontTag: (_, {font_id, tag_id}) =>
-      fontTagORM.createFontTag({font_id, tag_id}),
-    deleteFontTag: (_, {id}) => fontTagORM.deleteFontTag({id}),
-    updateFontTag: (_, {font_id, tag_id}) =>
-      fontTagORM.updateFontTag({font_id, tag_id}),
+    createUser: (_, { name, email, kakao_id }) =>
+      userORM.createUser({ name, email, kakao_id }),
+
+    createFontTag: (_, { font_id, tag_id }) =>
+      fontTagORM.createFontTag({ font_id, tag_id }),
+    deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
+    updateFontTag: (_, { font_id, tag_id }) =>
+      fontTagORM.updateFontTag({ font_id, tag_id }),
 
     createWebFont: (
       _,
-      {name, description, corporation, is_web_font, source}
+      { name, description, corporation, is_web_font, source }
     ) =>
       webFontORM.createWebFont({
         name,
@@ -172,7 +176,7 @@ const resolvers = {
       }),
     updateWebFont: (
       _,
-      {font_id, name, description, corporation, is_web_font, source}
+      { font_id, name, description, corporation, is_web_font, source }
     ) =>
       webFontORM.updateWebFont({
         font_id,
@@ -231,39 +235,49 @@ const resolvers = {
         detail_mobile,
         detail_pc,
       }),
-    deleteFontByFontId: (_, {font_id}) =>
-      fontORM.deleteFontByFontId({font_id}),
-    createTag: (_, {name}) => tagORM.createTag({name}),
-    updateTag: (_, {id, name}) => tagORM.updateTag({id, name}),
-    deleteTagByTagId: (_, {tag_id}) => tagORM.deleteTagByTagId({tag_id}),
+    deleteFontByFontId: (_, { font_id }) =>
+      fontORM.deleteFontByFontId({ font_id }),
+    createTag: (_, { name }) => tagORM.createTag({ name }),
+    updateTag: (_, { id, name }) => tagORM.updateTag({ id, name }),
+    deleteTagByTagId: (_, { tag_id }) => tagORM.deleteTagByTagId({ tag_id }),
   },
   User: {
     id(source) {
-      return source['email']
+      return source;
     },
   },
 };
 
-const schema = createSchema<{
-  req: NextApiRequest
-  res: NextApiResponse
-} & { session: Session }>({resolvers, typeDefs});
+const schema = createSchema<
+  {
+    req: NextApiRequest;
+    res: NextApiResponse;
+  } & { session: Session }
+>({ resolvers, typeDefs });
 
-export default createYoga<{
-  req: NextApiRequest
-  res: NextApiResponse
-},{ session: Session }>({
-  context: async ({req}) => {``
-    return {
-      session: await getSession({req}) ?? new Session()
-    }
+export default createYoga<
+  {
+    req: NextApiRequest;
+    res: NextApiResponse;
   },
+  { session: Session }
+>({
+  // context: async ({ req }) => {
+  //   const session = await getSession({ req });
+  //   console.log('sessionreq', session);
+  //   if (session === null) {
+  //     throw new Error('No session found');
+  //   }
+
+  //   return {
+  //     session,
+  //   };
+  // },
   schema,
   // Needed to be defined explicitly because our endpoint lives at a different path other than `/graphql`
   graphqlEndpoint: '/api/graphql',
-  graphiql: process.env.NODE_ENV !== 'production'
+  graphiql: process.env.NODE_ENV !== 'production',
 });
-
 
 export const config = {
   api: {

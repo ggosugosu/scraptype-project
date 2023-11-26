@@ -1,5 +1,4 @@
 import { toQueryParams } from 'features/utils';
-import { forEach, map } from 'lodash-es';
 import { useMutation } from 'react-query';
 
 const useKakaoLoginMutation = () =>

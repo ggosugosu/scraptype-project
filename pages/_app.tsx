@@ -19,19 +19,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
   return (
     <SessionProvider session={pageProps.session}>
-    <ApolloProvider client={client}>
-      <QueryClientProvider client={queryClient}>
-        <CookiesProvider>
-          <RecoilRoot>
-            <GlobalStyle />
-            <Scripts />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </RecoilRoot>
-        </CookiesProvider>
-      </QueryClientProvider>
-    </ApolloProvider>
+      <ApolloProvider client={client}>
+        <QueryClientProvider client={queryClient}>
+          <CookiesProvider>
+            <RecoilRoot>
+              <GlobalStyle />
+              <Scripts />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </RecoilRoot>
+          </CookiesProvider>
+        </QueryClientProvider>
+      </ApolloProvider>
     </SessionProvider>
   );
 }
