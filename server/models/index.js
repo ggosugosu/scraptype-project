@@ -1,6 +1,6 @@
 'use strict';
-import { Sequelize } from 'sequelize';
 import mysql2 from 'mysql2';
+import { Sequelize } from 'sequelize';
 
 
 const sequelize = new Sequelize(
@@ -17,11 +17,12 @@ const sequelize = new Sequelize(
   }
 );
 
-const Font = require('./font')(sequelize, Sequelize);
-const Tag = require('./tag')(sequelize, Sequelize);
-const FontTag = require('./font_tag')(sequelize, Sequelize);
-const WebFont = require('./web_font')(sequelize, Sequelize);
-const ImageFont = require('./image_font')(sequelize, Sequelize);
+const User = require('./user').default(sequelize, Sequelize);
+const Font = require('./font').default(sequelize, Sequelize);
+const Tag = require('./tag').default(sequelize, Sequelize);
+const FontTag = require('./font_tag').default(sequelize, Sequelize);
+const WebFont = require('./web_font').default(sequelize, Sequelize);
+const ImageFont = require('./image_font').default(sequelize, Sequelize);
 
 
 // Association
@@ -35,4 +36,4 @@ WebFont.belongsTo(Font, { foreignKey: 'font_id', as: 'font' });
 ImageFont.belongsTo(Font, { foreignKey: 'font_id', as: 'font' });
 
 
-module.exports = { sequelize, Sequelize, Font, Tag, FontTag, WebFont, ImageFont };
+module.exports = { sequelize, Sequelize, User, Font, Tag, FontTag, WebFont, ImageFont };
