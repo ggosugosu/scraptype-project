@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) =>
   sequelize.define(
-    'Tag',
+    'User',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,9 +8,18 @@ export default (sequelize, DataTypes) =>
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
+      kakao_id: {
         type: DataTypes.STRING(10),
         allowNull: false,
+      },
+      name: {
+        type: DataTypes.STRING(45),
+      },
+      email: {
+        type: DataTypes.STRING(60),
+      },
+      role: {
+        type: DataTypes.STRING(10),
       },
     },
     {

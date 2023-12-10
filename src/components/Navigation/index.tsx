@@ -1,5 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+import iconFont from 'assets/images/ic_font.svg';
+import iconHash from 'assets/images/ic_hash.svg';
+import iconName from 'assets/images/ic_name_default.svg';
+import iconNameMobile from 'assets/images/ic_name_mobile.svg';
+import iconSettings from 'assets/images/ic_settings_default.svg';
+import settingsDropSVG from 'assets/images/ic_settings_drop.svg';
+import iconSettingsMobile from 'assets/images/ic_settings_mobile.svg';
+import iconTag from 'assets/images/ic_tag_default.svg';
+import iconTagMobile from 'assets/images/ic_tag_mobile.svg';
+import logoBistro from 'assets/images/logo_bistro.svg';
+import logoLg from 'assets/images/logo_lg.svg';
+import logoSm from 'assets/images/logo_sm.svg';
+import { windowWideState } from 'components/Navigation/atom';
 import {
   DropSettingItemStyle,
   DropSettingItemWrapperStyle,
@@ -8,30 +19,21 @@ import {
   NavBarStyle,
   NavButton,
   NavButtons,
-  NavDesc
+  NavDesc,
 } from 'components/Navigation/style';
 import Image from 'next/image';
-import iconTag from 'assets/images/ic_tag_default.svg';
-import iconName from 'assets/images/ic_name_default.svg';
-import iconSettings from 'assets/images/ic_settings_default.svg';
-import iconFont from 'assets/images/ic_font.svg';
-import iconHash from 'assets/images/ic_hash.svg';
-import iconTagMobile from 'assets/images/ic_tag_mobile.svg';
-import iconNameMobile from 'assets/images/ic_name_mobile.svg';
-import iconSettingsMobile from 'assets/images/ic_settings_mobile.svg';
-import settingsDropSVG from 'assets/images/ic_settings_drop.svg';
-import logoLg from 'assets/images/logo_lg.svg';
-import logoSm from 'assets/images/logo_sm.svg';
-import logoBistro from 'assets/images/logo_bistro.svg';
-import { useRecoilState } from 'recoil';
-import { windowWideState } from 'components/Navigation/atom';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import Account from './Account';
 
 export default function Navigation() {
   const router = useRouter();
   const [width, setWidth] = useState(0);
   const [isWide, setIsWide] = useRecoilState(windowWideState);
   const [openSettings, setOpenSettings] = useState<boolean>(false);
+  // const session = useSession();
 
   const handleClickSettings = () => setOpenSettings(!openSettings);
 
@@ -67,17 +69,24 @@ export default function Navigation() {
         <br />
         I&apos;m glad we were able to create this site.
       </NavDesc>
+      <Account />
 
       <NavButtons>
         <li className={'nav-button'}>
           <NavButton onClick={handleClickSettings}>
             <span>Settings</span>
-            <Image src={isWide ? iconSettings : iconSettingsMobile} alt="icon-settings" />
+            <Image
+              src={isWide ? iconSettings : iconSettingsMobile}
+              alt="icon-settings"
+            />
           </NavButton>
-          {
-            openSettings &&
+          {openSettings && (
             <DropSettingsWrapperStyle>
-              <Image src={settingsDropSVG} alt="settings-drop" className="bg-settings-drop filter_main" />
+              <Image
+                src={settingsDropSVG}
+                alt="settings-drop"
+                className="bg-settings-drop filter_main"
+              />
               <DropSettingsStyle>
                 <DropSettingItemWrapperStyle>
                   <Link href="/admin/font" passHref>
@@ -101,23 +110,23 @@ export default function Navigation() {
                 </DropSettingItemWrapperStyle>
               </DropSettingsStyle>
             </DropSettingsWrapperStyle>
-          }
+          )}
         </li>
         <li className={'nav-button'}>
-
           <NavButton onClick={() => handleChangePage('/search/tag')}>
             <span>Tag Search</span>
             <Image src={isWide ? iconTag : iconTagMobile} alt="icon-tag" />
           </NavButton>
-
         </li>
         <li className={'nav-button'}>
-
           <NavButton onClick={() => handleChangePage('/search/font')}>
             <span>Name Search</span>
-            <Image src={isWide ? iconName : iconNameMobile} alt="icon-name" className="nav-icon" />
+            <Image
+              src={isWide ? iconName : iconNameMobile}
+              alt="icon-name"
+              className="nav-icon"
+            />
           </NavButton>
-
         </li>
         <li className={'nav-button'}>
           <Image src={logoBistro} alt="logo-bistro" />

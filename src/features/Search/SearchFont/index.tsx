@@ -6,12 +6,16 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { GET_CORPORATION_ALL } from 'features/Search/SearchFont/gql';
 import ArrowDownSVG from 'assets/images/ic_arrow_down.svg';
-import { FlexWrapperStyle, SelectorWrapperStyle, SelectorStyle } from 'features/Search/SearchFont/style';
+import {
+  FlexWrapperStyle,
+  SelectorWrapperStyle,
+  SelectorStyle,
+} from 'features/Search/SearchFont/style';
 import InputText from 'components/InputText';
 
 export default function SearchFont() {
   const router = useRouter();
-  const {loading, error, data} = useQuery(GET_CORPORATION_ALL);
+  const { loading, error, data } = useQuery(GET_CORPORATION_ALL);
   const [corporation, setCorporation] = useState<string>('');
   const [text, setText] = useState<string>('');
 
@@ -28,7 +32,7 @@ export default function SearchFont() {
 
     await router.push({
       pathname: '/search/font/result',
-      query: {type: 'font', corporation: `${corporation}`, text: `${text}`},
+      query: { type: 'font', corporation: `${corporation}`, text: `${text}` },
     });
   };
 
@@ -40,11 +44,17 @@ export default function SearchFont() {
       <section>
         <FlexWrapperStyle onSubmit={handleSubmit}>
           <SelectorWrapperStyle>
-            <label className={'hidden'} htmlFor={'selector-corporation'}>제작사 전체</label>
+            <label className={'hidden'} htmlFor={'selector-corporation'}>
+              제작사 전체
+            </label>
             <div className="arrow_wrapper">
               <Image alt="arrow" src={ArrowDownSVG} layout="fill" />
             </div>
-            <SelectorStyle id={'selector-corporation'} value={corporation} onChange={handleCorporationChange}>
+            <SelectorStyle
+              id={'selector-corporation'}
+              value={corporation}
+              onChange={handleCorporationChange}
+            >
               <option value={''}>제작사 전체</option>
               {data &&
                 data.getCorporationAll.map((item, index) => (
@@ -54,9 +64,16 @@ export default function SearchFont() {
                 ))}
             </SelectorStyle>
           </SelectorWrapperStyle>
-          <label className={'hidden'} htmlFor={'input-font-name'}>폰트 이름을 적어주세요.</label>
-          <InputText id={'input-font-name'} placeholder={'폰트 이름을 적어주세요.'} value={text} fixed={false}
-                     onChange={handleTextChange} />
+          <label className={'hidden'} htmlFor={'input-font-name'}>
+            폰트 이름을 적어주세요.
+          </label>
+          <InputText
+            id={'input-font-name'}
+            placeholder={'폰트 이름을 적어주세요.'}
+            value={text}
+            fixed={false}
+            onChange={handleTextChange}
+          />
           <ButtonPositive
             enabled={corporation.length !== 0 || text.length !== 0}
             text="검색하기"
