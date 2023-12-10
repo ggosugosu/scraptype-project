@@ -10,6 +10,7 @@ const CREATE_USER = ({ kakao_id, name, email }) => `
         }
     }
 `;
+
 export default NextAuth({
   providers: [
     KakaoProvider({

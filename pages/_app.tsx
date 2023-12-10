@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     cache: new InMemoryCache(),
   });
   const queryClient = new QueryClient();
+
   return (
     <SessionProvider session={pageProps.session}>
       <ApolloProvider client={client}>
