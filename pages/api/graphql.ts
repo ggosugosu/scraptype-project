@@ -18,6 +18,13 @@ const typeDefs = `
       role: String
     }
 
+    type Auth {
+      id: Int!
+      user_id: Int!
+      token: String
+      expired_at: String
+    }
+
     type Session {
       user: User!
       expires: String!
@@ -86,7 +93,7 @@ const typeDefs = `
     }
 
     type Mutation {
-        createUser(name: String!, email: String!, kakao_id: String!): User
+        createUser(name: String!, email: String!, kakao_id: String!, token: String!, expired_at: String!): Auth
         createFontTag(font_id: Int!, tag_id: Int!): FontTag
         deleteFontTag(id: Int!): FontTag
         updateFontTag(font_id: Int, tag_id: Int): Boolean
@@ -155,15 +162,22 @@ const resolvers = {
     getImageFontAll: () => imageFontORM.getImageFontAll(),
   },
   Mutation: {
-    createUser: (_, { name, email, kakao_id }) =>
-      userORM.createUser({ name, email, kakao_id }),
+    createUser: (_, { name, email, kakao_id, token, expired_at }) =>
+      userORM.createUser({
+        name,
+        email,
+        kakao_id,
+        token,
+        expired_at,
+      }),
 
     createFontTag: (_, { font_id, tag_id }) =>
       fontTagORM.createFontTag({ font_id, tag_id }),
     deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
     updateFontTag: (_, { font_id, tag_id }) =>
+      // TODO: token 처리
+      // console.log('request', request.headers.authorization);
       fontTagORM.updateFontTag({ font_id, tag_id }),
-
     createWebFont: (
       _,
       { name, description, corporation, is_web_font, source }
@@ -263,17 +277,6 @@ export default createYoga<
   },
   { session: Session }
 >({
-  // context: async ({ req }) => {
-  //   const session = await getSession({ req });
-  //   console.log('sessionreq', session);
-  //   if (session === null) {
-  //     throw new Error('No session found');
-  //   }
-
-  //   return {
-  //     session,
-  //   };
-  // },
   schema,
   // Needed to be defined explicitly because our endpoint lives at a different path other than `/graphql`
   graphqlEndpoint: '/api/graphql',

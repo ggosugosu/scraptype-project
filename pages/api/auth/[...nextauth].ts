@@ -1,12 +1,11 @@
-import { isEmpty, isNil } from 'lodash-es';
+import { isEmpty } from 'lodash-es';
 import NextAuth from 'next-auth';
 import KakaoProvider from 'next-auth/providers/kakao';
 
-const CREATE_USER = ({ kakao_id, name, email }) => `
+const CREATE_USER = ({ kakao_id, name, email, token, expired_at }) => `
     mutation {
-        createUser(kakao_id: "${kakao_id}", name: "${name}", email: "${email}") {
-            kakao_id
-            role
+        createUser(kakao_id: "${kakao_id}", name: "${name}", email: "${email}", token: "${token}", expired_at: "${expired_at}") {
+            user_id
         }
     }
 `;
@@ -19,7 +18,7 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user, account }) {
       const loginData = await fetch(process.env.NEXT_PUBLIC_HOST ?? '', {
         method: 'POST',
         headers: {
@@ -30,6 +29,8 @@ export default NextAuth({
             kakao_id: user.id,
             name: user.name,
             email: user.email,
+            token: account?.access_token ?? '',
+            expired_at: account?.expires_at ?? '',
           }),
         }),
       })
@@ -42,13 +43,21 @@ export default NextAuth({
         return false;
       }
 
-      const loginRole = loginData.data.createUser.role;
+      return true;
+    },
 
-      if (isNil(loginRole)) {
-        return false;
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
       }
 
-      return true;
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
+
+      return session;
     },
   },
 });

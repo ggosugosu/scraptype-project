@@ -1,4 +1,10 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloProvider,
+  createHttpLink,
+  InMemoryCache,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import { GlobalStyle } from 'common/globalStyle';
 import Layout from 'components/Layout';
 import type { AppProps } from 'next/app';
@@ -11,9 +17,24 @@ import { SessionProvider } from 'next-auth/react';
 import Script from 'next/script';
 import { CookiesProvider } from 'react-cookie';
 
+const httpLink = createHttpLink({
+  uri: `${process.env.NEXT_PUBLIC_HOST}`,
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('token');
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token} ` : '',
+    },
+  };
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
-    uri: `${process.env.NEXT_PUBLIC_HOST}`,
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
   const queryClient = new QueryClient();
