@@ -1,3 +1,4 @@
+import { isEmpty, isNil } from 'lodash-es';
 import NextAuth from 'next-auth';
 import KakaoProvider from 'next-auth/providers/kakao';
 
@@ -5,6 +6,7 @@ const CREATE_USER = ({ kakao_id, name, email }) => `
     mutation {
         createUser(kakao_id: "${kakao_id}", name: "${name}", email: "${email}") {
             kakao_id
+            role
         }
     }
 `;
@@ -16,17 +18,17 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async signIn(data) {
-      fetch(process.env.NEXT_PUBLIC_HOST ?? '', {
+    async signIn({ user }) {
+      const loginData = await fetch(process.env.NEXT_PUBLIC_HOST ?? '', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           query: CREATE_USER({
-            kakao_id: data.user.id,
-            name: data.user.name,
-            email: data.user.email,
+            kakao_id: user.id,
+            name: user.name,
+            email: user.email,
           }),
         }),
       })
@@ -35,12 +37,17 @@ export default NextAuth({
         })
         .catch((err) => console.error(err));
 
-      const isAllowedToSignIn = true;
-      if (isAllowedToSignIn) {
-        return true;
-      } else {
+      if (isEmpty(loginData)) {
         return false;
       }
+
+      const loginRole = loginData.data.createUser.role;
+
+      if (isNil(loginRole)) {
+        return false;
+      }
+
+      return true;
     },
   },
 });
