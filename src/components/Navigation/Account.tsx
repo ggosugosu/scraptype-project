@@ -1,9 +1,18 @@
 import { isEmpty } from 'lodash-es';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 import { styleAccountContainer } from './styles.css';
 
 const Account = () => {
   const { data: session } = useSession();
+
+  useEffect(() => {
+    if (isEmpty(session)) {
+      return;
+    }
+
+    localStorage.setItem('token', session.accessToken);
+  }, [session]);
 
   if (isEmpty(session)) {
     return (

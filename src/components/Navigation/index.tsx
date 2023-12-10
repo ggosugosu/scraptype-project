@@ -33,7 +33,6 @@ export default function Navigation() {
   const [width, setWidth] = useState(0);
   const [isWide, setIsWide] = useRecoilState(windowWideState);
   const [openSettings, setOpenSettings] = useState<boolean>(false);
-  // const session = useSession();
 
   const handleClickSettings = () => setOpenSettings(!openSettings);
 
