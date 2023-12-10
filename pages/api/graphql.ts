@@ -15,6 +15,7 @@ const typeDefs = `
       name: String
       email: String
       kakao_id: String!
+      role: String
     }
 
     type Session {
