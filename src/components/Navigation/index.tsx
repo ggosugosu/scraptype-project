@@ -21,7 +21,6 @@ import {
   NavButtons,
   NavDesc,
 } from 'components/Navigation/style';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -34,7 +33,7 @@ export default function Navigation() {
   const [width, setWidth] = useState(0);
   const [isWide, setIsWide] = useRecoilState(windowWideState);
   const [openSettings, setOpenSettings] = useState<boolean>(false);
-  const session = useSession();
+  // const session = useSession();
 
   const handleClickSettings = () => setOpenSettings(!openSettings);
 

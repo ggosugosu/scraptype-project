@@ -8,7 +8,8 @@
     "build": "node_modules/.bin/next build",
     "start": "node_modules/.bin/next start",
     "lint": "node_modules/.bin/next lint",
-    "clean": "rm -rf node_modules/"
+    "clean": "rm -rf node_modules/",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
@@ -54,7 +55,8 @@
     "eslint-config-next": "12.1.2",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "husky": "^8.0.0"
   },
   "main": "next.config.js",
   "keywords": [],
