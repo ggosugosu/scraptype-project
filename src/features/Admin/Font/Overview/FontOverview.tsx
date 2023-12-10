@@ -4,11 +4,10 @@ import AddCharItem from 'components/CharContainer/Item/AddCharItem';
 import { CharItem } from 'components/CharContainer/Item/CharItem';
 import { FontOverview_FontAll } from 'features/Admin/Font/Overview/gql';
 import { useRouter } from 'next/router';
-import React from 'react';
 
 export default function FontOverview() {
   const router = useRouter();
-  const {loading, error, data} = useQuery(FontOverview_FontAll);
+  const { loading, error, data } = useQuery(FontOverview_FontAll);
   if (loading || error) {
     return null;
   }
@@ -23,7 +22,7 @@ export default function FontOverview() {
         <AddCharItem onClick={() => handleClicked('create')} />
         {data &&
           data.getFontAll.map((item, index) => {
-            console.log('admin', item.is_web_font);
+            console.error('admin', item.is_web_font);
             return (
               <CharItem
                 key={index}
@@ -33,9 +32,10 @@ export default function FontOverview() {
                 description={item.description}
                 corporation={item.corporation}
                 tags={item.fontTags}
-                webFont={{source: item.webFont ?? ''}}
+                webFont={{ source: item.webFont ?? '' }}
                 isArchive={false}
-                onClick={() => handleClicked(item.id)} />
+                onClick={() => handleClicked(item.id)}
+              />
             );
           })}
       </CharContainer>

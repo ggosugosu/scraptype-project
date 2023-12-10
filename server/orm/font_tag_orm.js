@@ -61,7 +61,7 @@ const fontTagORM = {
         ? FontTag.destroy({ where: { font_id: font_id, tag_id: tag_id } })
         : FontTag.create({ font_id, tag_id });
     } catch (e) {
-      console.log(e.message);
+      console.error(e.message);
       throw new GraphQLError('DB Error', 'BAD_INPUT', {
         status: 500,
         error: true,

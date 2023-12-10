@@ -18,7 +18,7 @@ import ImageFont from 'features/Admin/Font/Form/ImageFont';
 import { DeleteFontBtnStyle } from 'features/Admin/Font/Form/style';
 import WebFont from 'features/Admin/Font/Form/WebFont';
 import { NextRouter, useRouter } from 'next/router';
-import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 
 type Props = {
   font_id: string;
@@ -48,7 +48,7 @@ const initFontForm: FormData = {
   corporation: '',
   description: '',
   isWebFont: true,
-  webFont: {source: ''},
+  webFont: { source: '' },
 };
 
 const completeFunc = (router: NextRouter) => {
@@ -58,7 +58,7 @@ const completeFunc = (router: NextRouter) => {
 
 const failFunc = () => alert('오류가 발생했습니다. 잠시 후 다시 시도하세요.');
 
-export const DeleteFontButton = ({font_id}: Props) => {
+export const DeleteFontButton = ({ font_id }: Props) => {
   const router = useRouter();
   const [deleteFont] = useMutation(DELETE_FONT);
 
@@ -68,7 +68,7 @@ export const DeleteFontButton = ({font_id}: Props) => {
     if (!confirmed) return;
 
     await deleteFont({
-      variables: {font_id: Number(font_id)},
+      variables: { font_id: Number(font_id) },
       onCompleted: (data) => {
         if (data) {
           completeFunc(router);
@@ -83,10 +83,10 @@ export const DeleteFontButton = ({font_id}: Props) => {
     <DeleteFontBtnStyle onClick={handleClick}>폰트 삭제</DeleteFontBtnStyle>
   );
 };
-const FontForm = ({font_id}: Props) => {
+const FontForm = ({ font_id }: Props) => {
   const router = useRouter();
-  const {data} = useQuery(GET_FONT_BY_FONT_ID, {
-    variables: {font_id: Number(font_id)},
+  const { data } = useQuery(GET_FONT_BY_FONT_ID, {
+    variables: { font_id: Number(font_id) },
   });
   const isCreate = useMemo(() => font_id === 'create', [font_id]);
   const [formData, setFormData] = useState<FormData>(initFontForm);
@@ -98,7 +98,6 @@ const FontForm = ({font_id}: Props) => {
   useEffect(() => {
     if (isCreate || !data) return;
     const font = data.getFontByFontId;
-    console.log(JSON.stringify(font));
 
     setFormData({
       name: font?.name,
@@ -138,7 +137,6 @@ const FontForm = ({font_id}: Props) => {
     else if (formData.corporation === '') return alert('폰트사를 입력하세요.');
     else if (formData.isWebFont && !formData.webFont.source)
       return alert('font-face를 입력하세요.');
-    
 
     const fontFormat = {
       name: formData.name,
@@ -150,56 +148,56 @@ const FontForm = ({font_id}: Props) => {
     if (isCreate) {
       formData.isWebFont
         ? createWebFont({
-          variables: {...fontFormat, source: formData.webFont.source},
-          onCompleted: (data) => {
-            if (data) {
-              completeFunc(router);
-            }
-          },
-          onError: (error) => {
-            console.log(error.message);
-          },
-        })
+            variables: { ...fontFormat, source: formData.webFont.source },
+            onCompleted: (data) => {
+              if (data) {
+                completeFunc(router);
+              }
+            },
+            onError: (error) => {
+              console.error(error.message);
+            },
+          })
         : createImageFont({
-          variables: {
-            ...fontFormat,
-            ...fontFormat,
-          },
-          onCompleted: (data) => {
-            if (data) {
-              completeFunc(router);
-            }
-          },
-        });
+            variables: {
+              ...fontFormat,
+              ...fontFormat,
+            },
+            onCompleted: (data) => {
+              if (data) {
+                completeFunc(router);
+              }
+            },
+          });
     } else {
       formData.isWebFont
         ? updateWebFont({
-          variables: {
-            ...fontFormat,
-            font_id: Number(font_id),
-            source: formData.webFont.source,
-          },
-          onCompleted: (data) => {
-            if (data) {
-              completeFunc(router);
-            } else {
-              failFunc;
-            }
-          },
-        })
+            variables: {
+              ...fontFormat,
+              font_id: Number(font_id),
+              source: formData.webFont.source,
+            },
+            onCompleted: (data) => {
+              if (data) {
+                completeFunc(router);
+              } else {
+                failFunc;
+              }
+            },
+          })
         : updateImageFont({
-          variables: {
-            ...fontFormat,
-            font_id: Number(font_id),
-          },
-          onCompleted: (data) => {
-            if (data) {
-              completeFunc(router);
-            } else {
-              failFunc;
-            }
-          },
-        });
+            variables: {
+              ...fontFormat,
+              font_id: Number(font_id),
+            },
+            onCompleted: (data) => {
+              if (data) {
+                completeFunc(router);
+              } else {
+                failFunc;
+              }
+            },
+          });
     }
   };
 
@@ -275,15 +273,13 @@ const FontForm = ({font_id}: Props) => {
           <WebFont
             data={formData.webFont}
             onSubmit={(data) =>
-              handleFormData({...formData, isWebFont: true, webFont: data})
+              handleFormData({ ...formData, isWebFont: true, webFont: data })
             }
           />
         ) : (
           <ImageFont
             fontId={font_id}
-            onSubmit={() =>
-              handleFormData({...formData, isWebFont: false})
-            }
+            onSubmit={() => handleFormData({ ...formData, isWebFont: false })}
           />
         )}
         <GridDivider />

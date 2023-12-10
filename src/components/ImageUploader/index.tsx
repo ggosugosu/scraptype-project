@@ -1,14 +1,18 @@
 import AddSVG from 'assets/images/ic_add.svg';
-import { ImageContainer, ImageUploaderWrapper, InputFileContainer } from 'components/ImageUploader/style';
+import {
+  ImageContainer,
+  ImageUploaderWrapper,
+  InputFileContainer,
+} from 'components/ImageUploader/style';
 import Image from 'next/image';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 export const enum UploadType {
   UNIT = 'unit',
   TITLE = 'title',
   DETAIL_DESKTOP = 'detail_desktop',
-  DETAIL_MOBILE = 'detail_mobile'
-};
+  DETAIL_MOBILE = 'detail_mobile',
+}
 
 const getExtension = (uploadType: UploadType) => {
   return uploadType === UploadType.UNIT ? 'svg' : 'jpeg';
@@ -21,10 +25,14 @@ const getAcceptExtension = (uploadType: UploadType) => {
 type ImageUploaderProps = {
   fontId: string;
   type: UploadType;
-}
+};
 
-function ImageUploader({fontId, type}: ImageUploaderProps) {
-  const [createObjectURL, setCreateObjectURL] = useState<string>(`${process.env.NEXT_PUBLIC_S3_CDN_URL}/${fontId}_${type}.${getExtension(type)}`);
+function ImageUploader({ fontId, type }: ImageUploaderProps) {
+  const [createObjectURL, setCreateObjectURL] = useState<string>(
+    `${process.env.NEXT_PUBLIC_S3_CDN_URL}/${fontId}_${type}.${getExtension(
+      type
+    )}`
+  );
   const uploaderRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -64,39 +72,55 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
     body.append('type', type);
     body.append('extension', getExtension(type));
     body.append('contentType', `image/${getAcceptExtension(type)}`);
-    console.log('body', body);
 
     await fetch('/api/upload', {
       method: 'POST',
-      body
+      body,
     });
   };
 
   return (
     <section>
       <h4 className={'hidden'}>이미지 선택</h4>
-      <InputFileContainer ref={uploaderRef} type="file" name="myImage" onChange={uploadToClient}
-                          onError={() => {
-                            console.log('error1');
-                            setError(true);
-                          }}
-                          accept={`image/${getAcceptExtension(type)}`} />
+      <InputFileContainer
+        ref={uploaderRef}
+        type="file"
+        name="myImage"
+        onChange={uploadToClient}
+        onError={() => {
+          setError(true);
+        }}
+        accept={`image/${getAcceptExtension(type)}`}
+      />
 
-      <ImageUploaderWrapper isAdd={error} onClick={() => {
-        uploaderRef?.current?.click();
-      }}>
-        {
-          isLoading ? <Loading /> :
-            <ImageContainer>
-              {
-                error ?
-                  <Image alt="button-add" src={AddSVG} width="36" height="36" className={'filter_main'} />
-                  :
-                  <Image alt={'image'} src={createObjectURL} fill onError={() => setError(true)} />
-              }
-
-            </ImageContainer>
-        }
+      <ImageUploaderWrapper
+        isAdd={error}
+        onClick={() => {
+          uploaderRef?.current?.click();
+        }}
+      >
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <ImageContainer>
+            {error ? (
+              <Image
+                alt="button-add"
+                src={AddSVG}
+                width="36"
+                height="36"
+                className={'filter_main'}
+              />
+            ) : (
+              <Image
+                alt={'image'}
+                src={createObjectURL}
+                fill
+                onError={() => setError(true)}
+              />
+            )}
+          </ImageContainer>
+        )}
       </ImageUploaderWrapper>
     </section>
   );
@@ -105,6 +129,5 @@ function ImageUploader({fontId, type}: ImageUploaderProps) {
 const Loading = () => {
   return <span>자동 저장 중...</span>;
 };
-
 
 export default ImageUploader;
