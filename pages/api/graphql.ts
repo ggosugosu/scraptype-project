@@ -1,7 +1,9 @@
+import { GraphQLError } from 'graphql';
 import { createSchema, createYoga } from 'graphql-yoga';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { Session } from 'next-auth';
+import authORM from '../../server/orm/auth_orm';
 import fontORM from '../../server/orm/font_orm';
 import fontTagORM from '../../server/orm/font_tag_orm';
 import imageFontORM from '../../server/orm/image_font_orm';
@@ -174,10 +176,12 @@ const resolvers = {
     createFontTag: (_, { font_id, tag_id }) =>
       fontTagORM.createFontTag({ font_id, tag_id }),
     deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
-    updateFontTag: (_, { font_id, tag_id }) =>
-      // TODO: token 처리
-      // console.log('request', request.headers.authorization);
-      fontTagORM.updateFontTag({ font_id, tag_id }),
+    updateFontTag: async (_, { font_id, tag_id }, { request }) => {
+      return await validAuthorization({
+        callback: () => fontTagORM.updateFontTag({ font_id, tag_id }),
+        request,
+      });
+    },
     createWebFont: (
       _,
       { name, description, corporation, is_web_font, source }
@@ -287,4 +291,28 @@ export const config = {
   api: {
     bodyParser: false,
   },
+};
+
+const validAuthorization = async ({ callback, request }) => {
+  try {
+    const authToken = request.headers.headersInit.authorization;
+
+    if (authToken === undefined || authToken === '') {
+      throw Error('토큰이 존재하지 않습니다.');
+    }
+
+    const token = authToken.split('Bearer ')[1];
+
+    if (await authORM.existAuth({ token })) {
+      return callback();
+    }
+
+    throw Error('토큰이 유효하지 않습니다.');
+  } catch (error) {
+    throw new GraphQLError(error.message, {
+      extensions: {
+        code: 'FORBIDDEN',
+      },
+    });
+  }
 };

@@ -12,7 +12,7 @@ import {
 import useCharColor from 'hooks/useCharColor';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -105,15 +105,19 @@ const ContainerTagsWrapper = styled.div`
 `;
 
 const ModalItem = ({ name, selected, onClick, option }: ItemProps) => {
-  const [_selected, _setSelected] = useState<boolean>(selected);
+  const [selectedButton, setSelectedButton] = useState<boolean>(selected);
   const handleSelected = () => {
-    _setSelected(!selected);
     onClick();
   };
+
+  useEffect(() => {
+    setSelectedButton(selected);
+  }, [selected]);
+
   return (
     <HighlightButton
       name={name}
-      selected={_selected}
+      selected={selectedButton}
       onClick={handleSelected}
       option={option}
     />
@@ -134,10 +138,18 @@ export default function ArchiveItemModal({
   });
   const [updateFontTags] = useMutation(Archive_UpdateFontTag);
 
-  const handleSelectedTag = (tag_id: number) => {
-    updateFontTags({
+  const handleSelectedTag = async (tag_id: number) => {
+    await updateFontTags({
       variables: { font_id, tag_id },
-      onCompleted: (data) => data && refetch({ font_id }),
+      onError: async (error) => {
+        alert('로그인이 필요합니다.');
+        console.error(error);
+        await refetch({ font_id });
+      },
+      onCompleted: async (data) => {
+        alert('적용되었습니다.');
+        data && (await refetch({ font_id }));
+      },
     });
   };
 
@@ -173,16 +185,20 @@ export default function ArchiveItemModal({
               option={{ textColor: `${main}`, underline: true }}
             />
             {data &&
-              data.getTagAll.map((item, index) => (
-                <ModalItem
-                  key={index}
-                  name={item.name}
-                  selected={data.getFontByFontId.fontTags
-                    .map((fontTag) => fontTag.tags.id)
-                    .includes(item.id)}
-                  onClick={() => handleSelectedTag(item.id)}
-                />
-              ))}
+              data.getTagAll.map((item) => {
+                const selected = data.getFontByFontId.fontTags
+                  .map((fontTag) => fontTag.tags.id)
+                  .includes(item.id);
+
+                return (
+                  <ModalItem
+                    key={`${item.name}-${selected}`}
+                    name={item.name}
+                    selected={selected}
+                    onClick={() => handleSelectedTag(item.id)}
+                  />
+                );
+              })}
           </ContainerTags>
         </ModalContentWrapper>
       </ModalWrapper>

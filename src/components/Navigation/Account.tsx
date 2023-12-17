@@ -8,6 +8,7 @@ const Account = () => {
 
   useEffect(() => {
     if (isEmpty(session)) {
+      localStorage.setItem('token', '');
       return;
     }
 
