@@ -172,41 +172,42 @@ const resolvers = {
         token,
         expired_at,
       }),
-
-    createFontTag: (_, { font_id, tag_id }) =>
-      fontTagORM.createFontTag({ font_id, tag_id }),
-    deleteFontTag: (_, { id }) => fontTagORM.deleteFontTag({ id }),
+    createFontTag: async (_, { font_id, tag_id }, { request }) => {
+      return await validAuthorization({
+        callback: () => fontTagORM.createFontTag({ font_id, tag_id }),
+        request,
+      });
+    },
+    deleteFontTag: async (_, { id }, { request }) => {
+      return await validAuthorization({
+        callback: () => fontTagORM.deleteFontTag({ id }),
+        request,
+      });
+    },
     updateFontTag: async (_, { font_id, tag_id }, { request }) => {
       return await validAuthorization({
         callback: () => fontTagORM.updateFontTag({ font_id, tag_id }),
         request,
       });
     },
-    createWebFont: (
+    createWebFont: async (
       _,
-      { name, description, corporation, is_web_font, source }
-    ) =>
-      webFontORM.createWebFont({
-        name,
-        description,
-        corporation,
-        is_web_font,
-        source,
-      }),
-    updateWebFont: (
-      _,
-      { font_id, name, description, corporation, is_web_font, source }
-    ) =>
-      webFontORM.updateWebFont({
-        font_id,
-        name,
-        description,
-        corporation,
-        is_web_font,
-        source,
-      }),
-
-    createImageFont: (
+      { name, description, corporation, is_web_font, source },
+      { request }
+    ) => {
+      return await validAuthorization({
+        callback: () =>
+          webFontORM.createWebFont({
+            name,
+            description,
+            corporation,
+            is_web_font,
+            source,
+          }),
+        request,
+      });
+    },
+    createImageFont: async (
       _,
       {
         name,
@@ -217,19 +218,25 @@ const resolvers = {
         unit,
         detail_mobile,
         detail_pc,
-      }
-    ) =>
-      imageFontORM.createImageFont({
-        name,
-        description,
-        corporation,
-        is_web_font,
-        title,
-        unit,
-        detail_mobile,
-        detail_pc,
-      }),
-    updateImageFont: (
+      },
+      { request }
+    ) => {
+      return await validAuthorization({
+        callback: () =>
+          imageFontORM.createImageFont({
+            name,
+            description,
+            corporation,
+            is_web_font,
+            title,
+            unit,
+            detail_mobile,
+            detail_pc,
+          }),
+        request,
+      });
+    },
+    updateImageFont: async (
       _,
       {
         font_id,
@@ -241,24 +248,49 @@ const resolvers = {
         unit,
         detail_mobile,
         detail_pc,
-      }
-    ) =>
-      imageFontORM.updateImageFont({
-        font_id,
-        name,
-        description,
-        corporation,
-        is_web_font,
-        title,
-        unit,
-        detail_mobile,
-        detail_pc,
-      }),
-    deleteFontByFontId: (_, { font_id }) =>
-      fontORM.deleteFontByFontId({ font_id }),
-    createTag: (_, { name }) => tagORM.createTag({ name }),
-    updateTag: (_, { id, name }) => tagORM.updateTag({ id, name }),
-    deleteTagByTagId: (_, { tag_id }) => tagORM.deleteTagByTagId({ tag_id }),
+      },
+      { request }
+    ) => {
+      return await validAuthorization({
+        callback: () =>
+          imageFontORM.updateImageFont({
+            font_id,
+            name,
+            description,
+            corporation,
+            is_web_font,
+            title,
+            unit,
+            detail_mobile,
+            detail_pc,
+          }),
+        request,
+      });
+    },
+    deleteFontByFontId: async (_, { font_id }, { request }) => {
+      return await validAuthorization({
+        callback: () => fontORM.deleteFontByFontId({ font_id }),
+        request,
+      });
+    },
+    createTag: async (_, { name }, { request }) => {
+      return await validAuthorization({
+        callback: () => tagORM.createTag({ name }),
+        request,
+      });
+    },
+    updateTag: async (_, { id, name }, { request }) => {
+      return await validAuthorization({
+        callback: () => tagORM.updateTag({ id, name }),
+        request,
+      });
+    },
+    deleteTagByTagId: async (_, { tag_id }, { request }) => {
+      return await validAuthorization({
+        callback: () => tagORM.deleteTagByTagId({ tag_id }),
+        request,
+      });
+    },
   },
   User: {
     id(source) {
