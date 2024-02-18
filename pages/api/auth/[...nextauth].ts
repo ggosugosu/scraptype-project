@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash-es';
+import { cloneDeep, isEmpty } from 'lodash-es';
 import NextAuth from 'next-auth';
 import KakaoProvider from 'next-auth/providers/kakao';
 
@@ -56,9 +56,7 @@ export default NextAuth({
     },
 
     async session({ session, token }) {
-      session.accessToken = token.accessToken;
-
-      return session;
+      return cloneDeep({ ...session, accessToken: token.accessToken });
     },
   },
 });
