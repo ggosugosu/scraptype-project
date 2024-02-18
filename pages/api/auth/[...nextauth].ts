@@ -40,6 +40,7 @@ export default NextAuth({
         .catch((err) => console.error(err));
 
       if (isEmpty(loginData)) {
+      if (isEmpty(loginData.createUser)) {
         return false;
       }
 
